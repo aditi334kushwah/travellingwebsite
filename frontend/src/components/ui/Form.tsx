@@ -37,7 +37,7 @@ const Form = () => {
         "http://127.0.0.1:8000/api/bookings/", 
         formData);
 
-      console.log("Form submitted successfully:", response.data);
+      // console.log("Form submitted successfully:", response.data);
       setShowSuccess(true);
       setFormData({
         name: "",

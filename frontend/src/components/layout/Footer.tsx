@@ -1,10 +1,13 @@
 import Link from "next/link"
 import Image from "next/image"
+import { Home, Sparkles, PackageOpen, Info, Phone, BookOpen, Shield, FileText, HelpCircle } from "lucide-react"
+import { LucideIcon } from "lucide-react"
 
 type FooterItemType = {
   id: number;
   text: string;
   link: string;
+  icon: LucideIcon;
 };
 
 type FooterBlockType = {
@@ -13,10 +16,11 @@ type FooterBlockType = {
   items: FooterItemType[];
 };
  
-const FooterItem = ({ text, link }: FooterItemType) => {
+const FooterItem = ({ text, link, icon: Icon }: FooterItemType) => {
 return (
     <li>
-        <Link href={link} className="duration-200 hover:text-blue-600 dark:hover:text-blue-500">
+        <Link href={link} className="flex items-center gap-2 duration-200 hover:text-blue-400">
+            <Icon size={15} />
             {text}
         </Link>
     </li>
@@ -43,57 +47,21 @@ const footerBlocks = [
     id: 1,
     title: "Links",
     items: [
-        {
-            id: 1,
-            text: "Home",
-            link: "/"
-        },
-        {
-            id: 2,
-            text: "Experiences",
-            link: "/experiences"
-        },
-        {
-            id: 3,
-            text: "Packages",
-            link: "/packages"
-        },
-        {
-            id: 4,
-            text: "About",
-            link: "/about"
-        },
-        {
-            id: 5,
-            text: "Contact",
-            link: "/contact"
-        },
+        { id: 1, text: "Home", link: "/", icon: Home },
+        { id: 2, text: "Experiences", link: "/experiences", icon: Sparkles },
+        { id: 3, text: "Packages", link: "/packages", icon: PackageOpen },
+        { id: 4, text: "About", link: "/about", icon: Info },
+        { id: 5, text: "Contact", link: "/contact", icon: Phone },
     ]
 },
 {
     id: 2,
     title: "Ressources",
     items: [
-        {
-            id: 1,
-            text: "Blog",
-            link: "#"
-        },
-        {
-            id: 2,
-            text: "Privacy",
-            link: "#"
-        },
-        {
-            id: 3,
-            text: "Terms",
-            link: "#"
-        },
-        {
-            id: 4,
-            text: "FAQ",
-            link: "#"
-        },
+        { id: 1, text: "Blog", link: "#", icon: BookOpen },
+        { id: 2, text: "Privacy", link: "#", icon: Shield },
+        { id: 3, text: "Terms", link: "#", icon: FileText },
+        { id: 4, text: "FAQ", link: "#", icon: HelpCircle },
     ]
 },
 ]

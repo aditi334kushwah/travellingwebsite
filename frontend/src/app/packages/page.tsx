@@ -3,11 +3,13 @@ import Image from 'next/image'
 import PopularDestination from '@/components/home/PopularDestination'
 
 
+
 const PackageSection = () => {
   return (
     
     <>
-        <PopularDestination />
+      <PopularDestination />
+
     </>
   )
 }

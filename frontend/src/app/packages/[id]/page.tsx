@@ -1,66 +1,237 @@
-import { packages } from "@/data/packages";
+"use client";
+
+import { useEffect, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+import axios from "axios";
 import Image from "next/image";
-import { MapPin } from "lucide-react";
-import Link from "next/link";
+import {
+  MapPin,
+  Users,
+  Clock,
+  Star,
+  IndianRupee,
+} from "lucide-react";
 
-// ✅ THIS IS IMPORTANT
-export function generateStaticParams() {
-  return packages.map((item) => ({
-    id: item.id,
-  }));
-}
+type Package = {
+  id: number;
+  title: string;
+  description: string;
+  location: string;
+  image: string;
+  price: string;
+  is_popular: boolean;
+  max_guests: number;
+  duration_days: number;
+  duration_nights: number;
+};
 
-const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
-  const { id } = await params;
-  const data = packages.find(
-    (item) => item.id === id
-  );
+export default function PackageDetailPage() {
+  const { id } = useParams();
+  const router = useRouter();
 
-  if (!data) {
-    return <div className="p-50 text-xl">Package Not Found</div>;
+  const [pkg, setPkg] = useState<Package | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchPackage();
+  }, []);
+
+  const fetchPackage = async () => {
+    try {
+      const response = await axios.get(
+        `http://127.0.0.1:8000/api/packages/${id}/`
+      );
+
+      setPkg(response.data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center text-2xl">
+        Loading...
+      </div>
+    );
+  }
+
+  if (!pkg) {
+    return (
+      <div className="flex min-h-screen items-center justify-center text-2xl">
+        Package Not Found
+      </div>
+    );
   }
 
   return (
+    <section className="min-h-screen bg-slate-50">
 
-    <section>
-        <div className="bg-gradient-to-r from-white to-[#e5e3e2] ] px-20 py-10">
-          <div className="relative w-full h-[400px] rounded-3xl overflow-hidden">
-            <Image
-              src={data.image}
-              alt={data.title}
-              fill
-              className="object-cover"
-            />
+      {/* Hero Image */}
+      <div className="relative h-[500px]">
+
+        <img
+          src={pkg.image}
+          alt={pkg.title}
+          className="h-full w-full object-cover"
+        />
+
+        <div className="absolute inset-0 bg-black/40" />
+
+        <div className="absolute bottom-10 left-10 text-white">
+
+          <h1 className="text-5xl font-bold">
+            {pkg.title}
+          </h1>
+
+          <div className="mt-4 flex items-center gap-2 text-lg">
+
+            <MapPin />
+
+            {pkg.location}
+
           </div>
 
-          <div className="mt-8">
-            <h1 className="text-4xl font-bold">{data.title}</h1>
+        </div>
 
-            <div className="flex items-center gap-2 mt-2 text-gray-600">
-              <MapPin size={18} />
-              {data.location}
+      </div>
+
+      <div className="mx-auto max-w-6xl px-6 py-12">
+
+        <div className="rounded-3xl bg-white p-8 shadow-xl">
+
+          <div className="flex flex-col gap-8 lg:flex-row lg:justify-between">
+
+            <div>
+
+              <h2 className="text-4xl font-bold text-gray-800">
+                {pkg.title}
+              </h2>
+
+              {pkg.is_popular && (
+                <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-orange-100 px-4 py-2 text-orange-600">
+
+                  <Star size={18} />
+
+                  Most Popular Package
+
+                </div>
+              )}
+
             </div>
 
-            <p className="mt-5 text-gray-700 text-lg leading-relaxed">
-              {data.desc}
+            <div className="rounded-2xl bg-orange-500 px-8 py-6 text-center text-white">
+
+              <p className="text-lg">
+                Starting From
+              </p>
+
+              <div className="mt-2 flex items-center justify-center gap-1 text-4xl font-bold">
+
+                <IndianRupee />
+
+                {pkg.price}
+
+              </div>
+
+            </div>
+
+          </div>
+
+          {/* Package Info */}
+
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+
+            <div className="rounded-2xl bg-slate-100 p-6">
+
+              <Users
+                className="mb-3"
+                size={28}
+              />
+
+              <h3 className="font-semibold">
+                Guests
+              </h3>
+
+              <p>{pkg.max_guests} People</p>
+
+            </div>
+
+            <div className="rounded-2xl bg-slate-100 p-6">
+
+              <Clock
+                className="mb-3"
+                size={28}
+              />
+
+              <h3 className="font-semibold">
+                Duration
+              </h3>
+
+              <p>
+                {pkg.duration_days} Days /
+                {pkg.duration_nights} Nights
+              </p>
+
+            </div>
+
+            <div className="rounded-2xl bg-slate-100 p-6">
+
+              <MapPin
+                className="mb-3"
+                size={28}
+              />
+
+              <h3 className="font-semibold">
+                Location
+              </h3>
+
+              <p>{pkg.location}</p>
+
+            </div>
+
+          </div>
+
+          {/* Description */}
+
+          <div className="mt-12">
+
+            <h2 className="mb-4 text-3xl font-bold">
+              About This Package
+            </h2>
+
+            <p className="leading-8 text-gray-600">
+              {pkg.description}
             </p>
 
-            <div className="mt-5 flex gap-4">
-              <button className="bg-[#c8782f] text-white px-6 py-3 rounded-full">
-                Book Now
-              </button>
-
-              <Link href="/packages">
-                <button className="bg-gray-300 px-6 py-3 rounded-full">
-                  Go Back
-                </button>
-              </Link>
-            </div>
           </div>
-    </div>
-    </section>
-    
-  );
-};
 
-export default Page;
+          {/* Buttons */}
+
+          <div className="mt-12 flex flex-col gap-4 md:flex-row">
+
+            <button
+              onClick={() => router.push("/booking")}
+              className="flex-1 rounded-xl bg-orange-500 py-4 text-lg font-semibold text-white transition hover:bg-orange-600"
+            >
+              Book Now
+            </button>
+
+            <button
+              onClick={() => router.push("/packages")}
+              className="flex-1 rounded-xl border border-gray-300 py-4 text-lg font-semibold"
+            >
+              Back To Packages
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+  );
+}

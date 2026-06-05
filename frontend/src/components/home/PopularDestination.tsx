@@ -2,6 +2,7 @@ import React from "react";
 import { SlidersHorizontal } from "lucide-react";
 import DestinationCard from "./DestinationCard";
 import { packages } from "@/data/packages";
+import PackagesPage from "./DestinationCard";
 
 const PopularDestination = () => {
   return (
@@ -28,11 +29,9 @@ const PopularDestination = () => {
         </div>
       </div>
 
-      {/* GRID */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-10 px-20 mb-10">
-        {packages.map((item) => (
-          <DestinationCard key={item.id} item={item} />
-        ))}
+      
+      <div>
+          <PackagesPage />
       </div>
 
       

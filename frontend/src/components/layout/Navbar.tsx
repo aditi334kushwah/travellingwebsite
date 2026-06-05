@@ -2,14 +2,14 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Home, PackageOpen, Sparkles, Info, Phone } from "lucide-react";
 
 const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/packages", label: "Packages" },
-  { href: "/experiences", label: "Experiences" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
+  { href: "/", label: "Home", icon: Home },
+  { href: "/packages", label: "Packages", icon: PackageOpen },
+  { href: "/experiences", label: "Experiences", icon: Sparkles },
+  { href: "/about", label: "About", icon: Info },
+  { href: "/contact", label: "Contact", icon: Phone },
 ];
 
 const Navbar = () => {
@@ -26,9 +26,10 @@ const Navbar = () => {
 
         {/* Desktop Links */}
         <div className="hidden md:flex gap-8 ml-auto py-4 space-x-2">
-          {navLinks.map((link) => (
-            <Link key={link.href} href={link.href} className="text-gray-900 text-sm transition duration-300 hover:translate-y-0.5 hover:bg-[#c8782f] hover:text-white px-4 pt-1 rounded-full">
-              {link.label}
+          {navLinks.map(({ href, label, icon: Icon }) => (
+            <Link key={href} href={href} className="flex items-center gap-1.5 text-gray-900 text-sm transition duration-300 hover:translate-y-0.5 hover:bg-[#c8782f] hover:text-white px-4 py-1.5 rounded-full">
+              <Icon size={14} />
+              {label}
             </Link>
           ))}
         </div>
@@ -51,9 +52,10 @@ const Navbar = () => {
       {/* Mobile Menu */}
       {isOpen && (
         <div className="md:hidden fixed top-24 w-[90%] bg-gray-100/95 backdrop-blur-md rounded-3xl shadow-lg z-50 flex flex-col items-center gap-4 py-6">
-          {navLinks.map((link) => (
-            <Link key={link.href} href={link.href} onClick={() => setIsOpen(false)} className="text-gray-900 text-base w-full text-center py-2 hover:bg-[#c8782f] hover:text-white rounded-full transition duration-300">
-              {link.label}
+          {navLinks.map(({ href, label, icon: Icon }) => (
+            <Link key={href} href={href} onClick={() => setIsOpen(false)} className="flex items-center justify-center gap-2 text-gray-900 text-base w-full text-center py-2 hover:bg-[#c8782f] hover:text-white rounded-full transition duration-300">
+              <Icon size={16} />
+              {label}
             </Link>
           ))}
           <Link href="/booking" onClick={() => setIsOpen(false)}>
