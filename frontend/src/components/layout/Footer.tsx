@@ -74,7 +74,11 @@ return (
             <div className="space-y-6 col-span-2">
                 <div className="flex flex-row">
                     <Link href="/">
-                        <Image src="/logo.png" alt="Logo" width={120} height={120} className="rounded-full transition duration-300 hover:translate-y-0.5 " />
+                        <Image src="/logo.png" 
+                        alt="Logo"
+                         width={120}
+                          height={120} 
+                         className="rounded-full transition duration-300 hover:translate-y-0.5 " />
                     </Link>
                     <Link href="/">
                         <span className="font-bold pt-6 text-2xl"> TripNova</span>

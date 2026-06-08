@@ -21,7 +21,11 @@ const Navbar = () => {
         
         {/* Logo */}
         <Link href="/">
-          <Image src="/logo.png" alt="Logo" width={120} height={120} className="rounded-full transition duration-300 hover:translate-y-0.5" />
+          <Image src="/logo.png" 
+          alt="Logo" width={120} 
+          height={120} 
+          style={{ height: "auto" }}
+          className="rounded-full transition duration-300 hover:translate-y-0.5" />
         </Link>
 
         {/* Desktop Links */}
@@ -36,9 +40,9 @@ const Navbar = () => {
 
         {/* Desktop Book Button */}
         <div className="hidden md:flex justify-center my-3 mr-5 ml-15">
-          <Link href="/booking">
+          <Link href="/register">
             <button className="bg-[#c8782f] h-10 text-white py-2 px-4 rounded-full transition duration-300 hover:-translate-y-0.5 hover:bg-[#a56025]">
-              Book Your Trip
+              Sign-UP
             </button>
           </Link>
         </div>
@@ -58,9 +62,9 @@ const Navbar = () => {
               {label}
             </Link>
           ))}
-          <Link href="/booking" onClick={() => setIsOpen(false)}>
+          <Link href="/sign-up" onClick={() => setIsOpen(false)}>
             <button className="bg-[#c8782f] text-white py-2 px-6 rounded-full transition duration-300 hover:bg-[#a56025]">
-              Book Your Trip
+              Sign-UP
             </button>
           </Link>
         </div>
