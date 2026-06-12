@@ -1,7 +1,8 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import Image from "next/image";
 import Link from "next/link";
+import axios from  'axios';
 import { Menu, X, Home, PackageOpen, Sparkles, Info, Phone } from "lucide-react";
 
 const navLinks = [
@@ -14,6 +15,31 @@ const navLinks = [
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect( ()=> {
+    const loginStatus = localStorage.getItem('isLoggedIn');
+    if(loginStatus === 'true'){
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  const handleLogout = async () =>{
+
+    try{
+      await axios.post('http://127.0.0.1:8000/api/accounts/logout/');
+
+      localStorage.removeItem('isLoggedIn' );
+      setIsLoggedIn(false);
+      console.log("logout successful")
+    }
+    catch( error : any){
+      console.log(error)
+    }
+
+
+  };
 
   return (
     <div className="flex flex-col items-center absolute z-50 w-full">
@@ -39,13 +65,30 @@ const Navbar = () => {
         </div>
 
         {/* Desktop Book Button */}
-        <div className="hidden md:flex justify-center my-3 mr-5 ml-15">
-          <Link href="/register">
-            <button className="bg-[#c8782f] h-10 text-white py-2 px-4 rounded-full transition duration-300 hover:-translate-y-0.5 hover:bg-[#a56025]">
-              Sign-UP
+        {
+          isLoggedIn ? (
+            <button
+              onClick={handleLogout}
+              className="bg-red-500 h-10 text-white py-2 px-4 rounded-full transition duration-300 hover:bg-red-600"
+            >
+              Logout
             </button>
-          </Link>
-        </div>
+          ) : (
+            <>
+            <Link href="/login">
+              <button className="bg-[#c8782f] h-10 text-white py-2 px-4 rounded-full transition duration-300 hover:bg-[#a56025]">
+                Login
+              </button>
+            </Link>
+            {/* <span>/</span> */}
+            {/* <Link href="/register">
+              <button className="bg-[#c8782f] h-10 text-white py-2 px-4 rounded-full transition duration-300 hover:bg-[#a56025]">
+                Sign-up
+              </button>
+            </Link> */}
+            </>
+          )
+        }
 
         {/* Hamburger Button */}
         <button className="md:hidden ml-auto text-gray-900" onClick={() => setIsOpen(!isOpen)}>
@@ -62,11 +105,25 @@ const Navbar = () => {
               {label}
             </Link>
           ))}
-          <Link href="/sign-up" onClick={() => setIsOpen(false)}>
-            <button className="bg-[#c8782f] text-white py-2 px-6 rounded-full transition duration-300 hover:bg-[#a56025]">
-              Sign-UP
-            </button>
-          </Link>
+          {
+            isLoggedIn ? (
+              <button
+                onClick={() => {
+                  handleLogout();
+                  setIsOpen(false);
+                }}
+                className="bg-red-500 text-white py-2 px-6 rounded-full hover:bg-red-600"
+              >
+                Logout
+              </button>
+            ) : (
+              <Link href="/login" onClick={() => setIsOpen(false)}>
+                <button className="bg-[#c8782f] text-white py-2 px-6 rounded-full transition duration-300 hover:bg-[#a56025]">
+                  Login
+                </button>
+              </Link>
+            )
+          }
         </div>
       )}
     </div>

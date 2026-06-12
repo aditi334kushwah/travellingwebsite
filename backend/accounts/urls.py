@@ -8,5 +8,13 @@ urlpatterns = [
         views.registerView,
         name="register"
     ),
-    # path('login/', views.loginView, name='loginView'),
+    path('login/',
+        views.loginView, 
+        name='loginView'),
+
+    path(
+        'logout/',
+        views.logoutView,
+        name='logoutView'
+    )
 ]

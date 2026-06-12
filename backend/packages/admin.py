@@ -9,4 +9,4 @@ class PackageAdmin(admin.ModelAdmin):
     list_display = ('title', 'price', 'location',)
     list_filter = ('location', 'is_popular')
     search_fields = ('title', 'location')
-    odering = ('title',)
+    ordering = ('title',)
