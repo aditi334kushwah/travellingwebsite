@@ -1,7 +1,5 @@
 import React from "react";
 import { SlidersHorizontal } from "lucide-react";
-import DestinationCard from "./DestinationCard";
-import { packages } from "@/data/packages";
 import PackagesPage from "./DestinationCard";
 
 const PopularDestination = () => {

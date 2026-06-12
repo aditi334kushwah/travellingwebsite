@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate , login
 from django.contrib.auth import logout
 from rest_framework.response import Response
 from django.views.decorators.csrf import csrf_exempt
+from .jwt_utils import generate_access_token
 
 
 @api_view(['POST'])
@@ -46,11 +47,12 @@ def loginView(request):
         
         if user :
 
-            login(request, user)
+            access_token = generate_access_token(user)
             return Response(
                 {
                     "success": True,
-                    "message": "You have logged in successfully."
+                    "message": "You have logged in successfully.",
+                    "access_token" : access_token
                 },
                 status = 200
             )

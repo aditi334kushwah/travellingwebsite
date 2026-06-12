@@ -33,9 +33,18 @@ const Form = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
+      const token = localStorage.getItem("access_token")
+      await axios.post(
         "http://127.0.0.1:8000/api/bookings/", 
-        formData);
+        formData,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+          }
+        }
+
+      );
 
       // console.log("Form submitted successfully:", response.data);
       setShowSuccess(true);

@@ -38,8 +38,15 @@ export default function PackageDetailPage() {
 
   const fetchPackage = async () => {
     try {
+
+      const token = localStorage.getItem("access_token")
       const response = await axios.get(
-        `http://127.0.0.1:8000/api/packages/${id}/`
+        `http://127.0.0.1:8000/api/packages/${id}/`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
       );
 
       setPkg(response.data);

@@ -65,9 +65,10 @@ const Contact = () => {
         console.log("FORM DATA:", formData);
 
         try {
+          
           const response = await axios.post(
-            "http://127.0.0.1:8000/api/contact/",
-            formData
+            "http://127.0.0.1:8000/api/contact/",  
+            formData,
           );
 
           console.log("SUCCESS:", response.data);

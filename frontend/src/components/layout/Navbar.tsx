@@ -15,22 +15,27 @@ const navLinks = [
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect( ()=> {
-    const loginStatus = localStorage.getItem('isLoggedIn');
-    if(loginStatus === 'true'){
+
+    const token = localStorage.getItem('access_token');
+
+    if( token){
       setIsLoggedIn(true);
+    }else {
+      setIsLoggedIn(false);
     }
+
   }, []);
 
   const handleLogout = async () =>{
 
     try{
+
       await axios.post('http://127.0.0.1:8000/api/accounts/logout/');
 
-      localStorage.removeItem('isLoggedIn' );
+      localStorage.removeItem('access_token' );
       setIsLoggedIn(false);
       console.log("logout successful")
     }
@@ -74,19 +79,13 @@ const Navbar = () => {
               Logout
             </button>
           ) : (
-            <>
+          
             <Link href="/login">
               <button className="bg-[#c8782f] h-10 text-white py-2 px-4 rounded-full transition duration-300 hover:bg-[#a56025]">
                 Login
               </button>
             </Link>
-            {/* <span>/</span> */}
-            {/* <Link href="/register">
-              <button className="bg-[#c8782f] h-10 text-white py-2 px-4 rounded-full transition duration-300 hover:bg-[#a56025]">
-                Sign-up
-              </button>
-            </Link> */}
-            </>
+            
           )
         }
 
