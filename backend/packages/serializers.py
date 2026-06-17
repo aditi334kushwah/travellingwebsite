@@ -3,15 +3,21 @@ from .models import Package
 
 class PackageSerializer(serializers.ModelSerializer):
 
+    image = serializers.SerializerMethodField()
+
     class Meta:
         model = Package
         fields = '__all__'
 
+    def get_image(self, obj):
+        if obj.image:
+            request = self.context.get('request')
+            if request:
+                return request.build_absolute_uri(obj.image.url)
+            return f"http://127.0.0.1:8000{obj.image.url}"
+        return None
+
     def validate_price(self, value):
-
         if value < 0:
-            raise serializers.ValidationError(
-                "Price cannot be negative."
-            )
-
+            raise serializers.ValidationError("Price cannot be negative.")
         return value
