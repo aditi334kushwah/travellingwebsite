@@ -7,14 +7,17 @@ import TestimonialCardSection from "@/components/home/TestimonialCard"
 import HowItWorks from "@/components/home/BookTrip"
 import { LayoutGridSection } from "@/components/LayoutGridSection"
 import LastTestimonial from "@/components/home/LastTestimonial"
-import PopularDestination from "@/components/home/PopularDestination"
+import HeroPackage from "@/components/packages/HeroPackage"
+import HeroCarausalCard from "@/components/home/HomeCarausalCard"
+
 
 export default function Home() {
   return (
    <>
       
         <HeroSection />
-        <PopularDestination />
+        <HeroPackage />
+        <HeroCarausalCard />
         <OneCard />
         <ChooseTripNova />
         <HowItWorks />

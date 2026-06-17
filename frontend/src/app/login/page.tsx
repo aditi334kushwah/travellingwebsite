@@ -34,7 +34,7 @@ const LoginPage = ()=> {
         try {
             const response = await axios.post('http://127.0.0.1:8000/api/accounts/login/',formData)
             console.log("LOGIN SUCCESS", response.data);
-            console.log("laksdfkdsj nfkdjn kjfdsn skjdf :login")
+          
             localStorage.setItem("access_token",response.data.access_token);
             localStorage.setItem("username", response.data.username);
             window.location.href = "/";
