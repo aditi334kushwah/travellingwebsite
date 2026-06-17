@@ -3,58 +3,58 @@
 import { Search, SlidersHorizontal, Mountain, Church, Landmark, TreePine, Building2, Waves, Leaf, PawPrint, Clock, IndianRupee } from "lucide-react";
 
 const DURATION_RANGES = [
-  { label: "1-3 Days",  min: "1",  max: "3"  },
-  { label: "4-7 Days",  min: "4",  max: "7"  },
-  { label: "8-14 Days", min: "8",  max: "14" },
-  { label: "15+ Days",  min: "15", max: ""   },
+  { label: "1-3 Days", min: "1", max: "3" },
+  { label: "4-7 Days", min: "4", max: "7" },
+  { label: "8-14 Days", min: "8", max: "14" },
+  { label: "15+ Days", min: "15", max: "" },
 ];
 
 const BUDGET_RANGES = [
   { label: "₹100-300", min: "100", max: "300" },
   { label: "₹300-500", min: "300", max: "500" },
-  { label: "₹500+",    min: "500", max: ""    },
+  { label: "₹500+", min: "500", max: "" },
 ];
 
 const CATEGORIES = [
-  { value: "adventure",  label: "Adventure",  icon: Mountain  },
-  { value: "spiritual",  label: "Spiritual",  icon: Church    },
-  { value: "cultural",   label: "Cultural",   icon: Landmark  },
-  { value: "nature",     label: "Nature",     icon: TreePine  },
-  { value: "heritage",   label: "Heritage",   icon: Building2 },
-  { value: "relaxation", label: "Relaxation", icon: Leaf      },
-  { value: "wildlife",   label: "Wildlife",   icon: PawPrint  },
-  { value: "beach",      label: "Beach",      icon: Waves     },
+  { value: "adventure", label: "Adventure", icon: Mountain },
+  { value: "spiritual", label: "Spiritual", icon: Church },
+  { value: "cultural", label: "Cultural", icon: Landmark },
+  { value: "nature", label: "Nature", icon: TreePine },
+  { value: "heritage", label: "Heritage", icon: Building2 },
+  { value: "relaxation", label: "Relaxation", icon: Leaf },
+  { value: "wildlife", label: "Wildlife", icon: PawPrint },
+  { value: "beach", label: "Beach", icon: Waves },
 ];
 
 const ORDERING = [
-  { value: "-created_at",    label: "Newest First"         },
-  { value: "created_at",     label: "Oldest First"          },
-  { value: "price",          label: "Price: Low to High"    },
-  { value: "-price",         label: "Price: High to Low"    },
-  { value: "duration_days",  label: "Duration: Short First" },
-  { value: "-duration_days", label: "Duration: Long First"  },
+  { value: "-created_at", label: "Newest First" },
+  { value: "created_at", label: "Oldest First" },
+  { value: "price", label: "Price: Low to High" },
+  { value: "-price", label: "Price: High to Low" },
+  { value: "duration_days", label: "Duration: Short First" },
+  { value: "-duration_days", label: "Duration: Long First" },
 ];
 
 type Filters = {
-  search:     string;
-  category:   string;
-  location:   string;
-  min_price:  string;
-  max_price:  string;
-  min_days:   string;
-  max_days:   string;
+  search: string;
+  category: string;
+  location: string;
+  min_price: string;
+  max_price: string;
+  min_days: string;
+  max_days: string;
   is_popular: boolean;
-  ordering:   string;
+  ordering: string;
 };
 
 type Props = {
-  filters:        Filters;
-  setFilters:     (f: Filters) => void;
+  filters: Filters;
+  setFilters: (f: Filters) => void;
   categoryCounts: Record<string, number>;
   durationCounts: Record<string, number>;
-  budgetCounts:   Record<string, number>;
-  onApply:        () => void;
-  onClear:        () => void;
+  budgetCounts: Record<string, number>;
+  onApply: () => void;
+  onClear: () => void;
 };
 
 export default function PackageFilterSidebar({ filters, setFilters, categoryCounts, durationCounts, budgetCounts, onApply, onClear }: Props) {
@@ -81,8 +81,8 @@ export default function PackageFilterSidebar({ filters, setFilters, categoryCoun
         <p className="text-lg text-gray-500 mb-2 font-medium">Travel Style</p>
         <div className="grid grid-cols-3 gap-2">
           {CATEGORIES.map((c) => {
-            const Icon     = c.icon;
-            const count    = categoryCounts[c.value] ?? 0;
+            const Icon = c.icon;
+            const count = categoryCounts[c.value] ?? 0;
             const isActive = filters.category === c.value;
             return (
               <button
@@ -96,9 +96,8 @@ export default function PackageFilterSidebar({ filters, setFilters, categoryCoun
               >
                 <Icon size={18} strokeWidth={1.5} />
                 <span className="text-[11px]">{c.label}</span>
-                <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${
-                  isActive ? "bg-white/30 text-white" : "bg-gray-200 text-gray-500"
-                }`}>{count}</span>
+                <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${isActive ? "bg-white/30 text-white" : "bg-gray-200 text-gray-500"
+                  }`}>{count}</span>
               </button>
             );
           })}
@@ -130,7 +129,7 @@ export default function PackageFilterSidebar({ filters, setFilters, categoryCoun
         <div className="space-y-2">
           {BUDGET_RANGES.map((b) => {
             const isActive = filters.min_price === b.min && filters.max_price === b.max;
-            const count    = budgetCounts[b.label] ?? 0;
+            const count = budgetCounts[b.label] ?? 0;
             return (
               <button
                 key={b.label}
@@ -148,9 +147,8 @@ export default function PackageFilterSidebar({ filters, setFilters, categoryCoun
                   }`}
               >
                 <span>{b.label}</span>
-                <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${
-                  isActive ? "bg-white/30 text-white" : "bg-gray-200 text-gray-500"
-                }`}>{count}</span>
+                <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${isActive ? "bg-white/30 text-white" : "bg-gray-200 text-gray-500"
+                  }`}>{count}</span>
               </button>
             );
           })}
@@ -171,7 +169,7 @@ export default function PackageFilterSidebar({ filters, setFilters, categoryCoun
         <div className="space-y-2">
           {DURATION_RANGES.map((d) => {
             const isActive = filters.min_days === d.min && filters.max_days === d.max;
-            const count    = durationCounts[d.label] ?? 0;
+            const count = durationCounts[d.label] ?? 0;
             return (
               <button
                 key={d.label}
@@ -189,9 +187,8 @@ export default function PackageFilterSidebar({ filters, setFilters, categoryCoun
                   }`}
               >
                 <span>{d.label}</span>
-                <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${
-                  isActive ? "bg-white/30 text-white" : "bg-gray-200 text-gray-500"
-                }`}>{count}</span>
+                <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${isActive ? "bg-white/30 text-white" : "bg-gray-200 text-gray-500"
+                  }`}>{count}</span>
               </button>
             );
           })}
@@ -218,7 +215,7 @@ export default function PackageFilterSidebar({ filters, setFilters, categoryCoun
         </select>
       </div>
 
-      
+
 
       <button onClick={onApply}
         className="w-full bg-orange-500 hover:bg-orange-600 text-white p-2.5 rounded-lg text-sm font-semibold transition">
