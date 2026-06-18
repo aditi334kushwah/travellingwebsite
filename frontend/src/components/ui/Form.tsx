@@ -1,10 +1,12 @@
 "use client"
 import axios from "axios"
 import { useState } from "react"
-import { CheckCircle, X } from "lucide-react"
+import { CheckCircle, X } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const Form = () => {
 
+  const router = useRouter()
   const [showSuccess, setShowSuccess] = useState(false)
   const [ formData ,setFormData] = useState({
 
@@ -34,6 +36,12 @@ const Form = () => {
 
     try {
       const token = localStorage.getItem("access_token")
+
+      if (!token) {
+        router.push('/login')
+        throw new Error("No access token found. Please log in.");
+      }
+
       await axios.post(
         "http://127.0.0.1:8000/api/bookings/", 
         formData,
@@ -47,6 +55,7 @@ const Form = () => {
       );
 
       // console.log("Form submitted successfully:", response.data);
+
       setShowSuccess(true);
       setFormData({
         name: "",
@@ -59,10 +68,17 @@ const Form = () => {
         special_requirements: ""
       });
     }
-    catch (error) {
-      console.error("Error submitting form:", error);
+    catch (error: any) {
+
+    if (error.response?.status === 401) {
+      localStorage.removeItem("access_token");
+      router.push("/login");
     }
-  };
+
+    console.log(error);
+
+  } 
+};
 
 
   return (
@@ -243,19 +259,7 @@ const Form = () => {
                   required
                 />
 
-                {/* <select
-                  name="budget_per_person"
-                  value={formData.budget_per_person}
-                  onChange={handleChange}
-                  className="w-full border rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  required
-                >
-                  <option value="">Select Budget</option>
-                  <option value="0-1000">$0 - $1,000</option>
-                  <option value="1000-3000">$1,000 - $3,000</option>
-                  <option value="3000-5000">$3,000 - $5,000</option>
-                  <option value="5000+">$5,000+</option>
-                </select> */}
+               
               </div>
 
               <div className="md:col-span-2">

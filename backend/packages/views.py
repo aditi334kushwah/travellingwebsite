@@ -1,17 +1,17 @@
 from rest_framework.generics import ListAPIView, RetrieveAPIView
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view , permission_classes
 from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from django.db.models import Count
-
 from .models import Package
 from .serializers import PackageSerializer
 from .filters import PackageFilter
 from .paginations import PackagePagination
-
+from rest_framework.permissions import AllowAny
 
 @api_view(['GET'])
+@permission_classes([AllowAny])
 def category_counts(request):
     counts = (
         Package.objects
@@ -23,6 +23,7 @@ def category_counts(request):
 
 
 @api_view(['GET'])
+@permission_classes([AllowAny])
 def duration_counts(request):
     ranges = {
         "1-3 Days":  Package.objects.filter(duration_days__gte=1,  duration_days__lte=3).count(),
@@ -34,6 +35,7 @@ def duration_counts(request):
 
 
 @api_view(['GET'])
+@permission_classes([AllowAny])
 def budget_counts(request):
     ranges = {
         "₹100-300":  Package.objects.filter(price__gte=100,  price__lte=300).count(),
@@ -44,6 +46,9 @@ def budget_counts(request):
 
 
 class PackageListView(ListAPIView):
+
+    permission_classes = [AllowAny]
+
     queryset = Package.objects.all()
     serializer_class = PackageSerializer
 
@@ -79,5 +84,7 @@ class PackageListView(ListAPIView):
 
 
 class PackageDetailView(RetrieveAPIView):
+    
+    permission_classes = [AllowAny]
     queryset = Package.objects.all()
     serializer_class = PackageSerializer

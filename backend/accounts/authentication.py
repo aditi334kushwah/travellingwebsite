@@ -5,7 +5,7 @@ from rest_framework.authentication import  BaseAuthentication
 from rest_framework.exceptions import AuthenticationFailed
 from .models import User
 
-class JWTauthentiction(BaseAuthentication):
+class JWTauthentication(BaseAuthentication):
 
     def authenticate(self, request):
         

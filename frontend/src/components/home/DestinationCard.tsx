@@ -5,9 +5,6 @@ import Image from "next/image";
 import axios from "axios";
 import { MapPin, Users, Clock } from "lucide-react";
 import { useRouter } from "next/navigation";
-import HeroPackage from "../packages/HeroPackage";
-
-
 
 type Props = {
   currentPage: number;
@@ -37,7 +34,7 @@ type PropsSet = {
   setMaxDays: any;
 };
 
-export default function PackagesPage() {
+const PackagesPage = () => {
 
   const [packages, setPackages] = useState<Package[]>([]);
   const [loading, setLoading] = useState(true);
@@ -61,58 +58,69 @@ export default function PackagesPage() {
 
   const router = useRouter();
 
- 
+  const fetchPackages = async () => {
+
+    try {
+      setLoading(true);
+      const params = new URLSearchParams();
+
+      params.append("page", currentPage.toString());
+
+      if (search)
+        params.append("search", search);
+
+      if (category)
+        params.append("category", category);
+
+      if (minPrice)
+        params.append("min_price", minPrice);
+
+      if (maxPrice)
+        params.append("max_price", maxPrice);
+
+      if (minDays)
+        params.append("min_days", minDays);
+
+      if (maxDays)
+        params.append("max_days", maxDays);
+
+      const response = await axios.get(
+
+        `http://127.0.0.1:8000/api/packages/?${params}`
+
+      );
+
+      setPackages(response.data.results);
+
+      setTotalPages(
+        Math.ceil(response.data.count / 9)
+      );
+
+    } catch (error: any) {
+      console.log("STATUS:", error.response?.status);
+      console.log("DATA:", error.response?.data);
+      console.log("FULL ERROR:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
 
     fetchPackages();
+  },
+    [
+      currentPage,
+      search,
+      category,
+      minPrice,
+      maxPrice,
+      minDays,
+      maxDays
+    ]
+  );
 
-  }, [
-    currentPage,
-    search,
-    category,
-    minPrice,
-    maxPrice,
-    minDays,
-    maxDays
-  ]);
 
-  const fetchPackages = async () => {
-
-    const params = new URLSearchParams();
-
-    params.append("page", currentPage.toString());
-
-    if (search)
-      params.append("search", search);
-
-    if (category)
-      params.append("category", category);
-
-    if (minPrice)
-      params.append("min_price", minPrice);
-
-    if (maxPrice)
-      params.append("max_price", maxPrice);
-
-    if (minDays)
-      params.append("min_days", minDays);
-
-    if (maxDays)
-      params.append("max_days", maxDays);
-
-    
-
-    const response = await axios.get(
-      `http://127.0.0.1:8000/api/packages/?${params}`
-    );
-
-    setPackages(response.data.results);
-
-    setTotalPages(
-      Math.ceil(response.data.count / 9)
-    );
-  };
 
   if (loading) {
     return (
@@ -125,12 +133,12 @@ export default function PackagesPage() {
   return (
 
     <>
-     
+
       <section className="min-h-screen bg-gradient-to-b from-blue-50 to-white py-16">
-        
+
         <div className="mx-auto max-w-7xl px-6">
 
-        
+
           {packages.length === 0 ? (
             <div className="text-center text-xl text-gray-500">
               No Packages Available
@@ -279,4 +287,9 @@ export default function PackagesPage() {
 
     </>
   );
+
 }
+
+
+
+export default PackagesPage;
