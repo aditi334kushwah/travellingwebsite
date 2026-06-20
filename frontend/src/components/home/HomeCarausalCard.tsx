@@ -50,30 +50,29 @@ export default function HeroCarausalCard() {
                         <div
                             key={pkg.id}
                             onClick={() => router.push(`/packages/${pkg.id}`)}
-                            className="
-                relative
-                min-w-[320px]
-                md:min-w-[420px]
-                h-[500px]
-                rounded-[32px]
-                overflow-hidden
-                cursor-pointer
-                flex-shrink-0
-                group
-              "
-                        >
+                            className="relative
+                                    min-w-[320px]
+                                    md:min-w-[420px]
+                                    h-[500px]
+                                    rounded-[32px]
+                                    overflow-hidden
+                                    cursor-pointer
+                                    flex-shrink-0
+                                    group
+                                        "
+                         >
 
-                            <Image
+                        <Image
                                 src={pkg.image}
                                 alt={pkg.title}
                                 fill
                                 unoptimized
-                                className="
-                  object-cover
-                  transition-transform
-                  duration-700
-                  group-hover:scale-105
-                "
+                                className="hidden md:block
+                                    object-cover
+                                    transition-transform
+                                    duration-700
+                                    group-hover:scale-105 
+                                    "
                             />
 
                             <div className="absolute inset-0 bg-black/30" />
