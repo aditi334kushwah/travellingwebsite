@@ -10,6 +10,10 @@ urlpatterns = [
     path('api/bookings/', include('booking.urls')),
     path('api/contact/', include('contacts.urls')),
     path('api/accounts/', include('accounts.urls')),
+    path('api/dashboard/', include('dashboard.urls'))
+    
+    
+    
 ]
 
 urlpatterns += static(
