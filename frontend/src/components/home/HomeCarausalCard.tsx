@@ -60,19 +60,14 @@ export default function HeroCarausalCard() {
                                     flex-shrink-0
                                     group
                                         "
-                         >
+                        >
 
-                        <Image
-                                src={pkg.image}
+                            <Image
+                                src={pkg.image ? pkg.image : "/default.jpg"}
                                 alt={pkg.title}
                                 fill
                                 unoptimized
-                                className="hidden md:block
-                                    object-cover
-                                    transition-transform
-                                    duration-700
-                                    group-hover:scale-105 
-                                    "
+                                className="hidden md:block object-cover transition-transform duration-700 group-hover:scale-105"
                             />
 
                             <div className="absolute inset-0 bg-black/30" />
