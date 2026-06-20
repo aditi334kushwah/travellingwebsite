@@ -6,6 +6,7 @@ import axios from "axios";
 import { MapPin, Users, Clock } from "lucide-react";
 import { useRouter } from "next/navigation";
 
+
 type Props = {
   currentPage: number;
   totalPages: number;

@@ -1,34 +1,38 @@
 "use client"
 import axios from "axios"
 import { useState } from "react"
-import { CheckCircle, X } from "lucide-react";
+import { CheckCircle, Settings, X } from "lucide-react";
 import { useRouter } from "next/navigation";
+
+
 
 const Form = () => {
 
+
   const router = useRouter()
   const [showSuccess, setShowSuccess] = useState(false)
-  const [ formData ,setFormData] = useState({
+  const [formData, setFormData] = useState({
 
-      name : "",
-      email : "",
-      phone : "",
-      country : "",
-      number_of_people : "",
-      travel_month : "",
-      budget_per_person : "", 
-      special_requirements : ""
+    name: "",
+    email: "",
+    phone: "",
+    country: "",
+    number_of_people: "",
+    travel_month: "",
+    budget_per_person: "",
+    special_requirements: ""
   });
 
-  const handleChange = (e: React.ChangeEvent< 
-      HTMLInputElement |
-      HTMLTextAreaElement | 
-      HTMLSelectElement>) =>{
+
+  const handleChange = (e: React.ChangeEvent<
+    HTMLInputElement |
+    HTMLTextAreaElement |
+    HTMLSelectElement>) => {
 
     setFormData({
-        ...formData,
-         [e.target.name] : e.target.value
-      })
+      ...formData,
+      [e.target.name]: e.target.value
+    })
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -43,7 +47,7 @@ const Form = () => {
       }
 
       await axios.post(
-        "http://127.0.0.1:8000/api/bookings/", 
+        "http://127.0.0.1:8000/api/bookings/",
         formData,
         {
           headers: {
@@ -70,15 +74,15 @@ const Form = () => {
     }
     catch (error: any) {
 
-    if (error.response?.status === 401) {
-      localStorage.removeItem("access_token");
-      router.push("/login");
+      if (error.response?.status === 401) {
+        localStorage.removeItem("access_token");
+        router.push("/login");
+      }
+
+      console.log(error);
+
     }
-
-    console.log(error);
-
-  } 
-};
+  };
 
 
   return (
@@ -109,188 +113,189 @@ const Form = () => {
       )}
 
       <section className="min-h-screen bg-transparent px-4">
-      <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto">
 
-        <div className="bg-white shadow-2xl rounded-3xl overflow-hidden">
+          <div className="bg-white shadow-2xl rounded-3xl overflow-hidden">
 
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-8 text-white">
-            <h1 className="text-4xl font-bold">
-              Plan Your Dream Journey 
-            </h1>
+            <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-8 text-white">
+              <h1 className="text-4xl font-bold">
+                Plan Your Dream Journey
+              </h1>
 
-            <p className="mt-2 text-blue-100">
-              Fill out the form and we'll create the perfect travel experience
-              for you.
-            </p>
-          </div>
-
-          <form
-            onSubmit={handleSubmit}
-            className="p-8 space-y-6"
-          >
-            <div className="grid md:grid-cols-2 gap-6">
-
-              <div>
-                <label className="block mb-2 font-medium">
-                  Full Name
-                </label>
-
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Enter your name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="w-full border rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="block mb-2 font-medium">
-                  Email Address
-                </label>
-
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Enter your email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="w-full border rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="block mb-2 font-medium">
-                  Phone Number
-                </label>
-
-                <input
-                  type="tel"
-                  name="phone"
-                  placeholder="+91 9876543210"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  className="w-full border rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="block mb-2 font-medium">
-                  Country
-                </label>
-
-                <select
-                  name="country"
-                  value={formData.country}
-                  onChange={handleChange}
-                  className="w-full border rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  required
-                >
-                  <option value="">Select Country</option>
-                  <option>India</option>
-                  <option>United States</option>
-                  <option>Canada</option>
-                  <option>Australia</option>
-                  <option>United Kingdom</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="block mb-2 font-medium">
-                  Number of People
-                </label>
-
-                <input
-                  type="number"
-                  min="1"
-                  name="number_of_people"
-                  value={formData.number_of_people}
-                  onChange={handleChange}
-                  placeholder="2"
-                  className="w-full border rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="block mb-2 font-medium">
-                  Travel Month
-                </label>
-
-                <select
-                  name="travel_month"
-                  value={formData.travel_month}
-                  onChange={handleChange}
-                  className="w-full border rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  required
-                >
-                  <option value="">Select Month</option>
-                  <option>January</option>
-                  <option>February</option>
-                  <option>March</option>
-                  <option>April</option>
-                  <option>May</option>
-                  <option>June</option>
-                  <option>July</option>
-                  <option>August</option>
-                  <option>September</option>
-                  <option>October</option>
-                  <option>November</option>
-                  <option>December</option>
-                </select>
-              </div>
-
-              <div className="md:col-span-2">
-                <label className="block mb-2 font-medium">
-                  Budget Per Person
-                </label>
-
-                <input
-                  type="text"
-                  name="budget_per_person"
-                  value={formData.budget_per_person}
-                  onChange={handleChange}
-                  placeholder="$1,000 - $3,000"
-                  className = "w-full border rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  required
-                />
-
-               
-              </div>
-
-              <div className="md:col-span-2">
-                <label className="block mb-2 font-medium">
-                  Special Requirements
-                </label>
-
-                <textarea
-                  
-                  name="special_requirements"
-                  value={formData.special_requirements}
-                  onChange={handleChange}
-                  placeholder="Tell us about your travel preferences..."
-                  className="w-full border rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </div>
-
+              <p className="mt-2 text-blue-100">
+                Fill out the form and we'll create the perfect travel experience
+                for you.
+              </p>
             </div>
 
-            <button
-              type="submit"
-              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-xl font-semibold text-lg hover:scale-[1.02] transition duration-300"
+            <form
+              onSubmit={handleSubmit}
+              className="p-8 space-y-6"
             >
-              Submit Booking Request
-            </button>
+              <div className="grid md:grid-cols-2 gap-6">
 
-          </form>
+                <div>
+                  <label className="block mb-2 font-medium">
+                    Full Name
+                  </label>
+
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Enter your name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="w-full border rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block mb-2 font-medium">
+                    Email Address
+                  </label>
+
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="w-full border rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block mb-2 font-medium">
+                    Phone Number
+                  </label>
+
+                  <input
+                    type="tel"
+                    name="phone"
+                    placeholder="+91 9876543210"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    className="w-full border rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block mb-2 font-medium">
+                    Country
+                  </label>
+
+                  <select
+                    name="country"
+                    value={formData.country}
+                    onChange={handleChange}
+                    className="w-full border rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    required
+                  >
+                    <option value="">Select Country</option>
+                    <option>India</option>
+                    <option>United States</option>
+                    <option>Canada</option>
+                    <option>Australia</option>
+                    <option>United Kingdom</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block mb-2 font-medium">
+                    Number of People
+                  </label>
+
+                  <input
+                    type="number"
+                    min="1"
+                    name="number_of_people"
+                    value={formData.number_of_people}
+                    onChange={handleChange}
+                    placeholder="2"
+                    className="w-full border rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block mb-2 font-medium">
+                    Travel Month
+                  </label>
+
+                  <select
+                    name="travel_month"
+                    value={formData.travel_month}
+                    onChange={handleChange}
+                    className="w-full border rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    required
+                  >
+                    <option value="">Select Month</option>
+                    <option>January</option>
+                    <option>February</option>
+                    <option>March</option>
+                    <option>April</option>
+                    <option>May</option>
+                    <option>June</option>
+                    <option>July</option>
+                    <option>August</option>
+                    <option>September</option>
+                    <option>October</option>
+                    <option>November</option>
+                    <option>December</option>
+                  </select>
+                </div>
+
+                <div className="md:col-span-2">
+                  <label className="block mb-2 font-medium">
+                    Budget Per Person
+                  </label>
+
+                  <input
+                    type="text"
+                    name="budget_per_person"
+                    value={formData.budget_per_person}
+                    onChange={handleChange}
+                    placeholder="$1,000 - $3,000"
+                    className="w-full border rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    required
+                  />
+
+
+                </div>
+
+                <div className="md:col-span-2">
+                  <label className="block mb-2 font-medium">
+                    Special Requirements
+                  </label>
+
+                  <textarea
+
+                    name="special_requirements"
+                    value={formData.special_requirements}
+                    onChange={handleChange}
+                    placeholder="Tell us about your travel preferences..."
+                    className="w-full border rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+
+              </div>
+
+              <button
+                type="submit"
+                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-xl font-semibold text-lg hover:scale-[1.02] transition duration-300"
+              >
+                Submit Booking Request
+              </button> 
+
+
+            </form>
+          </div>
         </div>
-      </div>
-    </section>
-    </>  
+      </section>
+    </>
   )
 }
 
