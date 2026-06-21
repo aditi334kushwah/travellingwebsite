@@ -17,7 +17,7 @@ DEBUG = False
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
-    "travellingwebsite-1.onrender.com"
+    "travellingwebsite-2.onrender.com"
 ]
 
 # Application definition
