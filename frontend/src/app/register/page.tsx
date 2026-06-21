@@ -35,7 +35,7 @@ const RegisterPage = ()=> {
     const handleSumit = async (e:React.FormEvent)=>{
         e.preventDefault()
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/accounts/register/',formData)
+            const response = await axios.post('https://travellingwebsite-2.onrender.com/api/accounts/register/',formData)
             console.log("REGISTRATION SUCCESS", response.data);
 
             setError({

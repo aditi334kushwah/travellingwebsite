@@ -18,7 +18,7 @@ const Dashboard = () => {
 
     const fetchStats = async () => {
         try {
-            const res = await axios.get("http://127.0.0.1:8000/api/dashboard/stats/", {
+            const res = await axios.get("https://travellingwebsite-2.onrender.com/api/dashboard/stats/", {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("access_token")}`
                 }
@@ -31,7 +31,7 @@ const Dashboard = () => {
 
     const fetchActivity = async () => {
         try {
-            const res = await axios.get("http://127.0.0.1:8000/api/dashboard/recent-activity/", {
+            const res = await axios.get("https://travellingwebsite-2.onrender.com/api/dashboard/recent-activity/", {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("access_token")}`
                 }

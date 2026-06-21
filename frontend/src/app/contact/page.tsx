@@ -77,7 +77,7 @@ const Contact = () => {
       }
 
       const response = await axios.post(
-        "http://127.0.0.1:8000/api/contact/",
+        "https://travellingwebsite-2.onrender.com/api/contact/",
         formData,
         {
           headers: {

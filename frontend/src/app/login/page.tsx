@@ -32,7 +32,7 @@ const LoginPage = ()=> {
     const handleSumit = async (e:React.FormEvent)=>{
         e.preventDefault()
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/accounts/login/',formData)
+            const response = await axios.post('https://travellingwebsite-2.onrender.com/api/accounts/login/',formData)
             console.log("LOGIN SUCCESS", response.data);
           
             localStorage.setItem("access_token",response.data.access_token);

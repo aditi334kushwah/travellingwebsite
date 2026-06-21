@@ -47,7 +47,7 @@ const Form = () => {
       }
 
       await axios.post(
-        "http://127.0.0.1:8000/api/bookings/",
+        "https://travellingwebsite-2.onrender.com/api/bookings/",
         formData,
         {
           headers: {

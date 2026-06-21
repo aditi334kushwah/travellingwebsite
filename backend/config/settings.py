@@ -137,7 +137,8 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://travellingwebsite-2.onrender.com"
+    "https://your-frontend.vercel.app",
+    "https://travellingwebsite-2.onrender.com",
 ]
 
 

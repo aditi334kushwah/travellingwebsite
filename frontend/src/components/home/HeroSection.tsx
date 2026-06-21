@@ -1,5 +1,5 @@
 import React from 'react'
-import { AnimatedTooltipPreview } from "@/components/toolfit"
+ import { AnimatedTooltipPreview } from "@/components/toolfit"
 import Image from 'next/image'
 import Link from 'next/dist/client/link'
 

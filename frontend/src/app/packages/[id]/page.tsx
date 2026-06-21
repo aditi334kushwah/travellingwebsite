@@ -41,7 +41,7 @@ export default function PackageDetailPage() {
 
       const token = localStorage.getItem("access_token")
       const response = await axios.get(
-        `http://127.0.0.1:8000/api/packages/${id}/`,
+        `https://travellingwebsite-2.onrender.com/api/packages/${id}/`,
         {
           headers: {
             Authorization: `Bearer ${token}`
