@@ -47,7 +47,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOW_ALL_ORIGINS = True
 
 AUTH_USER_MODEL = 'accounts.User'
 
@@ -133,18 +133,18 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    "https://your-frontend.onrender.com"
+    "https://travellingwebsite-ten.vercel.app"
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://your-frontend.vercel.app",
+    "https://travellingwebsite-ten.vercel.app",
     "https://travellingwebsite-2.onrender.com",
 ]
 
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny',
     ],
      "DEFAULT_FILTER_BACKENDS": [
         "django_filters.rest_framework.DjangoFilterBackend",
