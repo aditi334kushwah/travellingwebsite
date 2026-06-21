@@ -58,7 +58,7 @@ const Form = () => {
 
       );
 
-      // console.log("Form submitted successfully:", response.data);
+      alert("Form submitted successfully");
 
       setShowSuccess(true);
       setFormData({
