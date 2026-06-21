@@ -14,11 +14,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY",'django-insecure-change-me-in-production')
 DEBUG = False 
 
-ALLOWED_HOSTS = [
-    "127.0.0.1",
-    "localhost",
-    "travellingwebsite-2.onrender.com"
-]
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -140,6 +136,9 @@ CORS_ALLOWED_ORIGINS = [
     "https://your-frontend.onrender.com"
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://travellingwebsite-2.onrender.com"
+]
 
 
 REST_FRAMEWORK = {
