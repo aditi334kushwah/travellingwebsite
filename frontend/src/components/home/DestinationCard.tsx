@@ -86,9 +86,10 @@ const PackagesPage = () => {
         params.append("max_days", maxDays);
 
       const response = await axios.get(
-
-        `https://travellingwebsite-2.onrender.com/api/packages/?${params}`
-
+        "https://travellingwebsite-2.onrender.com/api/packages/",
+        {
+          params: params
+        }
       );
 
       setPackages(response.data.results);
