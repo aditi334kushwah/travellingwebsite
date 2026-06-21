@@ -8,6 +8,7 @@ from .jwt_utils import generate_access_token
 from rest_framework.permissions import AllowAny
 
 
+
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def registerView(request):
