@@ -15,7 +15,7 @@ SECRET_KEY = os.getenv("SECRET_KEY",'django-insecure-change-me-in-production')
 DEBUG = False 
 
 ALLOWED_HOSTS = ["*"]
-
+1
 # Application definition
 
 INSTALLED_APPS = [
@@ -134,10 +134,6 @@ USE_TZ = True
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-# CORS_ALLOWED_ORIGINS = [
-#     "http://localhost:3000",
-#     "https://travellingwebsite-ten.vercel.app"
-# ]
 
 CSRF_TRUSTED_ORIGINS = [
     "https://travellingwebsite-ten.vercel.app",

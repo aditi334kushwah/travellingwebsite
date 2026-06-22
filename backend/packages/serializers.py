@@ -14,7 +14,7 @@ class PackageSerializer(serializers.ModelSerializer):
             request = self.context.get('request')
             if request:
                 return request.build_absolute_uri(obj.image.url)
-            return f"http://127.0.0.1:8000{obj.image.url}"
+            return f"https://travellingwebsite-2.onrender.com{obj.image.url}"
         return None
 
     def validate_price(self, value):
