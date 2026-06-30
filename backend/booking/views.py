@@ -56,4 +56,4 @@ class BookingCreateView(generics.CreateAPIView):
         except Exception as e:
             print("Email sending failed:", repr(e))
 
-        raise
+        

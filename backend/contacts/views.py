@@ -1,57 +1,59 @@
 
-
-from django.core.mail import EmailMultiAlternatives
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
+from django.core.mail import EmailMultiAlternatives
 
-from .models import Contact
-from .serializers import ContactSerializer
-
+from .models import Booking
+from .serializers import BookingSerializer
 from accounts.authentication import JWTauthentication
 
 
-class ContactCreateView(generics.CreateAPIView):
+class BookingCreateView(generics.CreateAPIView):
 
     authentication_classes = [JWTauthentication]
     permission_classes = [IsAuthenticated]
 
-    queryset = Contact.objects.all()
-    serializer_class = ContactSerializer
+    queryset = Booking.objects.all()
+    serializer_class = BookingSerializer
 
     def perform_create(self, serializer):
 
-        contact = serializer.save()
+        booking = serializer.save()
 
         user = self.request.user
 
         email = EmailMultiAlternatives(
-            subject="Message Received",
-            body="Thank you for contacting TripNova.",
+            subject="Booking Confirmed",
+            body="Your booking has been confirmed",
             from_email="aaditikkushwah12530@gmail.com",
-            to=[contact.email]
+            to=[booking.email]
         )
 
         html_content = f"""
-        <h2>Thank You For Contacting Us</h2>
+            <h2>Booking Confirmed</h2>
 
-        <p>Hello {user.first_name}</p>
+            <p>Hello {booking.name}</p>
 
-        <p>We have received your message.</p>
+            <p>Your booking has been confirmed.</p>
 
-        <p><strong>Subject:</strong> {contact.subject}</p>
+            <p>Country: {booking.country}</p>
 
-        <p><strong>Message:</strong> {contact.message}</p>
+            <p>Travel Month: {booking.travel_month}</p>
 
-        <p>Our team will contact you soon.</p>
+            <p>Number of People: {booking.number_of_people}</p>
 
-        <br>
+            <p>Budget Per Person: ₹{booking.budget_per_person}</p>
 
-        <p>TripNova Team</p>
-        """
-
+            <p>Thank you for choosing TripNova.</p>
+            """
         email.attach_alternative(
             html_content,
             "text/html"
         )
 
-        email.send()
+        try:
+            email.send()
+        except Exception as e:
+            print("Email sending failed:", repr(e))
+
+    
