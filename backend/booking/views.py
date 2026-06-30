@@ -51,4 +51,9 @@ class BookingCreateView(generics.CreateAPIView):
             "text/html"
         )
 
-        email.send()
+        try:
+            email.send()
+        except Exception as e:
+            print("Email sending failed:", repr(e))
+
+        raise
