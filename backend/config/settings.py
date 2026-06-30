@@ -15,7 +15,6 @@ SECRET_KEY = os.getenv("SECRET_KEY",'django-insecure-change-me-in-production')
 DEBUG = False 
 
 ALLOWED_HOSTS = ["*"]
-1
 # Application definition
 
 INSTALLED_APPS = [
@@ -178,6 +177,7 @@ CORS_ALLOW_HEADERS = [
     "x-csrftoken",
     "x-requested-with",
 ]
+
 CORS_ALLOW_METHODS = [
     "DELETE",
     "GET",

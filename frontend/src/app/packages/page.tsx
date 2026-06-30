@@ -66,7 +66,7 @@ export default function PackagesPage() {
       if (activeFilters.is_popular) params.append("is_popular", "true");
       if (activeFilters.ordering)   params.append("ordering",   activeFilters.ordering);
 
-      const res = await axios.get(`http://127.0.0.1:8000/api/packages/?${params}`);
+      const res = await axios.get(`https://travellingwebsite-2.onrender.com/api/packages/?${params}`);
       setPackages(res.data.results ?? []);
       setTotalCount(res.data.count ?? 0);
       setHasNext(!!res.data.next);
@@ -84,13 +84,13 @@ export default function PackagesPage() {
 
   useEffect(() => {
     fetchPackages(1, filters);
-    axios.get('http://127.0.0.1:8000/api/packages/categories/')
+    axios.get('https://travellingwebsite-2.onrender.com/api/packages/categories/')
       .then(res => setCategoryCounts(res.data))
       .catch(err => console.error(err));
-    axios.get('http://127.0.0.1:8000/api/packages/durations/')
+    axios.get('https://travellingwebsite-2.onrender.com/api/packages/durations/')
       .then(res => setDurationCounts(res.data))
       .catch(err => console.error(err));
-    axios.get('http://127.0.0.1:8000/api/packages/budgets/')
+    axios.get('https://travellingwebsite-2.onrender.com/api/packages/budgets/')
       .then(res => setBudgetCounts(res.data))
       .catch(err => console.error(err));
     // eslint-disable-next-line react-hooks/exhaustive-deps
