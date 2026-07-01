@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 import dj_database_url
 import os
 from  django.conf import settings
+import cloudinary
 
 
 load_dotenv()
@@ -26,7 +27,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'django_filters',
-    'corsheaders', 
+    'corsheaders',
+    "cloudinary",
+    "cloudinary_storage", 
     'contacts',
     'accounts',
     'booking',
@@ -90,17 +93,6 @@ DATABASES = {
     )
 }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'travellingwebsite',
-#         'USER': 'postgres',
-#         'PASSWORD': 'aditi#2003',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
-# }
-
 
 
 # Password validation
@@ -162,10 +154,10 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
 
 # For production, you can use:
-# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
@@ -198,3 +190,10 @@ CORS_ALLOW_METHODS = [
     "PUT",
 ]
 
+cloudinary.config(
+    cloud_name=os.getenv("CLOUDINARY_CLOUD_NAME"),
+    api_key=os.getenv("CLOUDINARY_API_KEY"),
+    api_secret=os.getenv("CLOUDINARY_API_SECRET"),
+)
+
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
