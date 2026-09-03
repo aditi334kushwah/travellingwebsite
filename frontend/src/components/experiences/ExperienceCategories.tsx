@@ -1,4 +1,6 @@
+'use client';
 import Image from "next/image";
+import FadeUp from "@/components/ui/FadeUp";
 
 const categories = [
   { title: "Adventure", desc: "Explore thrilling mountain and trekking experiences.", img: "/images/contact.png" },
@@ -10,22 +12,26 @@ const categories = [
 
 export default function ExperienceCategories() {
   return (
-    <section className="py-12 sm:py-16 w-[90%] mx-auto text-black rounded-xl">
-      <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-10">
-        Explore Experiences
-      </h2>
+    <section className="py-12 sm:py-16 w-[90%] mx-auto text-black dark:text-white rounded-xl">
+      <FadeUp>
+        <h2 className="text-2xl sm:text-3xl font-poppins text-center mb-8 sm:mb-10">
+          Explore Experiences
+        </h2>
+      </FadeUp>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {categories.map((item, i) => (
-          <div key={i} className="bg-gray-100 rounded-xl overflow-hidden hover:scale-105 transition">
-            <div className="relative w-full h-[200px] sm:h-[220px]">
-              <Image src={item.img} alt={item.title} fill className="object-cover" />
+          <FadeUp key={i} delay={i * 0.1}>
+            <div className="bg-gray-100 dark:bg-gray-800 rounded-xl overflow-hidden hover:scale-105 transition">
+              <div className="relative w-full h-[200px] sm:h-[220px]">
+                <Image src={item.img} alt={item.title} fill className="object-cover" />
+              </div>
+              <div className="p-4">
+                <h3 className="text-lg sm:text-xl font-playfair">{item.title}</h3>
+                <p className="text-sm text-gray-700 dark:text-gray-400 mt-2 font-poppins">{item.desc}</p>
+              </div>
             </div>
-            <div className="p-4">
-              <h3 className="text-lg sm:text-xl font-semibold">{item.title}</h3>
-              <p className="text-sm text-gray-700 mt-2">{item.desc}</p>
-            </div>
-          </div>
+          </FadeUp>
         ))}
       </div>
     </section>

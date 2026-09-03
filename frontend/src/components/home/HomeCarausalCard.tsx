@@ -4,102 +4,69 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { Compass, MapPin } from "lucide-react";
+import FadeUp from '@/components/ui/FadeUp';
 
 type Package = {
-    id: number;
-    title: string;
-    description: string;
-    image: string;
-    price: string;
-    location: string;
+  id: number;
+  title: string;
+  description: string;
+  image: string;
+  price: string;
+  location: string;
 };
 
 export default function HeroCarausalCard() {
-    const [packages, setPackages] = useState<Package[]>([]);
-    const router = useRouter();
+  const [packages, setPackages] = useState<Package[]>([]);
+  const router = useRouter();
 
-    useEffect(() => {
-        fetchPackages();
-    }, []);
+  useEffect(() => {
+    axios.get('https://travellingwebsite-2.onrender.com/api/packages/')
+      .then(res => setPackages(res.data.results))
+      .catch(console.error);
+  }, []);
 
-    const fetchPackages = async () => {
-        try {
-            const response = await axios.get(
-                'https://travellingwebsite-2.onrender.com/api/packages/'
-            );
+  return (
+    <section className="py-12 sm:py-16 bg-white dark:bg-gray-950">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
 
-            setPackages(response.data.results);
-        } catch (error) {
-            console.error(error);
-        }
-    };
+        <FadeUp>
+          <h2 className="text-2xl sm:text-4xl md:text-6xl font-playfair mb-8 text-gray-900 dark:text-white">
+            Explore Destinations
+          </h2>
+        </FadeUp>
 
-    return (
-        <section className="py-16 bg-white">
-
-            <div className="max-w-7xl mx-auto px-6">
-
-                <h2 className="md:text-6xl text-xl font-bold mb-10">
-                    Explore Destinations
-                </h2>
-
-                <div className="flex gap-6 overflow-x-auto scrollbar-hide pb-4">
-
-                    {packages.map((pkg) => (
-
-                        <div
-                            key={pkg.id}
-                            onClick={() => router.push(`/packages/${pkg.id}`)}
-                            className="relative
-                                    min-w-[320px]
-                                    md:min-w-[420px]
-                                    h-[500px]
-                                    rounded-[32px]
-                                    overflow-hidden
-                                    cursor-pointer
-                                    flex-shrink-0
-                                    group
-                                        "
-                        >
-
-                            <Image
-                                src={pkg.image ? pkg.image : "/default.jpg"}
-                                alt={pkg.title}
-                                fill
-                                unoptimized
-                                className="hidden md:block object-cover transition-transform duration-700 group-hover:scale-105"
-                            />
-
-                            <div className="absolute inset-0 bg-black/30" />
-
-                            <div className="absolute bottom-0 p-8 text-white">
-
-                                <p className="text-sm uppercase tracking-wider">
-                                    {pkg.location}
-                                </p>
-
-                                <h3 className="text-3xl font-bold mt-2">
-                                    {pkg.title}
-                                </h3>
-
-                                {/* <p className="mt-3 line-clamp-2">
-                  {pkg.description}
-                </p> */}
-
-                                {/* <p className="mt-4 text-xl font-semibold">
-                  ₹{pkg.price}
-                </p> */}
-
-                            </div>
-
-                        </div>
-
-                    ))}
-
+        <div className="flex gap-4 sm:gap-6 overflow-x-auto scrollbar-hide pb-4">
+          {packages.map((pkg, i) => (
+            <FadeUp key={pkg.id} delay={i * 0.08} className="flex-shrink-0">
+              <div
+                onClick={() => router.push(`/packages/${pkg.id}`)}
+                className="relative min-w-[160px] sm:min-w-[200px] md:min-w-[270px] h-[260px] sm:h-[320px] md:h-[380px] rounded-[24px] sm:rounded-[32px] overflow-hidden cursor-pointer group"
+              >
+                <Image
+                  src={pkg.image || "/default.jpg"}
+                  alt={pkg.title}
+                  fill
+                  unoptimized
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-black/30" />
+                <div className="absolute flex flex-col bottom-0 p-4 sm:p-6 md:p-8 text-white">
+                  <h3 className="text-base sm:text-lg md:text-xl font-bold mt-2 flex items-center gap-2">
+                    <Compass className="w-4 h-4 text-white flex-shrink-0" />
+                    {pkg.title}
+                  </h3>
+                  <p className="text-xs sm:text-sm uppercase tracking-wider flex items-center gap-1.5 mt-1">
+                    <MapPin className="w-3 h-3 text-white flex-shrink-0" />
+                    {pkg.location}
+                  </p>
                 </div>
+              </div>
+            </FadeUp>
+          ))}
+        </div>
 
-            </div>
-
-        </section>
-    );
+      </div>
+    </section>
+  );
 }

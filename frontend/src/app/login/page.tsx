@@ -1,124 +1,66 @@
 'use client'
 import axios from 'axios'
-import {useState} from "react"
+import { useState } from "react"
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import FadeUp from '@/components/ui/FadeUp';
 
+const LoginPage = () => {
+  const router = useRouter();
+  const [errors, setErrors] = useState({ message: "" });
+  const [formData, setFormData] = useState({ username: "", password: "" });
 
-const LoginPage = ()=> {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-    const router = useRouter();
-
-    const [errors , setErrors] = useState({
-        message :""
-    })
-    const [formData,setFormData] = useState({
-        username : "",
-        password : ""
-    })
-
-    const handleChange = (e:React.ChangeEvent<
-        HTMLInputElement |
-        HTMLTextAreaElement|
-        HTMLSelectElement >) => {
-
-            setFormData({
-                ...formData , 
-                [e.target.name] : e.target.value
-            })
-
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('https://travellingwebsite-2.onrender.com/api/accounts/login/', formData);
+      localStorage.setItem("access_token", response.data.access_token);
+      localStorage.setItem("username", response.data.username);
+      alert("Login Successfully");
+      router.push('/');
+    } catch (error: any) {
+      setErrors({ message: error.response?.data?.message || "Login failed" });
     }
-
-    const handleSumit = async (e:React.FormEvent)=>{
-        e.preventDefault()
-        try {
-            const response = await axios.post('https://travellingwebsite-2.onrender.com/api/accounts/login/',formData)
-            console.log("LOGIN SUCCESS", response.data);
-          
-            localStorage.setItem("access_token",response.data.access_token);
-            localStorage.setItem("username", response.data.username);
-            window.location.href = "/";
-
-            setErrors({
-                message : ""
-            })
-            alert("Login Successfully")
-            
-            setFormData({
-
-                username : "", 
-                password : ""
-
-            })
-
-            router.push('/')
-        } catch (error: any) {
-            console.log("ERROR DATA:", error.response?.data);
-            
-            setErrors({
-                message: error.response?.data?.message || ""
-            });
-        }
-    }
+  };
 
   return (
-         <section className = "relative w-full h-full flex justify-center align-center mt-40  ">
-            <div className="flex flex-col bg-gray-100 p-10 rounded-2xl border-gray-100 shadow-gray-400 shadow-xl ">
-                <div className= " text-center ">
-                    <h2 className="text-2xl font-bold text-blue-700 " >Login </h2>
-                </div>
-                    <div>
-                    <form onSubmit={handleSumit}>
+    <section className="relative w-full min-h-screen flex justify-center items-center px-4 py-20 bg-gray-50 dark:bg-gray-950">
+      <FadeUp className="w-full max-w-md">
+        <div className="bg-white dark:bg-gray-800 p-8 sm:p-10 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700">
+          <h2 className="text-2xl sm:text-3xl font-bold text-blue-700 dark:text-blue-400 text-center mb-6">Login</h2>
 
-                        {
-                            (errors.message) && (
-                                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded mt-4">
-
-                                {errors.message && <p>{errors.message}</p>}
-                               
-                                </div>
-                            )
-                        }
-                        
-                        <div className ="m-2  ">
-                           
-                            <input type="text"
-                            name="username"
-                            value={formData.username}
-                            onChange={handleChange}
-                            placeholder="Username "
-                            className = "py-2 px-4 mt-2 border rounded-sm text-gray-900 border-gray-300 hover:border-blue-500"></input>
-                        </div>  
-                       
-                        <div className ="m-2 mb-2 ">
-                      
-                            <input type="password" 
-                            name = "password" 
-                            value={formData.password}
-                            onChange={handleChange}
-                            placeholder="Enter your password"
-                            className = "py-2 px-4 mt-2 border rounded-sm text-gray-900 border-gray-300 hover:border-blue-500"></input>
-                        </div>
-
-                        <div className = "m-2 mt-4 py-2 px-4 mt-2 border rounded-sm  border-gray-300 hover:border-blue-500 bg-blue-500 text-white flex justify-center align-center"  >
-                            <button >    
-                                Sumit
-                            </button>
-                        </div> 
-
-                        <div className="m-2">
-                            <span className="text-sm text-gray-400">don't have account? </span>
-                            <Link href="/register" className ="text-sm text-blue-500 ">register</Link>
-                        </div>
-
-                       
-                    </form>
-                </div>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {errors.message && (
+              <div className="bg-red-100 dark:bg-red-900/30 border border-red-400 text-red-700 dark:text-red-300 px-4 py-2 rounded">
+                {errors.message}
+              </div>
+            )}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Username</label>
+              <input type="text" name="username" value={formData.username} onChange={handleChange} placeholder="Enter your username"
+                className="w-full py-2.5 px-4 border rounded-lg text-gray-900 dark:text-white bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500" required />
             </div>
-        </section>
-  )
-}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Password</label>
+              <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Enter your password"
+                className="w-full py-2.5 px-4 border rounded-lg text-gray-900 dark:text-white bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500" required />
+            </div>
+            <button type="submit" className="w-full py-2.5 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition duration-300">
+              Login
+            </button>
+            <p className="text-sm text-center text-gray-500 dark:text-gray-400">
+              Don't have an account?{" "}
+              <Link href="/register" className="text-blue-500 hover:underline">Register</Link>
+            </p>
+          </form>
+        </div>
+      </FadeUp>
+    </section>
+  );
+};
 
-
-
-export default LoginPage
+export default LoginPage;

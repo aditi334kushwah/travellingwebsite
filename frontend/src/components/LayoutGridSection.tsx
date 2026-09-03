@@ -7,11 +7,11 @@ export function LayoutGridSection() {
     <div className="h-auto py-20 w-full">
         <div>
         <div className='flex  justify-center align-center mb-5'>
-             <span className='bg-transparent align-center justify-center text-gray-800 backdrop-blur-2xl rounded-full border text-xl font-bold border-gray-300 px-6 py-2'> Experience </span>
+             <span className='bg-transparent align-center justify-center text-gray-800 backdrop-blur-2xl rounded-full border text-xl font-poppins border-gray-300 px-6 py-2 dark:text-white'> Experience </span>
              
          </div>
-         <h1 className='text-4xl font-bold my-4 text-center '> Feel Experience </h1>
-         <h4 className='text-xl text-center text-gray-600'>
+         <h1 className='sm:text-2xl md:text-6xl font-playfair my-4 text-center '> Feel Experience </h1>
+         <h4 className='text-xl text-center text-gray-600 font-poppins dark:text-gray-400'>
            From serene landscapes to thrilling adventures, discover moments that turn into lifelong memories.
          </h4>
         </div>
@@ -24,10 +24,10 @@ export function LayoutGridSection() {
 const SkeletonOne = () => {
   return (
     <div>
-      <p className="font-bold md:text-4xl text-xl text-white">
+      <p className="font-playfair md:text-4xl text-xl text-white">
         Ram Mandir – A Symbol of Faith and Devotion
       </p>
-      <p className="font-normal text-base text-white"></p>
+      <p className="font-poppins text-base text-white"></p>
       <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
         Experience the divine presence and spiritual energy at one of India’s most sacred temples.
       </p>
@@ -38,11 +38,11 @@ const SkeletonOne = () => {
 const SkeletonTwo = () => {
   return (
     <div>
-      <p className="font-bold md:text-4xl text-xl text-white">
+      <p className="font-playfair md:text-4xl text-xl text-white">
         Char Dham Yatra – A Journey of Faith
       </p>
       <p className="font-normal text-base text-white"></p>
-      <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
+      <p className="font-poppins text-base my-4 max-w-lg text-neutral-200">
         Embark on a sacred pilgrimage to the four holy shrines and experience divine peace and spiritual awakening.
       </p>
     </div>
@@ -51,11 +51,11 @@ const SkeletonTwo = () => {
 const SkeletonThree = () => {
   return (
     <div>
-      <p className="font-bold md:text-4xl text-xl text-white">
+      <p className="font-playfair md:text-4xl text-xl text-white">
         Varanasi – The City of Eternal Faith 🛕
       </p>
       <p className="font-normal text-base text-white"></p>
-      <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
+      <p className="font-poppins text-base my-4 max-w-lg text-neutral-200">
        Experience the divine energy of the Ganges, ancient temples, and timeless traditions. 
       </p>
     </div>
@@ -64,11 +64,11 @@ const SkeletonThree = () => {
 const SkeletonFour = () => {
   return (
     <div>
-      <p className="font-bold md:text-4xl text-xl text-white">
+      <p className="font-playfair md:text-4xl text-xl text-white">
         Prem Mandir, Vrindavan 🛕
       </p>
       <p className="font-normal text-base text-white"></p>
-      <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
+      <p className="font-poppins text-base my-4 max-w-lg text-neutral-200">
         Witness the divine love of Radha Krishna through stunning architecture, light shows, and peaceful surroundings.
       </p>
     </div>

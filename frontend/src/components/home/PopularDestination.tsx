@@ -16,7 +16,7 @@ const PopularDestination = () => {
            
       
       
-           <span className='bg-transparent text-black backdrop-blur-2xl rounded-full border text-sm border-gray-200 p-3'>
+           <span className='bg-transparent text-black backdrop-blur-2xl rounded-full border text-sm border-gray-200 p-3 font-poppins'>
               Pure Adventure
            </span>
            <div className="bg-white/20 backdrop-blur-md p-3 w-fit border border-gray-200 rounded-full">
@@ -24,12 +24,12 @@ const PopularDestination = () => {
            </div>
          </div>
 
-         <h2 className="text-3xl font-bold text-center mb-2">
+         <h2 className="text-3xl font-playfair text-center mb-2">
            Popular Destinations
          </h2>
 
          <div className="mb-5  text-center">
-          <span>
+          <span className="font-poppins">
              At TriNova, we specialize in creating personalized travel experiences across India.
           </span>
          </div>
