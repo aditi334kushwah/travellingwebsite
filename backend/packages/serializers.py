@@ -1,9 +1,15 @@
 from rest_framework import serializers
-from .models import Package
+from .models import Package, PackageItinerary
+
+class PackageItinerarySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PackageItinerary
+        fields = ['id', 'day_number', 'title', 'description', 'activities', 'meals_included']
 
 class PackageSerializer(serializers.ModelSerializer):
 
     image = serializers.SerializerMethodField()
+    itineraries = PackageItinerarySerializer(many=True, read_only=True)
 
     class Meta:
         model = Package

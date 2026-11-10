@@ -2,8 +2,17 @@
 
 import Form from "@/components/ui/Form";
 import FadeUp from "@/components/ui/FadeUp";
+import { useSearchParams } from "next/navigation";
 
 export default function BookingPage() {
+
+  const searchParams = useSearchParams();
+  const packageId = Number(searchParams.get("packageId"));
+
+  if (!packageId) {
+    return <p className="text-center mt-24">No package selected. Please go back and choose a package.</p>;
+  }
+
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden bg-gray-100 py-32 dark:bg-gray-900 sm:py-36 lg:py-40">
 
@@ -41,7 +50,7 @@ export default function BookingPage() {
         </div>
 
         <FadeUp delay={0.3}>
-          <Form />
+          <Form packageId={packageId} />
         </FadeUp>
       </div>
     </section>

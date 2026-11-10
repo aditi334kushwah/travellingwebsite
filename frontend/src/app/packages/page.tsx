@@ -124,7 +124,7 @@ export default function PackagesPage() {
               <button onClick={clearFilters} className="mt-4 text-orange-500 underline text-sm">Clear all filters</button>
             </div>
           ) : (
-            <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
               {packages.map((pkg, i) => (
                 <FadeUp key={pkg.id} delay={i * 0.07}>
                   <div className="group overflow-hidden rounded-3xl bg-white dark:bg-gray-800 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
@@ -143,6 +143,9 @@ export default function PackagesPage() {
                       <div className="absolute bottom-3 left-3 flex items-center gap-1 bg-black/50 text-white text-xs px-3 py-1 rounded-full backdrop-blur-sm">
                         <MapPin size={12} /> {pkg.location}
                       </div>
+                      <div className="absolute bottom-3 left-3 flex items-center gap-1 bg-black/50 text-white text-xs px-3 py-1 rounded-full backdrop-blur-sm">
+                        {pkg.id}
+                      </div>
                     </div>
                     <div className="p-5">
                       <div className="flex items-start justify-between gap-2">
@@ -156,7 +159,7 @@ export default function PackagesPage() {
                       </div>
                       <div className="mt-4 flex gap-2">
                         <button onClick={() => router.push(`/packages/${pkg.id}`)} className="flex-1 rounded-full bg-orange-500 hover:bg-orange-600 py-2 text-sm font-medium text-white transition">View Details</button>
-                        <button onClick={() => router.push("/booking")} className="flex-1 rounded-full bg-gray-800 dark:bg-gray-600 hover:bg-black dark:hover:bg-gray-500 py-2 text-sm font-medium text-white transition">Book Now</button>
+                        <button onClick={() => router.push(`/booking?packageId=${pkg.id}`)} className="flex-1 rounded-full bg-gray-800 dark:bg-gray-600 hover:bg-black dark:hover:bg-gray-500 py-2 text-sm font-medium text-white transition">Book Now</button>
                       </div>
                     </div>
                   </div>

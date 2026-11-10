@@ -1,11 +1,11 @@
 from django.urls import path
-from .views import BookingCreateView
+from .views import BookingListCreateView
 
 
 urlpatterns = [
     path(
         "",
-        BookingCreateView.as_view(),
-        name="booking-create"
+        BookingListCreateView.as_view(),
+        name="booking-list-create"
     ),
 ]

@@ -58,9 +58,14 @@ type Props = {
 };
 
 export default function PackageFilterSidebar({ filters, setFilters, categoryCounts, durationCounts, budgetCounts, onApply, onClear }: Props) {
+
+  const inputClass = "w-full border border-gray-200 dark:border-gray-600 p-2 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500";
+  const labelClass = "text-lg text-gray-500 dark:text-gray-400 mb-2 font-medium";
+
   return (
-    <aside className="bg-white p-5 rounded-2xl shadow-md shadow-gray-400  space-y-5 h-fit lg:sticky lg:top-24">
-      <h2 className="text-lg font-bold flex items-center gap-2 text-gray-800">
+    <aside className="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-md shadow-gray-400 dark:shadow-gray-900 space-y-5 h-fit lg:sticky lg:top-24">
+
+      <h2 className="text-lg font-bold flex items-center gap-2 text-gray-800 dark:text-white">
         <SlidersHorizontal size={18} /> Filters
       </h2>
 
@@ -69,16 +74,16 @@ export default function PackageFilterSidebar({ filters, setFilters, categoryCoun
         <Search size={15} className="absolute left-3 top-3 text-gray-400" />
         <input
           placeholder="Search title, location..."
-          className="w-full border pl-9 pr-3 py-2 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+          className={`w-full border border-gray-200 dark:border-gray-600 pl-9 pr-3 py-2 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500`}
           value={filters.search}
           onChange={(e) => setFilters({ ...filters, search: e.target.value })}
           onKeyDown={(e) => e.key === "Enter" && onApply()}
         />
       </div>
 
-      {/* Travel Style — 3 per row */}
+      {/* Travel Style */}
       <div>
-        <p className="text-lg text-gray-500 mb-2 font-medium">Travel Style</p>
+        <p className={labelClass}>Travel Style</p>
         <div className="grid grid-cols-3 gap-2">
           {CATEGORIES.map((c) => {
             const Icon = c.icon;
@@ -91,13 +96,14 @@ export default function PackageFilterSidebar({ filters, setFilters, categoryCoun
                 className={`flex flex-col items-center justify-center gap-1 p-2.5 rounded-xl border text-xs font-medium transition-all duration-200
                   ${isActive
                     ? "bg-orange-500 text-white border-orange-500 shadow-md scale-105"
-                    : "bg-gray-50 text-gray-700 border-gray-200 hover:border-orange-400 hover:bg-orange-50"
+                    : "bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-600 hover:border-orange-400 hover:bg-orange-50 dark:hover:bg-orange-900/20"
                   }`}
               >
                 <Icon size={18} strokeWidth={1.5} />
                 <span className="text-[11px]">{c.label}</span>
-                <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${isActive ? "bg-white/30 text-white" : "bg-gray-200 text-gray-500"
-                  }`}>{count}</span>
+                <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${isActive ? "bg-white/30 text-white" : "bg-gray-200 dark:bg-gray-600 text-gray-500 dark:text-gray-400"}`}>
+                  {count}
+                </span>
               </button>
             );
           })}
@@ -112,10 +118,10 @@ export default function PackageFilterSidebar({ filters, setFilters, categoryCoun
 
       {/* Location */}
       <div>
-        <p className="text-lg  text-gray-500 mb-1 font-medium">Location</p>
+        <p className={`${labelClass} mb-1`}>Location</p>
         <input
           placeholder="e.g. Ladakh, Goa..."
-          className="w-full border p-2 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+          className={inputClass}
           value={filters.location}
           onChange={(e) => setFilters({ ...filters, location: e.target.value })}
         />
@@ -123,7 +129,7 @@ export default function PackageFilterSidebar({ filters, setFilters, categoryCoun
 
       {/* Budget Range */}
       <div>
-        <p className="text-lg text-gray-500 mb-2 font-medium flex items-center gap-1">
+        <p className={`${labelClass} flex items-center gap-1`}>
           <IndianRupee size={12} /> Budget Range
         </p>
         <div className="space-y-2">
@@ -143,12 +149,13 @@ export default function PackageFilterSidebar({ filters, setFilters, categoryCoun
                 className={`w-full flex items-center justify-between px-3 py-2 rounded-xl border text-sm font-medium transition-all duration-200
                   ${isActive
                     ? "bg-orange-500 text-white border-orange-500 shadow-md"
-                    : "bg-gray-50 text-gray-700 border-gray-200 hover:border-orange-400 hover:bg-orange-50"
+                    : "bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-600 hover:border-orange-400 hover:bg-orange-50 dark:hover:bg-orange-900/20"
                   }`}
               >
                 <span>{b.label}</span>
-                <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${isActive ? "bg-white/30 text-white" : "bg-gray-200 text-gray-500"
-                  }`}>{count}</span>
+                <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${isActive ? "bg-white/30 text-white" : "bg-gray-200 dark:bg-gray-600 text-gray-500 dark:text-gray-400"}`}>
+                  {count}
+                </span>
               </button>
             );
           })}
@@ -163,7 +170,7 @@ export default function PackageFilterSidebar({ filters, setFilters, categoryCoun
 
       {/* Trip Duration */}
       <div>
-        <p className="text-lg text-gray-500 mb-2 font-medium flex items-center gap-1">
+        <p className={`${labelClass} flex items-center gap-1`}>
           <Clock size={12} /> Trip Duration
         </p>
         <div className="space-y-2">
@@ -183,12 +190,13 @@ export default function PackageFilterSidebar({ filters, setFilters, categoryCoun
                 className={`w-full flex items-center justify-between px-3 py-2 rounded-xl border text-sm font-medium transition-all duration-200
                   ${isActive
                     ? "bg-orange-500 text-white border-orange-500 shadow-md"
-                    : "bg-gray-50 text-gray-700 border-gray-200 hover:border-orange-400 hover:bg-orange-50"
+                    : "bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-600 hover:border-orange-400 hover:bg-orange-50 dark:hover:bg-orange-900/20"
                   }`}
               >
                 <span>{d.label}</span>
-                <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${isActive ? "bg-white/30 text-white" : "bg-gray-200 text-gray-500"
-                  }`}>{count}</span>
+                <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${isActive ? "bg-white/30 text-white" : "bg-gray-200 dark:bg-gray-600 text-gray-500 dark:text-gray-400"}`}>
+                  {count}
+                </span>
               </button>
             );
           })}
@@ -203,9 +211,9 @@ export default function PackageFilterSidebar({ filters, setFilters, categoryCoun
 
       {/* Sort By */}
       <div>
-        <p className="text-lg text-gray-500 mb-1 font-medium">Sort By</p>
+        <p className={`${labelClass} mb-1`}>Sort By</p>
         <select
-          className="w-full border p-2 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+          className={inputClass}
           value={filters.ordering}
           onChange={(e) => setFilters({ ...filters, ordering: e.target.value })}
         >
@@ -215,17 +223,16 @@ export default function PackageFilterSidebar({ filters, setFilters, categoryCoun
         </select>
       </div>
 
-
-
       <button onClick={onApply}
         className="w-full bg-orange-500 hover:bg-orange-600 text-white p-2.5 rounded-lg text-sm font-semibold transition">
         Apply Filters
       </button>
 
       <button onClick={onClear}
-        className="w-full border border-gray-300 text-gray-600 p-2.5 rounded-lg text-sm hover:bg-gray-50 transition">
+        className="w-full border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-300 p-2.5 rounded-lg text-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition">
         Clear Filters
       </button>
+
     </aside>
   );
 }

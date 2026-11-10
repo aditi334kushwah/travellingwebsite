@@ -9,10 +9,42 @@ import { useRouter } from 'next/navigation'
 import FadeUp from '@/components/ui/FadeUp'
 
 const contactCards = [
-  { icon: Phone, title: "Call Us", desc: "Our team is available 24/7 to assist you.", info: "Phone: +91 98765 43210", gradient: "from-blue-500 to-purple-500" },
-  { icon: MessageCircle, title: "WhatsApp", desc: "Instant Messaging Support", info: "WhatsApp: +91 98765 43210", gradient: "from-green-700 to-green-500" },
-  { icon: Mail, title: "Email Us", desc: "Our team is available 24/7 to assist you.", info: "Email: tripnova@gmail.com", gradient: "from-orange-700 to-orange-500" },
-  { icon: ImageIcon, title: "Instagram", desc: "Follow our journey", info: "@tripnova", gradient: "from-pink-700 to-orange-500" },
+  {
+    icon: Phone,
+    title: "Call Us",
+    desc: "Our team is available 24/7 to assist you.",
+    info: "+91 9760404709",
+    gradient: "from-blue-500 to-purple-500",
+    href: "tel:+919760404709",
+    label: "Tap to Call",
+  },
+  {
+    icon: MessageCircle,
+    title: "WhatsApp",
+    desc: "Instant Messaging Support",
+    info: "+91 9760404709",
+    gradient: "from-green-700 to-green-500",
+    href: "https://wa.me/919760404709",
+    label: "Chat on WhatsApp",
+  },
+  {
+    icon: Mail,
+    title: "Email Us",
+    desc: "Our team is available 24/7 to assist you.",
+    info: "aaditikkushwah12530@gmail.com",
+    gradient: "from-orange-700 to-orange-500",
+    href: "aaditikkushwah1250@gmail.com",
+    label: "Send Email",
+  },
+  {
+    icon: ImageIcon,
+    title: "Instagram",
+    desc: "Follow our journey",
+    info: "@tripnova",
+    gradient: "from-pink-700 to-orange-500",
+    href: "https://instagram.com/tripnova",
+    label: "Follow Us",
+  },
 ];
 
 const Contact = () => {
@@ -63,17 +95,25 @@ const Contact = () => {
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-playfair mb-3 text-center text-gray-900 dark:text-white">Contact Us</h2>
           <p className="text-base sm:text-lg mb-8 sm:mb-10 text-center text-gray-600 dark:text-gray-400 font-poppins">Have questions or need assistance? Reach out to us!</p>
         </FadeUp>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6  px-2">
           {contactCards.map((card, i) => {
             const Icon = card.icon;
             return (
               <FadeUp key={i} delay={i * 0.1}>
-                <div className={`bg-gradient-to-l ${card.gradient} rounded-xl shadow-lg p-6 text-white text-center flex flex-col items-center justify-center transition duration-300 hover:-translate-y-2`}>
-                  <Icon className="w-10 h-10 mb-4" />
-                  <h3 className="text-xl font-bold mb-3">{card.title}</h3>
+                <a
+                  href={card.href}
+                  target={card.href.startsWith("http") ? "_blank" : undefined}
+                  rel={card.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                  className={`bg-gradient-to-l ${card.gradient} rounded-xl shadow-lg p-6 text-white text-center flex flex-col items-center justify-center transition duration-300 hover:-translate-y-2 hover:shadow-2xl cursor-pointer group block`}
+                >
+                  <Icon className="w-10 h-10 mb-4 group-hover:scale-110 transition-transform duration-300" />
+                  <h3 className="text-xl font-bold mb-2">{card.title}</h3>
                   <p className="text-sm mb-3 text-white/80">{card.desc}</p>
-                  <p className="text-base font-bold">{card.info}</p>
-                </div>
+                  <p className="text-base font-bold mb-3">{card.info}</p>
+                  <span className="text-xs bg-white/20 px-3 py-1 rounded-full group-hover:bg-white/30 transition">
+                    {card.label}
+                  </span>
+                </a>
               </FadeUp>
             );
           })}
