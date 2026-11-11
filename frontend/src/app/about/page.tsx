@@ -1,105 +1,154 @@
 import React from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import FadeUp from '@/components/ui/FadeUp'
+import { Sparkles, HeartHandshake, Award, ShieldCheck, MapPin, ArrowRight } from 'lucide-react'
+
+const VALUES = [
+  {
+    icon: HeartHandshake,
+    title: "Genuine Hospitality",
+    desc: "Every trip is designed with authentic cultural warmth, verified homestays, and dedicated on-ground local guides.",
+  },
+  {
+    icon: Award,
+    title: "Handpicked Luxury",
+    desc: "We personally curate itineraries and boutique stays to ensure unmatched comfort and aesthetic luxury.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Safe & Seamless",
+    desc: "Transparent pricing with no hidden charges, 24/7 travel concierge, and digital verifiable trip vouchers.",
+  },
+];
 
 const About = () => {
   return (
-    <div className="bg-white dark:bg-gray-950">
+    <div className="bg-[#fcfbf9] dark:bg-[#09090b] text-gray-900 dark:text-gray-100 min-h-screen">
 
       {/* Hero Section */}
-      <section className="relative w-full h-[300px] sm:h-[380px] md:h-[450px] lg:h-[500px]">
-        <Image src="/images/premmandir.png" alt="hero image" fill className="object-cover" priority />
-        <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center text-center px-4 sm:px-10">
+      <section className="relative w-full h-[340px] sm:h-[420px] md:h-[480px] overflow-hidden flex items-center justify-center">
+        <Image src="/images/premmandir.png" alt="TripNova Journey" fill className="object-cover scale-105" priority />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/50 to-black/85" />
+        <div className="relative z-10 text-center px-4 max-w-4xl pt-16">
           <FadeUp delay={0.1}>
-            <span className="text-[#da7619] text-sm sm:text-base tracking-widest mb-2 mt-15">A B O U T</span>
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md text-amber-300 text-xs font-semibold uppercase tracking-wider mb-3 border border-white/20">
+              <Sparkles size={13} /> Our Story & Mission
+            </span>
           </FadeUp>
           <FadeUp delay={0.2}>
-            <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl text-white font-playfair leading-tight max-w-4xl">
-              About TripNova – Your Travel Companion
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold font-playfair text-white leading-tight">
+              About TripNova – Your Trusted Travel Companion
             </h1>
           </FadeUp>
-          <FadeUp delay={0.35}>
-            <p className="text-gray-200 text-sm sm:text-base md:text-lg mt-4 max-w-3xl font-poppins">
-              TriNova is a modern travel platform dedicated to helping you explore the beauty and diversity of India.
+          <FadeUp delay={0.3}>
+            <p className="mt-4 text-sm sm:text-lg text-stone-200/90 font-poppins max-w-2xl mx-auto font-light leading-relaxed">
+              We empower modern explorers to experience the untouched heritage, breathtaking nature, and soulful traditions across India.
             </p>
           </FadeUp>
         </div>
       </section>
 
-      {/* Client Say Section */}
-      <section className="py-12 sm:py-16">
-        <div className="max-w-7xl mx-auto px-5 sm:px-10 md:px-12 lg:px-5 space-y-10 sm:space-y-16">
-          <FadeUp>
-            <div className="space-y-3 max-w-2xl">
-              <span className="text-blue-600 dark:text-blue-400 font-semibold pl-6 relative before:absolute before:top-1/2 before:left-0 before:w-5 before:h-px before:bg-blue-600 before:rounded-full">
-                Happy Clients
-              </span>
-              <h1 className="font-bold text-gray-800 dark:text-white text-2xl sm:text-3xl">Client's Say About Us</h1>
+      {/* Main Container */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24 space-y-20">
+
+        {/* Mission Story Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+          <FadeUp className="lg:col-span-5 relative h-[380px] sm:h-[460px] rounded-3xl overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-800">
+            <Image
+              src="/images/prem.png"
+              fill
+              alt="Discovering India"
+              className="object-cover transition-transform duration-700 hover:scale-105"
+            />
+            <div className="absolute bottom-4 left-4 right-4 p-4 rounded-2xl bg-black/60 backdrop-blur-md border border-white/20 text-white">
+              <p className="text-xs uppercase font-bold text-amber-400">Authentic Heritage</p>
+              <p className="text-sm font-playfair font-semibold">Over 50+ handpicked cultural circuits</p>
             </div>
           </FadeUp>
 
-          <div className="flex flex-col md:flex-row md:items-stretch gap-8 lg:gap-14">
-            <FadeUp delay={0.1} className="hidden md:flex md:w-1/2 lg:w-2/5">
-              <Image src="/images/prem.png" width={1900} height={1200} alt="Author Avatar" className="w-full h-full object-cover rounded-lg" />
-            </FadeUp>
-            <FadeUp delay={0.2} className="flex-1 flex flex-col justify-center space-y-6 md:py-6 lg:py-8">
-              <p className="text-sm sm:text-base lg:text-lg font-medium text-gray-500 dark:text-gray-400 leading-relaxed">
-                "TripNova is a modern travel platform dedicated to helping you explore the beauty and diversity of India. From serene hill stations to vibrant cities and spiritual destinations, we bring you carefully curated travel experiences designed to suit every kind of traveler."
-                <br /><br />
-                "We believe that travel is more than just visiting places—it's about creating memories, discovering new cultures, and experiencing life from a different perspective."
-                <br /><br />
-                "Whether you're seeking adventure in the mountains, relaxation by the beaches, or spiritual peace in sacred destinations, TripNova ensures every trip is smooth, safe, and unforgettable."
-              </p>
-              <div className="flex items-center gap-4">
-                <Image src="/images/prem.png" width={48} height={48} alt="Author avatar" className="w-12 h-12 rounded-full object-cover" />
-                <div>
-                  <h2 className="text-base sm:text-lg font-semibold text-gray-800 dark:text-white">Prem Kelasi</h2>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Traveller</p>
-                </div>
-              </div>
-            </FadeUp>
-          </div>
+          <FadeUp delay={0.2} className="lg:col-span-7 space-y-6">
+            <span className="text-xs font-semibold uppercase tracking-wider text-orange-600 dark:text-orange-400 bg-orange-100 dark:bg-orange-950/60 px-3 py-1 rounded-full">
+              Who We Are
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-playfair font-bold text-gray-900 dark:text-white leading-tight">
+              Redefining Journeys Across Every Corner of India
+            </h2>
+            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed font-poppins">
+              TripNova was born out of a deep passion for storytelling and exploration. India is not just a destination; it is an emotion filled with ancient spiritual traditions, vibrant festivals, untamed wild sanctuaries, and tranquil mountain valleys.
+            </p>
+            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed font-poppins">
+              We take away the stress of planning by providing day-wise tailored itineraries, verified pricing, automated travel vouchers, and continuous on-trip assistance.
+            </p>
+            <div className="pt-2 flex flex-wrap gap-4">
+              <Link href="/packages">
+                <button className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-600 hover:to-orange-600 text-white text-sm font-semibold px-6 py-3 rounded-2xl shadow-lg shadow-orange-500/25 transition hover:scale-105 cursor-pointer">
+                  <span>Explore Tours</span>
+                  <ArrowRight size={16} />
+                </button>
+              </Link>
+              <Link href="/contact">
+                <button className="bg-white dark:bg-gray-800 hover:bg-slate-100 dark:hover:bg-gray-700 text-gray-800 dark:text-white border border-gray-200 dark:border-gray-700 text-sm font-semibold px-6 py-3 rounded-2xl transition cursor-pointer">
+                  Contact Our Concierge
+                </button>
+              </Link>
+            </div>
+          </FadeUp>
         </div>
-      </section>
 
-      {/* Testimonials Section */}
-      <section className="py-12 sm:py-20">
-        <div className="max-w-7xl mx-auto px-5 sm:px-10 md:px-12 lg:px-5 space-y-10 sm:space-y-16">
-          <FadeUp>
-            <div className="space-y-3 max-w-2xl">
-              <span className="rounded-lg bg-blue-100 dark:bg-blue-900/30 px-2.5 py-1 text-xs font-semibold tracking-wide text-blue-800 dark:text-blue-300">
-                Testimonials
-              </span>
-              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">What they say about us</h1>
-            </div>
-          </FadeUp>
+        {/* 3 Core Pillars */}
+        <div className="py-6 border-t border-gray-200/60 dark:border-gray-800">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <span className="text-xs font-semibold uppercase tracking-wider text-orange-600 dark:text-orange-400 bg-orange-100 dark:bg-orange-950/60 px-3 py-1 rounded-full">
+              Our Core Pillars
+            </span>
+            <h3 className="text-2xl sm:text-3xl font-playfair font-bold text-gray-900 dark:text-white mt-3">
+              Why Travelers Choose TripNova
+            </h3>
+          </div>
 
-          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
-            <FadeUp delay={0.1} className="w-full lg:w-1/2 h-[250px] sm:h-[350px] lg:h-auto relative rounded-2xl">
-              <Image src="/images/jaipur.png" alt="Jaipur" fill className="object-cover rounded-2xl" />
-            </FadeUp>
-            <FadeUp delay={0.2} className="w-full lg:w-1/2">
-              <div className="rounded-2xl shadow-lg bg-white dark:bg-gray-800 border border-gray-200/50 dark:border-gray-700">
-                <div className="flex flex-col sm:flex-row gap-0">
-                  <div className="w-full sm:w-36 md:w-40 h-48 sm:h-full relative flex-shrink-0 min-h-[180px]">
-                    <Image src="/images/jaipur2.png" alt="Author Avatar" fill className="object-cover" />
-                  </div>
-                  <div className="p-5 sm:p-6 md:p-8 flex flex-col gap-4">
-                    <div>
-                      <span className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-800 dark:text-white">Radha Jadon</span>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">Traveller</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {VALUES.map((val, i) => {
+              const Icon = val.icon;
+              return (
+                <FadeUp key={i} delay={i * 0.1}>
+                  <div className="h-full p-8 rounded-3xl bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 group">
+                    <div className="w-12 h-12 rounded-2xl bg-orange-100 dark:bg-orange-950/60 text-orange-600 dark:text-orange-400 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                      <Icon size={24} />
                     </div>
-                    <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed">
-                      Jaipur, known as the "Pink City," is famous for its stunning Rajput architecture and vibrant heritage sites. Hawa Mahal (Palace of Winds): A five-story honeycomb-shaped facade with 953 small windows designed for royal women to observe street festivals.
-                    </p>
+                    <h4 className="font-playfair font-bold text-xl text-gray-900 dark:text-white mb-2">{val.title}</h4>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed font-poppins">{val.desc}</p>
                   </div>
-                </div>
-              </div>
-            </FadeUp>
+                </FadeUp>
+              );
+            })}
           </div>
         </div>
-      </section>
 
+        {/* Client Story Spotlight */}
+        <FadeUp>
+          <div className="relative rounded-3xl bg-gradient-to-br from-amber-500/10 via-orange-500/5 to-transparent border border-orange-200 dark:border-orange-900/40 p-8 sm:p-12 overflow-hidden">
+            <div className="max-w-3xl">
+              <span className="text-xs font-bold text-orange-600 dark:text-orange-400 uppercase tracking-widest">
+                Guest Experience
+              </span>
+              <p className="mt-4 text-lg sm:text-xl md:text-2xl font-playfair font-semibold text-gray-900 dark:text-white leading-relaxed italic">
+                &ldquo;Booking our family trip through TripNova was seamless from start to finish. The day-wise itinerary made traveling so peaceful, and the instant voucher had all our pickup details ready.&rdquo;
+              </p>
+              <div className="mt-6 flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-r from-orange-500 to-amber-500 flex items-center justify-center font-bold text-white text-sm">
+                  PK
+                </div>
+                <div>
+                  <h4 className="font-semibold text-sm text-gray-900 dark:text-white">Prem Kelasi</h4>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">Rajasthan Cultural Explorer</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </FadeUp>
+
+      </div>
     </div>
   )
 }

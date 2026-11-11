@@ -5,33 +5,37 @@ import TestimonialCard from '@/components/home/TestimonialCard'
 import Image from 'next/image'
 import React from 'react'
 import FadeUp from '@/components/ui/FadeUp'
+import { Sparkles, Compass, Shield, Award } from 'lucide-react'
 
 const ExperienceSection = () => {
   return (
-    <section className="bg-white dark:bg-gray-950">
-      {/* Hero Banner */}
-      <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[520px]">
-        <Image src="/images/night.png" alt="Experience" fill className="object-cover" priority />
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center bg-black/50 px-4">
+    <section className="bg-[#fcfbf9] dark:bg-[#09090b] text-gray-900 dark:text-gray-100 min-h-screen">
+      
+      {/* Hero Banner with Unified Warm Saffron Gradient */}
+      <div className="relative w-full h-[340px] sm:h-[420px] md:h-[480px] overflow-hidden flex items-center justify-center">
+        <Image src="/images/night.png" alt="Incredible Experiences" fill className="object-cover scale-105" priority />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/50 to-black/85" />
+        <div className="relative z-10 text-center px-4 max-w-4xl pt-16">
           <FadeUp delay={0.1}>
-            <h2 className="text-sm sm:text-base mt-15 font-poppins mb-3 text-amber-500 tracking-widest">
-              E X P E R I E N C E S
-            </h2>
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md text-amber-300 text-xs font-semibold uppercase tracking-wider mb-3 border border-white/20">
+              <Sparkles size={13} /> Curated Journeys
+            </span>
           </FadeUp>
           <FadeUp delay={0.2}>
-            <p className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-playfair leading-tight max-w-4xl">
-              Discover unforgettable experiences around the world.
-            </p>
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold font-playfair text-white leading-tight">
+              Unforgettable Travel Experiences Across India
+            </h1>
           </FadeUp>
           <FadeUp delay={0.35}>
-            <p className="text-sm sm:text-base md:text-xl mt-4 max-w-2xl text-white/80 font-poppins">
-              Join us on a journey to create memories that last a lifetime. Experience the Soul of India 🇮🇳
+            <p className="mt-4 text-sm sm:text-lg text-stone-200/90 font-poppins max-w-2xl mx-auto font-light leading-relaxed">
+              From thrilling Himalayan snow treks to serene backwater houseboats and sacred spiritual ghats.
             </p>
           </FadeUp>
         </div>
       </div>
 
-      <div>
+      {/* Consistent Section Layout Container */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 space-y-12">
         <ExperienceCategories />
         <FeaturedExperiences />
         <WhatYouGet />

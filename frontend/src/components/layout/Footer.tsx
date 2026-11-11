@@ -1,6 +1,6 @@
 import Link from "next/link"
 import Image from "next/image"
-import { Home, Sparkles, PackageOpen, Info, Phone, BookOpen, Shield, FileText, HelpCircle } from "lucide-react"
+import { Home, Sparkles, PackageOpen, Info, Phone, BookOpen, ShieldCheck, Mail, MapPin } from "lucide-react"
 import { LucideIcon } from "lucide-react"
 
 type FooterItemType = {
@@ -15,129 +15,102 @@ type FooterBlockType = {
   title: string;
   items: FooterItemType[];
 };
- 
+
 const FooterItem = ({ text, link, icon: Icon }: FooterItemType) => {
-return (
+  return (
     <li>
-        <Link href={link} className="flex items-center gap-2 duration-200 hover:text-blue-400">
-            <Icon size={15} />
-            {text}
-        </Link>
+      <Link
+        href={link}
+        className="flex items-center gap-2 text-stone-300 hover:text-amber-400 text-sm transition-colors duration-200"
+      >
+        <Icon size={15} className="text-amber-500/80" />
+        <span>{text}</span>
+      </Link>
     </li>
-)
-}
- 
+  );
+};
+
 const FooterBlockItem = ({ title, items }: FooterBlockType) => {
-return (
-    <div className="space-y-6">
-        <h1 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{title}</h1>
-        <ul className="space-y-3">
-            {
-                items.map(item=>(
-                    <FooterItem key={item.id} {...item}/>
-                ))
-            }
-        </ul>
+  return (
+    <div className="space-y-4">
+      <h3 className="text-sm font-bold uppercase tracking-wider text-amber-400 font-poppins">{title}</h3>
+      <ul className="space-y-2.5">
+        {items.map((item) => (
+          <FooterItem key={item.id} {...item} />
+        ))}
+      </ul>
     </div>
-)
-}
- 
-const footerBlocks = [
-{
+  );
+};
+
+const footerBlocks: FooterBlockType[] = [
+  {
     id: 1,
-    title: "Links",
+    title: "Explore",
     items: [
-        { id: 1, text: "Home", link: "/", icon: Home },
-        { id: 2, text: "Experiences", link: "/experiences", icon: Sparkles },
-        { id: 3, text: "Packages", link: "/packages", icon: PackageOpen },
-        { id: 4, text: "About", link: "/about", icon: Info },
-        { id: 5, text: "Contact", link: "/contact", icon: Phone },
-    ]
-},
-{
+      { id: 1, text: "Home", link: "/", icon: Home },
+      { id: 2, text: "Curated Packages", link: "/packages", icon: PackageOpen },
+      { id: 3, text: "Unique Experiences", link: "/experiences", icon: Sparkles },
+      { id: 4, text: "About TripNova", link: "/about", icon: Info },
+    ],
+  },
+  {
     id: 2,
-    title: "Ressources",
+    title: "Guest Services",
     items: [
-        { id: 1, text: "Blog", link: "#", icon: BookOpen },
-        { id: 2, text: "Privacy", link: "#", icon: Shield },
-        { id: 3, text: "Terms", link: "#", icon: FileText },
-        { id: 4, text: "FAQ", link: "#", icon: HelpCircle },
-    ]
-},
-]
- 
- 
-export const FooterBlock = () => {
-return (
-    <footer className="bg-gradient-to-br from-blue-900 to-gray-100 dark:bg-gray-900 text-white dark:text-gray-300 mt-15">
-        <div className="max-w-7xl mx-auto px-5 sm:px-10 md:px-12 lg:px-5 grid grid-cols-2 lg:grid-cols-6 gap-12 lg:gap-16 py-20">
-            <div className="space-y-6 col-span-2">
-                <div className="flex flex-row">
-                    <Link href="/">
-                        <Image src="/logo.png" 
-                        alt="Logo"
-                         width={120}
-                          height={120} 
-                         className="rounded-full transition duration-300 hover:translate-y-0.5 " />
-                    </Link>
-                    <Link href="/">
-                        <span className="font-bold pt-6 text-2xl"> TripNova</span>
-                    </Link>
-                </div>
-               
-                <p className="max-w-lg">
-                   Discover breathtaking destinations, rich culture, and unforgettable journeys across India — all in one place
-                </p>
+      { id: 5, text: "Book a Holiday", link: "/booking", icon: BookOpen },
+      { id: 6, text: "Contact Support", link: "/contact", icon: Phone },
+      { id: 7, text: "Guest Dashboard", link: "/dashboard", icon: ShieldCheck },
+    ],
+  },
+];
+
+export default function Footer() {
+  return (
+    <footer className="w-full bg-[#09090b] text-white border-t border-stone-800/80 mt-auto">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-14">
+          
+          {/* Brand Info */}
+          <div className="md:col-span-5 space-y-4">
+            <Link href="/" className="inline-block">
+              <span className="text-3xl font-bold font-playfair bg-gradient-to-r from-amber-400 via-orange-300 to-amber-200 bg-clip-text text-transparent">
+                TripNova
+              </span>
+            </Link>
+            <p className="text-stone-400 text-sm leading-relaxed max-w-sm font-poppins font-light">
+              Your gateway to Incredible India. Handcrafted tour packages, transparent pricing, verified stays, and memorable journeys across every state.
+            </p>
+            <div className="pt-2 text-xs text-stone-400 space-y-1.5 font-poppins">
+              <p className="flex items-center gap-2">
+                <MapPin size={14} className="text-amber-500" />
+                Connaught Place, New Delhi, India 🇮🇳
+              </p>
+              <p className="flex items-center gap-2">
+                <Mail size={14} className="text-amber-500" />
+                aaditikkushwah12530@gmail.com
+              </p>
+              <p className="flex items-center gap-2">
+                <Phone size={14} className="text-amber-500" />
+                +91 9760404709 (24/7 Helpline)
+              </p>
             </div>
- 
-            {
-                footerBlocks.map(footerBlock=>(
-                    <FooterBlockItem key={footerBlock.id} {...footerBlock}/>
-                ))
-            }
- 
-            <div className="space-y-6 col-span-2">
-                <h1 className="text-lg font-semibold text-gray-900 dark:text-gray-100">News-letter</h1>
-                <form className="w-full max-w-2xl flex flex-col sm:flex-row gap-3">
-                    <input type="email" placeholder="johndoe@gmail.com" className="px-5 py-2.5 rounded-md outline-none flex-1 bg-gray-200 dark:bg-gray-800" />
-                    <button className="outline-none w-full py-2.5 px-5 sm:w-max bg-blue-600 text-white rounded-md flex items-center justify-center">
-                        Subscribe
-                    </button>
-                </form>
-            </div>
+          </div>
+
+          {/* Nav Links Blocks */}
+          <div className="md:col-span-7 grid grid-cols-2 sm:grid-cols-2 gap-8">
+            {footerBlocks.map((block) => (
+              <FooterBlockItem key={block.id} {...block} />
+            ))}
+          </div>
         </div>
-        <div className="max-w-7xl mx-auto px-5 sm:px-10 md:px-12 lg:px-5">
-            <div className="w-full flex flex-col md:flex-row gap-4 items-center sm:justify-between py-3 border-t border-gray-200 dark:border-t-gray-800 text-gray-700 dark:text-gray-300">
-                <div className="flex text-center sm:text-left sm:min-w-max">
-                    <p> © 2026 TripNova. All right reserved </p>
-                </div>
-                <div className="flex justify-center sm:justify-end w-full gap-3">
-                    <a href="#" aria-label="social link" rel="noreferer">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="w-5 h-5" viewBox="0 0 16 16">
-                            <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
-                        </svg>
-                    </a>
-                    <a href="#" aria-label="social link" rel="noreferer">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="w-5 h-5" viewBox="0 0 16 16">
-                            <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z" />
-                        </svg>
-                    </a>
-                    <a href="#" aria-label="social link" rel="noreferer">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="w-5 h-5" viewBox="0 0 16 16">
-                            <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z" />
-                        </svg>
-                    </a>
-                    <a href="#" aria-label="social link" rel="noreferer">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="w-5 h-5" viewBox="0 0 16 16">
-                            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
-                        </svg>
-                    </a>
-                </div>
-            </div>
+
+        {/* Bottom Bar */}
+        <div className="mt-14 pt-8 border-t border-stone-800 flex flex-col sm:flex-row justify-between items-center text-xs text-stone-400 gap-4 font-poppins">
+          <p>© {new Date().getFullYear()} TripNova Travel Services. All rights reserved.</p>
+          <p className="text-stone-400">Crafted with passion for Indian Tourism 🇮🇳</p>
         </div>
+      </div>
     </footer>
- 
-)
+  );
 }
- 
-export default FooterBlock
