@@ -36,7 +36,7 @@ const Navbar = () => {
 
   return (
     <div className="flex flex-col items-center absolute z-50 w-full">
-      <div className="flex items-center w-[90%] md:w-[80%] h-16 px-4 text-white bg-gray-200/80 dark:bg-gray-800/80 backdrop-blur-md fixed mt-5 rounded-4xl border-b shadow-lg border-white/20 dark:border-gray-700">
+      <div className="flex items-center w-[92%] max-w-6xl h-18 px-5 sm:px-6 text-gray-800 dark:text-gray-100 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl fixed mt-5 rounded-full border border-black/5 dark:border-white/10 shadow-[0_8px_30px_rgb(0,0,0,0.08)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.4)]">
 
         {/* Logo */}
         <Link href="/">
@@ -51,14 +51,14 @@ const Navbar = () => {
         </Link>
 
         {/* Desktop Links */}
-        <div className="hidden md:flex gap-8 ml-auto py-4 space-x-2">
+        <div className="hidden md:flex gap-1.5 ml-auto py-2">
           {navLinks.map(({ href, label, icon: Icon }) => (
             <Link
               key={href}
               href={href}
-              className="flex items-center gap-1.5 text-gray-900 dark:text-gray-100 text-sm transition duration-300 hover:translate-y-0.5 hover:bg-[#c8782f] hover:text-white px-4 py-1.5 rounded-full"
+              className="flex items-center gap-1.5 text-gray-700 dark:text-gray-200 text-sm font-medium transition-all duration-300 hover:text-white hover:bg-gradient-to-r hover:from-amber-600 hover:to-orange-600 px-4 py-2 rounded-full"
             >
-              <Icon size={14} />
+              <Icon size={15} />
               {label}
             </Link>
           ))}
@@ -77,13 +77,13 @@ const Navbar = () => {
         {isLoggedIn ? (
           <button
             onClick={handleLogout}
-            className="ml-3 bg-red-500 h-10 text-white py-2 px-4 rounded-full transition duration-300 hover:bg-red-600"
+            className="ml-3 bg-red-500 hover:bg-red-600 text-white text-xs font-semibold uppercase tracking-wider py-2.5 px-5 rounded-full transition shadow-md"
           >
             Logout
           </button>
         ) : (
           <Link href="/login" className="ml-3">
-            <button className="bg-[#c8782f] h-10 text-white py-2 px-4 rounded-full transition duration-300 hover:bg-[#a56025]">
+            <button className="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white text-xs font-semibold uppercase tracking-wider py-2.5 px-5 rounded-full transition shadow-md shadow-orange-500/20 cursor-pointer">
               Login
             </button>
           </Link>
