@@ -1,7 +1,8 @@
 "use client";
 
-import React from "react";
-import { Printer, X, CheckCircle2, MapPin, Calendar, Users, IndianRupee, Mail, Phone, Globe } from "lucide-react";
+import React, { useState } from "react";
+import { Printer, Download, X, CheckCircle2, MapPin, Calendar, Users, IndianRupee, Mail, Phone, Globe, Loader2 } from "lucide-react";
+import { generateBookingPDF } from "@/utils/generateBookingPDF";
 
 export type BookingTicketData = {
   id: number | string;
@@ -29,10 +30,25 @@ interface BookingTicketModalProps {
 }
 
 export default function BookingTicketModal({ booking, onClose }: BookingTicketModalProps) {
+  const [downloading, setDownloading] = useState(false);
+
   if (!booking) return null;
 
   const totalAmount =
     Number(booking.budget_per_person || 0) * Number(booking.number_of_people || 1);
+
+  const handleDirectDownload = () => {
+    try {
+      setDownloading(true);
+      generateBookingPDF(booking);
+    } catch (err) {
+      console.error("Direct PDF download failed:", err);
+      // Fallback to print
+      handlePrint();
+    } finally {
+      setTimeout(() => setDownloading(false), 800);
+    }
+  };
 
   const handlePrint = () => {
     // Generate clean isolated print window with full styling so all browsers print immediately with 100% guarantee
@@ -68,7 +84,7 @@ export default function BookingTicketModal({ booking, onClose }: BookingTicketMo
       }
       .voucher-card {
         max-width: 680px;
-        margin: 0 auto;
+        margin-top: auto;
         border: 2px solid #e2e8f0;
         border-radius: 20px;
         padding: 32px;
@@ -310,14 +326,24 @@ export default function BookingTicketModal({ booking, onClose }: BookingTicketMo
             </span>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <button
+              type="button"
+              onClick={handleDirectDownload}
+              disabled={downloading}
+              className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white rounded-xl text-xs sm:text-sm font-semibold shadow-md transition hover:scale-105 active:scale-95 cursor-pointer disabled:opacity-50"
+            >
+              {downloading ? <Loader2 size={16} className="animate-spin" /> : <Download size={16} />}
+              <span>{downloading ? "Downloading..." : "1-Click Download PDF"}</span>
+            </button>
             <button
               type="button"
               onClick={handlePrint}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-xl text-sm font-semibold shadow-md transition hover:scale-105 active:scale-95 cursor-pointer"
+              title="Print Voucher"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 rounded-xl text-xs font-semibold transition cursor-pointer"
             >
-              <Printer size={16} />
-              Print / Save PDF
+              <Printer size={15} />
+              Print
             </button>
             <button
               type="button"
