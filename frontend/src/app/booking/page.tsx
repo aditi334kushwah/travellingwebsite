@@ -1,18 +1,33 @@
 "use client";
 
+import { Suspense } from "react";
 import Form from "@/components/ui/Form";
 import FadeUp from "@/components/ui/FadeUp";
 import { useSearchParams } from "next/navigation";
 
-export default function BookingPage() {
-
+function BookingContent() {
   const searchParams = useSearchParams();
   const packageId = Number(searchParams.get("packageId"));
 
   if (!packageId) {
-    return <p className="text-center mt-24">No package selected. Please go back and choose a package.</p>;
+    return (
+      <div className="text-center mt-24 p-8 bg-white dark:bg-gray-800 rounded-2xl shadow max-w-md mx-auto">
+        <p className="text-gray-700 dark:text-gray-200 font-semibold mb-4">No package selected.</p>
+        <a href="/packages" className="inline-block bg-orange-500 hover:bg-orange-600 text-white px-6 py-2.5 rounded-xl font-medium transition">
+          Choose a Package
+        </a>
+      </div>
+    );
   }
 
+  return (
+    <FadeUp delay={0.3}>
+      <Form packageId={packageId} />
+    </FadeUp>
+  );
+}
+
+export default function BookingPage() {
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden bg-gray-100 py-32 dark:bg-gray-900 sm:py-36 lg:py-40">
 
@@ -49,9 +64,9 @@ export default function BookingPage() {
           </FadeUp>
         </div>
 
-        <FadeUp delay={0.3}>
-          <Form packageId={packageId} />
-        </FadeUp>
+        <Suspense fallback={<div className="text-center py-12 text-gray-400">Loading booking form...</div>}>
+          <BookingContent />
+        </Suspense>
       </div>
     </section>
   );
