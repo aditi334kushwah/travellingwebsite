@@ -4,20 +4,25 @@ import { LayoutGrid } from "@/components/ui/layout-grid";
 
 export function LayoutGridSection() {
   return (
-    <div className="h-auto py-20 w-full">
-        <div>
-        <div className='flex  justify-center align-center mb-5'>
-             <span className='bg-transparent align-center justify-center text-gray-800 backdrop-blur-2xl rounded-full border text-xl font-poppins border-gray-300 px-6 py-2 dark:text-white'> Experience </span>
-             
-         </div>
-         <h1 className='sm:text-2xl md:text-6xl font-playfair my-4 text-center '> Feel Experience </h1>
-         <h4 className='text-xl text-center text-gray-600 font-poppins dark:text-gray-400'>
-           From serene landscapes to thrilling adventures, discover moments that turn into lifelong memories.
-         </h4>
+    <section className="py-20 sm:py-24 bg-gradient-to-b from-[#fcfbf9] via-stone-50 to-[#fcfbf9] dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+          <div className="flex justify-center items-center mb-4">
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-orange-100 dark:bg-orange-950/60 text-orange-700 dark:text-orange-300 border border-orange-200 dark:border-orange-900/50 text-xs font-bold uppercase tracking-wider">
+              Visual Memories
+            </span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-playfair font-bold text-gray-900 dark:text-white tracking-tight">
+            Feel the Experience
+          </h2>
+          <p className="mt-3 text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 font-poppins">
+            From timeless temple spires to snow-dusted alpine ridges, glimpse the sacred moments awaiting your arrival.
+          </p>
         </div>
-      <LayoutGrid cards={cards} />
-      
-    </div>
+
+        <LayoutGrid cards={cards} />
+      </div>
+    </section>
   );
 }
 
