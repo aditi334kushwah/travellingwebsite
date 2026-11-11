@@ -1,29 +1,56 @@
 "use client";
 
-import { Star, Quote, MapPin } from "lucide-react";
+import { Star, Quote, MapPin, CheckCircle2 } from "lucide-react";
 import FadeUp from "@/components/ui/FadeUp";
 
-type Testimonial = { desc: string; name: string; initials: string; location: string };
+type Testimonial = {
+  desc: string;
+  name: string;
+  initials: string;
+  location: string;
+  trip: string;
+  rating: number;
+};
+
 type Props = { item: Testimonial; index?: number };
 
 const TestimonialCard: React.FC<Props> = ({ item, index = 0 }) => {
-  const isGreen = index === 1;
   return (
-    <div className={`relative rounded-2xl p-5 sm:p-6 w-full backdrop-blur-lg border border-white/20 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl ${isGreen ? "bg-green-200/30 dark:bg-green-900/20" : "bg-orange-200/30 dark:bg-orange-900/20"}`}>
-      <div className="flex gap-1 text-black dark:text-white mb-4">
-        {Array.from({ length: 5 }).map((_, i) => <Star key={i} size={14} fill="currentColor" />)}
+    <div className="relative rounded-3xl p-6 sm:p-8 w-full bg-white dark:bg-gray-900 border border-stone-200/80 dark:border-gray-800 shadow-[0_4px_25px_rgb(0,0,0,0.04)] transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] flex flex-col justify-between">
+      {/* Top Header: Star rating & Quote icon */}
+      <div>
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex gap-1 text-amber-500">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Star key={i} size={15} fill="currentColor" />
+            ))}
+          </div>
+          <div className="w-9 h-9 rounded-full bg-orange-50 dark:bg-orange-950/60 text-orange-600 dark:text-orange-400 flex items-center justify-center">
+            <Quote size={16} />
+          </div>
+        </div>
+
+        <p className="text-gray-700 dark:text-gray-200 text-sm sm:text-base leading-relaxed font-poppins italic">
+          "{item.desc}"
+        </p>
+
+        <div className="mt-3 inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-2 py-0.5 rounded-md">
+          <CheckCircle2 size={12} /> Verified Traveler &bull; {item.trip}
+        </div>
       </div>
-      <div className={`absolute top-5 right-5 ${isGreen ? "bg-green-600" : "bg-orange-500"} p-2 sm:p-3 rounded-full text-white`}>
-        <Quote size={16} />
-      </div>
-      <p className="text-gray-800 dark:text-gray-200 text-sm my-6 italic">"{item.desc}"</p>
-      <div className="flex items-center gap-3">
-        <div className={`w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full text-white font-semibold text-sm ${isGreen ? "bg-green-600" : "bg-orange-500"}`}>
+
+      {/* User Info Bar */}
+      <div className="flex items-center gap-3.5 mt-6 pt-5 border-t border-stone-100 dark:border-gray-800">
+        <div className="w-11 h-11 flex items-center justify-center rounded-2xl bg-gradient-to-br from-orange-500 to-amber-600 text-white font-bold text-sm shadow-md shadow-orange-500/20 shrink-0">
           {item.initials}
         </div>
         <div>
-          <h4 className="font-semibold text-sm text-gray-900 dark:text-white">{item.name}</h4>
-          <p className="text-xs text-gray-600 dark:text-gray-400 flex items-center gap-1"><MapPin size={11} /> {item.location}</p>
+          <h4 className="font-bold text-sm sm:text-base text-gray-900 dark:text-white font-playfair">
+            {item.name}
+          </h4>
+          <p className="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1 mt-0.5 font-poppins">
+            <MapPin size={12} className="text-orange-500" /> {item.location}
+          </p>
         </div>
       </div>
     </div>
@@ -32,42 +59,63 @@ const TestimonialCard: React.FC<Props> = ({ item, index = 0 }) => {
 
 export default function TestimonialCardSection() {
   const testimonials: Testimonial[] = [
-    { desc: "The cultural immersion was incredible.", name: "Maria Klein", initials: "MK", location: "Germany • Rajasthan" },
-    { desc: "Perfect balance of adventure and comfort.", name: "James Davidson", initials: "JD", location: "UK • Kerala" },
-    { desc: "Exceptional attention to detail.", name: "Sophie Laurent", initials: "SL", location: "France • Rishikesh" },
+    {
+      desc: "The cultural immersion in Rajasthan was beyond words. From private desert camps to local folk artists, every detail felt royally curated.",
+      name: "Maria Klein",
+      initials: "MK",
+      location: "Frankfurt, Germany",
+      trip: "Royal Rajasthan Circuit",
+      rating: 5,
+    },
+    {
+      desc: "Perfect balance of adrenaline and tranquil mountain comfort. Our guide was extraordinarily knowledgeable and safety-first.",
+      name: "James Davidson",
+      initials: "JD",
+      location: "London, United Kingdom",
+      trip: "Kerala Backwaters & Munnar",
+      rating: 5,
+    },
+    {
+      desc: "Exceptional attention to detail and zero booking friction. The digital voucher on phone made check-in seamless across every destination.",
+      name: "Sophie Laurent",
+      initials: "SL",
+      location: "Paris, France",
+      trip: "Spiritual Rishikesh Escape",
+      rating: 5,
+    },
   ];
 
   return (
-    <div className="flex flex-col items-center justify-center bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 py-12 sm:py-16 px-4 sm:px-8">
-
-      <div className="text-center">
-        <FadeUp>
-          <div className="flex justify-center items-center mb-5">
-            <span className="text-black dark:text-white border text-base sm:text-xl font-poppins border-gray-400 dark:border-gray-600 px-5 py-2 rounded-full">
-              Testimonials
+    <section className="py-20 sm:py-24 bg-gradient-to-b from-[#fcfbf9] via-stone-50 to-[#fcfbf9] dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 px-4 sm:px-6">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
+          <FadeUp>
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-orange-100 dark:bg-orange-950/60 text-orange-700 dark:text-orange-300 border border-orange-200 dark:border-orange-900/50 text-xs font-bold uppercase tracking-wider">
+              Traveler Stories
             </span>
-          </div>
-        </FadeUp>
-        <FadeUp delay={0.1}>
-          <h1 className="text-2xl sm:text-3xl md:text-6xl font-playfair my-4 text-gray-900 dark:text-white">
-            What Our Travelers Say
-          </h1>
-        </FadeUp>
-        <FadeUp delay={0.2}>
-          <h4 className="text-base sm:text-2xl text-gray-600 dark:text-gray-400">
-            Real experiences from real travelers.
-          </h4>
-        </FadeUp>
-      </div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-10 w-full max-w-5xl">
-        {testimonials.map((item, index) => (
-          <FadeUp key={index} delay={index * 0.12}>
-            <TestimonialCard item={item} index={index} />
           </FadeUp>
-        ))}
-      </div>
 
-    </div>
+          <FadeUp delay={0.1}>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-playfair font-bold mt-4 text-gray-900 dark:text-white tracking-tight">
+              What Our Travelers Say
+            </h2>
+          </FadeUp>
+
+          <FadeUp delay={0.18}>
+            <p className="mt-3 text-sm sm:text-base text-gray-600 dark:text-gray-400 font-poppins">
+              Authentic stories and verified memories from explorers across the globe.
+            </p>
+          </FadeUp>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+          {testimonials.map((item, index) => (
+            <FadeUp key={index} delay={index * 0.1}>
+              <TestimonialCard item={item} index={index} />
+            </FadeUp>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
