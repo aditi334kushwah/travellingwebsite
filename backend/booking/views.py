@@ -259,13 +259,32 @@ class BookingListCreateView(generics.ListCreateAPIView):
             return Booking.objects.all().order_by('-created_at')
         return Booking.objects.filter(user=user).order_by('-created_at')
 
+    def create(self, request, *args, **kwargs):
+        try:
+            serializer = self.get_serializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            self.perform_create(serializer)
+            headers = self.get_success_headers(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        except Exception as e:
+            import traceback
+            traceback.print_exc()
+            return Response(
+                {"error": str(e), "detail": getattr(e, "detail", str(e))},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
     def perform_create(self, serializer):
-        booking = serializer.save(user=self.request.user)
+        user = self.request.user if self.request.user and self.request.user.is_authenticated else None
+        booking = serializer.save(user=user)
 
         # Run email sending in background thread so request responds instantly
-        email_thread = threading.Thread(target=send_booking_email_async, args=(booking,))
-        email_thread.daemon = True
-        email_thread.start()
+        try:
+            email_thread = threading.Thread(target=send_booking_email_async, args=(booking,))
+            email_thread.daemon = True
+            email_thread.start()
+        except Exception as e:
+            print("Failed to spawn email thread:", repr(e))
 
 
 class RazorpayCreateOrderView(APIView):
