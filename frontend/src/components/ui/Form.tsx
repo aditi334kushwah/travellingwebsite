@@ -1,9 +1,10 @@
 "use client"
 import axios from "axios"
 import { useState, useEffect } from "react"
-import { CheckCircle, X, Download, MapPin, Tag, Calendar, Users, IndianRupee } from "lucide-react";
+import { CheckCircle, X, Download, MapPin, Tag, Calendar, Users, IndianRupee, FileText } from "lucide-react";
 import { useRouter } from "next/navigation";
 import BookingTicketModal, { BookingTicketData } from "@/components/booking/BookingTicketModal";
+import { generateBookingPDF } from "@/utils/generateBookingPDF";
 
 type PackageInfo = {
   id: number;
@@ -160,11 +161,29 @@ const Form = ({ packageId }: { packageId: number }) => {
               <button
                 type="button"
                 onClick={() => {
+                  if (submittedBooking) {
+                    try {
+                      generateBookingPDF(submittedBooking);
+                    } catch (e) {
+                      console.error(e);
+                      setShowTicketModal(true);
+                    }
+                  } else {
+                    setShowTicketModal(true);
+                  }
+                }}
+                className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-orange-500 to-amber-600 text-white px-5 py-3 rounded-xl font-semibold hover:from-orange-600 hover:to-amber-700 shadow-md transition hover:scale-105 active:scale-95 text-sm cursor-pointer"
+              >
+                <Download size={16} /> 1-Click Download PDF
+              </button>
+              <button
+                type="button"
+                onClick={() => {
                   setShowTicketModal(true);
                 }}
-                className="inline-flex items-center justify-center gap-2 bg-orange-500 text-white px-5 py-3 rounded-xl font-semibold hover:bg-orange-600 shadow-md transition hover:scale-105 text-sm"
+                className="inline-flex items-center justify-center gap-2 bg-orange-100 hover:bg-orange-200 text-orange-800 dark:bg-gray-700 dark:text-gray-200 px-4 py-3 rounded-xl font-semibold transition text-sm cursor-pointer"
               >
-                <Download size={16} /> View & Download Voucher
+                <FileText size={16} /> View Voucher
               </button>
               <button
                 type="button"
@@ -172,9 +191,9 @@ const Form = ({ packageId }: { packageId: number }) => {
                   setShowSuccess(false);
                   router.push("/dashboard");
                 }}
-                className="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 px-5 py-3 rounded-xl font-semibold hover:bg-gray-200 dark:hover:bg-gray-600 transition text-sm"
+                className="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 px-4 py-3 rounded-xl font-semibold hover:bg-gray-200 dark:hover:bg-gray-600 transition text-sm cursor-pointer"
               >
-                Go to Dashboard
+                Dashboard
               </button>
             </div>
           </div>
