@@ -21,6 +21,7 @@ const Form = ({ packageId }: { packageId: number }) => {
   const [pkgDetails, setPkgDetails] = useState<PackageInfo | null>(null);
   const [loadingPkg, setLoadingPkg] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [showTicketModal, setShowTicketModal] = useState(false);
   const [submittedBooking, setSubmittedBooking] = useState<BookingTicketData | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -119,52 +120,59 @@ const Form = ({ packageId }: { packageId: number }) => {
     <>
       {showSuccess && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm px-4">
-          <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl p-8 max-w-lg w-full text-center relative border border-gray-100 dark:border-gray-700">
+          <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl p-6 sm:p-8 max-w-lg w-full text-center relative border border-gray-100 dark:border-gray-700">
             <button onClick={() => setShowSuccess(false)} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition">
               <X size={22} />
             </button>
-            <div className="flex justify-center mb-4"><CheckCircle className="w-16 h-16 text-emerald-500 animate-bounce" /></div>
+            <div className="flex justify-center mb-3"><CheckCircle className="w-14 h-14 text-emerald-500 animate-bounce" /></div>
             <h2 className="text-2xl font-bold font-playfair text-gray-800 dark:text-white mb-1">Booking Confirmed!</h2>
-            <p className="text-gray-500 dark:text-gray-400 text-sm mb-4">Aapki trip successfully register ho gayi hai.</p>
+            <p className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm mb-4">Aapki trip successfully register ho gayi hai.</p>
 
             {/* Booked Package Summary Card */}
-            <div className="p-4 rounded-2xl bg-orange-50 dark:bg-orange-950/40 border border-orange-200 dark:border-orange-900/50 text-left mb-6">
-              <div className="flex items-center justify-between">
-                <span className="text-xs uppercase font-bold text-orange-600 dark:text-orange-400 tracking-wider">Booked Package</span>
-                <span className="text-xs font-mono font-bold bg-orange-200 dark:bg-orange-900/80 text-orange-900 dark:text-orange-200 px-2 py-0.5 rounded">
-                  {submittedBooking?.package_code || `PKG-${packageId}`}
+            <div className="p-4 sm:p-5 rounded-2xl bg-orange-50 dark:bg-orange-950/40 border border-orange-200 dark:border-orange-900/50 text-left mb-6 shadow-sm">
+              <div className="flex items-center justify-between pb-2 border-b border-orange-200/60 dark:border-orange-900/40">
+                <span className="text-[11px] uppercase font-bold text-orange-600 dark:text-orange-400 tracking-wider">Booked Package</span>
+                <span className="text-xs font-mono font-bold bg-orange-200 dark:bg-orange-900/80 text-orange-900 dark:text-orange-200 px-2.5 py-0.5 rounded-md">
+                  {submittedBooking?.package_code || pkgDetails?.package_code || `PKG-${packageId}`}
                 </span>
               </div>
-              <p className="font-bold text-gray-900 dark:text-white text-base mt-1">
-                {submittedBooking?.package_title || pkgDetails?.title}
-              </p>
-              {submittedBooking?.package_location && (
-                <p className="text-xs text-gray-600 dark:text-gray-300 flex items-center gap-1 mt-1">
-                  <MapPin size={12} className="text-orange-500" /> {submittedBooking.package_location}
-                </p>
-              )}
-              <div className="mt-2 pt-2 border-t border-orange-200/60 dark:border-orange-900/40 flex justify-between text-xs text-gray-600 dark:text-gray-300">
-                <span>Guests: <strong>{submittedBooking?.number_of_people}</strong></span>
-                <span>Month: <strong>{submittedBooking?.travel_month}</strong></span>
+
+              <div className="mt-3">
+                <h3 className="font-bold text-gray-900 dark:text-white text-base sm:text-lg">
+                  {submittedBooking?.package_title || pkgDetails?.title || "Travel Package"}
+                </h3>
+                {(submittedBooking?.package_location || pkgDetails?.location) && (
+                  <p className="text-xs text-gray-600 dark:text-gray-300 flex items-center gap-1 mt-1 font-medium">
+                    <MapPin size={13} className="text-orange-500" /> {submittedBooking?.package_location || pkgDetails?.location}
+                  </p>
+                )}
+              </div>
+
+              <div className="mt-3 pt-3 border-t border-orange-200/60 dark:border-orange-900/40 grid grid-cols-2 gap-2 text-xs text-gray-700 dark:text-gray-300">
+                <div>Traveler: <strong className="text-gray-900 dark:text-white">{submittedBooking?.name}</strong></div>
+                <div>Guests: <strong className="text-gray-900 dark:text-white">{submittedBooking?.number_of_people} Person(s)</strong></div>
+                <div>Month: <strong className="text-gray-900 dark:text-white">{submittedBooking?.travel_month}</strong></div>
+                <div>Rate: <strong className="text-gray-900 dark:text-white">₹{submittedBooking?.budget_per_person}</strong></div>
               </div>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <button
+                type="button"
                 onClick={() => {
-                  setShowSuccess(false);
+                  setShowTicketModal(true);
                 }}
-                className="inline-flex items-center justify-center gap-2 bg-orange-500 text-white px-5 py-3 rounded-xl font-semibold hover:bg-orange-600 shadow-md transition hover:scale-105"
+                className="inline-flex items-center justify-center gap-2 bg-orange-500 text-white px-5 py-3 rounded-xl font-semibold hover:bg-orange-600 shadow-md transition hover:scale-105 text-sm"
               >
                 <Download size={16} /> View & Download Voucher
               </button>
               <button
+                type="button"
                 onClick={() => {
                   setShowSuccess(false);
-                  setSubmittedBooking(null);
                   router.push("/dashboard");
                 }}
-                className="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 px-5 py-3 rounded-xl font-semibold hover:bg-gray-200 dark:hover:bg-gray-600 transition"
+                className="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 px-5 py-3 rounded-xl font-semibold hover:bg-gray-200 dark:hover:bg-gray-600 transition text-sm"
               >
                 Go to Dashboard
               </button>
@@ -174,10 +182,12 @@ const Form = ({ packageId }: { packageId: number }) => {
       )}
 
       {/* Ticket / Voucher Modal */}
-      <BookingTicketModal
-        booking={submittedBooking}
-        onClose={() => setSubmittedBooking(null)}
-      />
+      {showTicketModal && (
+        <BookingTicketModal
+          booking={submittedBooking}
+          onClose={() => setShowTicketModal(false)}
+        />
+      )}
 
       <section className="min-h-screen bg-transparent px-4">
         <div className="max-w-4xl mx-auto">

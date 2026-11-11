@@ -35,7 +35,260 @@ export default function BookingTicketModal({ booking, onClose }: BookingTicketMo
     Number(booking.budget_per_person || 0) * Number(booking.number_of_people || 1);
 
   const handlePrint = () => {
-    window.print();
+    const printContent = document.getElementById("printable-voucher");
+    if (!printContent) {
+      window.print();
+      return;
+    }
+
+    const printWindow = window.open("", "_blank", "width=850,height=900");
+    if (!printWindow) {
+      window.print();
+      return;
+    }
+
+    printWindow.document.write(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>TripNova Travel Voucher - #TRIP-${String(booking.id).padStart(6, "0")}</title>
+          <style>
+            @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600;700&display=swap');
+            * {
+              margin: 0;
+              padding: 0;
+              box-sizing: border-box;
+              font-family: 'Poppins', sans-serif;
+            }
+            body {
+              background: #f8fafc;
+              padding: 24px;
+              color: #1e293b;
+            }
+            .voucher-container {
+              max-width: 750px;
+              margin: 0 auto;
+              background: #ffffff;
+              border-radius: 20px;
+              border: 1px solid #e2e8f0;
+              padding: 32px;
+              box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            }
+            .header {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              padding-bottom: 20px;
+              border-bottom: 2px dashed #cbd5e1;
+            }
+            .brand {
+              font-family: 'Playfair Display', serif;
+              font-size: 28px;
+              font-weight: 700;
+              color: #f97316;
+            }
+            .tag {
+              background: #ffedd5;
+              color: #c2410c;
+              font-size: 11px;
+              font-weight: 700;
+              padding: 3px 8px;
+              border-radius: 12px;
+              margin-left: 8px;
+              vertical-align: middle;
+            }
+            .ref-no {
+              font-size: 12px;
+              color: #64748b;
+              margin-top: 4px;
+            }
+            .status-badge {
+              background: #dcfce7;
+              color: #15803d;
+              font-weight: 700;
+              font-size: 11px;
+              padding: 4px 12px;
+              border-radius: 9999px;
+              text-transform: uppercase;
+              display: inline-block;
+            }
+            .issued-date {
+              font-size: 11px;
+              color: #94a3b8;
+              margin-top: 6px;
+              text-align: right;
+            }
+            .package-box {
+              margin: 24px 0;
+              padding: 20px;
+              background: #fff7ed;
+              border: 1px solid #fed7aa;
+              border-radius: 16px;
+            }
+            .package-top {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+            }
+            .package-title {
+              font-family: 'Playfair Display', serif;
+              font-size: 22px;
+              font-weight: 700;
+              color: #0f172a;
+              margin-top: 4px;
+            }
+            .package-code {
+              background: #ffedd5;
+              color: #9a3412;
+              font-family: monospace;
+              font-weight: 700;
+              font-size: 12px;
+              padding: 4px 10px;
+              border-radius: 6px;
+            }
+            .location {
+              font-size: 13px;
+              color: #ea580c;
+              margin-top: 4px;
+              font-weight: 500;
+            }
+            .grid-2 {
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              gap: 16px;
+              margin-bottom: 20px;
+            }
+            .card {
+              background: #f8fafc;
+              border: 1px solid #e2e8f0;
+              border-radius: 14px;
+              padding: 16px;
+            }
+            .card-heading {
+              font-size: 11px;
+              text-transform: uppercase;
+              color: #94a3b8;
+              font-weight: 700;
+              letter-spacing: 0.5px;
+              margin-bottom: 12px;
+            }
+            .row-item {
+              font-size: 13px;
+              margin-bottom: 8px;
+              color: #334155;
+            }
+            .row-item strong {
+              color: #0f172a;
+            }
+            .total-row {
+              margin-top: 12px;
+              padding-top: 10px;
+              border-top: 1px solid #e2e8f0;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+            }
+            .total-price {
+              font-size: 18px;
+              font-weight: 700;
+              color: #ea580c;
+            }
+            .special-box {
+              background: #f1f5f9;
+              border-radius: 10px;
+              padding: 12px;
+              margin-bottom: 20px;
+              font-size: 12px;
+            }
+            .footer-note {
+              border-top: 1px solid #e2e8f0;
+              padding-top: 16px;
+              display: flex;
+              justify-content: space-between;
+              font-size: 11px;
+              color: #94a3b8;
+            }
+            @media print {
+              body {
+                background: #ffffff;
+                padding: 0;
+              }
+              .voucher-container {
+                box-shadow: none;
+                border: 1px solid #cbd5e1;
+              }
+            }
+          </style>
+        </head>
+        <body>
+          <div class="voucher-container">
+            <div class="header">
+              <div>
+                <span class="brand">TripNova</span>
+                <span class="tag">OFFICIAL VOUCHER</span>
+                <div class="ref-no">Booking Reference: #TRIP-${String(booking.id).padStart(6, "0")}</div>
+              </div>
+              <div>
+                <div style="text-align: right;">
+                  <span class="status-badge">${booking.status || "CONFIRMED"}</span>
+                </div>
+                <div class="issued-date">
+                  Issued: ${new Date(booking.created_at || Date.now()).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
+                </div>
+              </div>
+            </div>
+
+            <div class="package-box">
+              <div class="package-top">
+                <span style="font-size: 11px; font-weight: 700; color: #ea580c; text-transform: uppercase;">Booked Package</span>
+                ${booking.package_code ? `<span class="package-code">ID: ${booking.package_code}</span>` : ''}
+              </div>
+              <div class="package-title">${booking.package_title || "Custom Package"}</div>
+              ${booking.package_location ? `<div class="location">📍 ${booking.package_location}</div>` : ''}
+            </div>
+
+            <div class="grid-2">
+              <div class="card">
+                <div class="card-heading">Primary Traveler</div>
+                <div class="row-item"><strong>Name:</strong> ${booking.name}</div>
+                <div class="row-item"><strong>Email:</strong> ${booking.email}</div>
+                <div class="row-item"><strong>Phone:</strong> ${booking.phone}</div>
+                <div class="row-item"><strong>Country:</strong> ${booking.country}</div>
+              </div>
+
+              <div class="card">
+                <div class="card-heading">Trip Breakdown</div>
+                <div class="row-item"><strong>Travel Month:</strong> ${booking.travel_month}</div>
+                <div class="row-item"><strong>Number of Guests:</strong> ${booking.number_of_people} Person(s)</div>
+                <div class="row-item"><strong>Rate per Person:</strong> ₹${booking.budget_per_person}</div>
+                <div class="total-row">
+                  <span style="font-weight: 600;">Total Est.</span>
+                  <span class="total-price">₹${totalAmount}</span>
+                </div>
+              </div>
+            </div>
+
+            ${booking.special_requirements ? `
+              <div class="special-box">
+                <strong>Special Requirements:</strong>
+                <div>${booking.special_requirements}</div>
+              </div>
+            ` : ''}
+
+            <div class="footer-note">
+              <span>Please present this voucher or ID upon arrival.</span>
+              <span style="color: #64748b; font-weight: 600;">support@tripnova.com</span>
+            </div>
+          </div>
+          <script>
+            window.onload = function() {
+              window.print();
+            };
+          </script>
+        </body>
+      </html>
+    `);
+    printWindow.document.close();
   };
 
   return (
