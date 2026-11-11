@@ -1,12 +1,25 @@
 "use client"
 import axios from "axios"
-import { useState } from "react"
-import { CheckCircle, X, Download } from "lucide-react";
+import { useState, useEffect } from "react"
+import { CheckCircle, X, Download, MapPin, Tag, Calendar, Users, IndianRupee } from "lucide-react";
 import { useRouter } from "next/navigation";
 import BookingTicketModal, { BookingTicketData } from "@/components/booking/BookingTicketModal";
 
+type PackageInfo = {
+  id: number;
+  package_code?: string;
+  title: string;
+  location: string;
+  price: string;
+  duration_days: number;
+  duration_nights: number;
+  image?: string;
+};
+
 const Form = ({ packageId }: { packageId: number }) => {
   const router = useRouter();
+  const [pkgDetails, setPkgDetails] = useState<PackageInfo | null>(null);
+  const [loadingPkg, setLoadingPkg] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [submittedBooking, setSubmittedBooking] = useState<BookingTicketData | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -15,6 +28,23 @@ const Form = ({ packageId }: { packageId: number }) => {
     name: "", email: "", phone: "", country: "",
     number_of_people: "", travel_month: "", budget_per_person: "", special_requirements: ""
   });
+
+  useEffect(() => {
+    if (packageId) {
+      setLoadingPkg(true);
+      axios.get(`https://travellingwebsite-2.onrender.com/api/packages/${packageId}/`)
+        .then(res => {
+          setPkgDetails(res.data);
+          if (res.data?.price && !formData.budget_per_person) {
+            setFormData(prev => ({ ...prev, budget_per_person: `₹${res.data.price}` }));
+          }
+        })
+        .catch(err => {
+          console.error("Error fetching package details:", err);
+        })
+        .finally(() => setLoadingPkg(false));
+    }
+  }, [packageId]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -31,8 +61,14 @@ const Form = ({ packageId }: { packageId: number }) => {
         return;
       }
 
+      const numericBudget = formData.budget_per_person.replace(/[^0-9.]/g, '') || (pkgDetails?.price || '0');
+
       const res = await axios.post("https://travellingwebsite-2.onrender.com/api/bookings/", 
-      { ...formData, package: packageId }, 
+      {
+        ...formData,
+        package: packageId,
+        budget_per_person: numericBudget,
+      }, 
       {
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }
       });
@@ -45,13 +81,15 @@ const Form = ({ packageId }: { packageId: number }) => {
         country: formData.country,
         number_of_people: Number(formData.number_of_people),
         travel_month: formData.travel_month,
-        budget_per_person: formData.budget_per_person,
+        budget_per_person: numericBudget,
         special_requirements: formData.special_requirements,
         status: "CONFIRMED",
         created_at: new Date().toISOString(),
-        package_code: res.data?.package_details?.package_code || `PKG-${packageId}`,
-        package_title: res.data?.package_details?.title || "Custom Package",
-        package_location: res.data?.package_details?.location || "",
+        package_code: res.data?.package_details?.package_code || pkgDetails?.package_code || `PKG-${packageId}`,
+        package_title: res.data?.package_details?.title || pkgDetails?.title || "Travel Package",
+        package_location: res.data?.package_details?.location || pkgDetails?.location || "",
+        duration_days: res.data?.package_details?.duration_days || pkgDetails?.duration_days,
+        duration_nights: res.data?.package_details?.duration_nights || pkgDetails?.duration_nights,
       });
 
       setShowSuccess(true);
@@ -80,31 +118,55 @@ const Form = ({ packageId }: { packageId: number }) => {
   return (
     <>
       {showSuccess && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
-          <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl p-8 max-w-md w-full text-center relative">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm px-4">
+          <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl p-8 max-w-lg w-full text-center relative border border-gray-100 dark:border-gray-700">
             <button onClick={() => setShowSuccess(false)} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition">
               <X size={22} />
             </button>
-            <div className="flex justify-center mb-4"><CheckCircle className="w-16 h-16 text-green-500" /></div>
-            <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">Booking Submitted!</h2>
-            <p className="text-gray-500 dark:text-gray-400 mb-6">Thank you! Your travel voucher is ready for download. 🇮🇳</p>
+            <div className="flex justify-center mb-4"><CheckCircle className="w-16 h-16 text-emerald-500 animate-bounce" /></div>
+            <h2 className="text-2xl font-bold font-playfair text-gray-800 dark:text-white mb-1">Booking Confirmed!</h2>
+            <p className="text-gray-500 dark:text-gray-400 text-sm mb-4">Aapki trip successfully register ho gayi hai.</p>
+
+            {/* Booked Package Summary Card */}
+            <div className="p-4 rounded-2xl bg-orange-50 dark:bg-orange-950/40 border border-orange-200 dark:border-orange-900/50 text-left mb-6">
+              <div className="flex items-center justify-between">
+                <span className="text-xs uppercase font-bold text-orange-600 dark:text-orange-400 tracking-wider">Booked Package</span>
+                <span className="text-xs font-mono font-bold bg-orange-200 dark:bg-orange-900/80 text-orange-900 dark:text-orange-200 px-2 py-0.5 rounded">
+                  {submittedBooking?.package_code || `PKG-${packageId}`}
+                </span>
+              </div>
+              <p className="font-bold text-gray-900 dark:text-white text-base mt-1">
+                {submittedBooking?.package_title || pkgDetails?.title}
+              </p>
+              {submittedBooking?.package_location && (
+                <p className="text-xs text-gray-600 dark:text-gray-300 flex items-center gap-1 mt-1">
+                  <MapPin size={12} className="text-orange-500" /> {submittedBooking.package_location}
+                </p>
+              )}
+              <div className="mt-2 pt-2 border-t border-orange-200/60 dark:border-orange-900/40 flex justify-between text-xs text-gray-600 dark:text-gray-300">
+                <span>Guests: <strong>{submittedBooking?.number_of_people}</strong></span>
+                <span>Month: <strong>{submittedBooking?.travel_month}</strong></span>
+              </div>
+            </div>
+
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <button
                 onClick={() => {
                   setShowSuccess(false);
                 }}
-                className="inline-flex items-center justify-center gap-2 bg-orange-500 text-white px-5 py-2.5 rounded-xl font-semibold hover:bg-orange-600 transition"
+                className="inline-flex items-center justify-center gap-2 bg-orange-500 text-white px-5 py-3 rounded-xl font-semibold hover:bg-orange-600 shadow-md transition hover:scale-105"
               >
-                <Download size={16} /> View Voucher
+                <Download size={16} /> View & Download Voucher
               </button>
               <button
                 onClick={() => {
                   setShowSuccess(false);
                   setSubmittedBooking(null);
+                  router.push("/dashboard");
                 }}
-                className="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 px-5 py-2.5 rounded-xl font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 transition"
+                className="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 px-5 py-3 rounded-xl font-semibold hover:bg-gray-200 dark:hover:bg-gray-600 transition"
               >
-                Done
+                Go to Dashboard
               </button>
             </div>
           </div>
@@ -120,9 +182,37 @@ const Form = ({ packageId }: { packageId: number }) => {
       <section className="min-h-screen bg-transparent px-4">
         <div className="max-w-4xl mx-auto">
           <div className="bg-white dark:bg-gray-800 shadow-2xl rounded-3xl overflow-hidden">
-            <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-6 sm:p-8 text-white">
-              <h1 className="text-2xl sm:text-4xl font-bold">Plan Your Dream Journey</h1>
-              <p className="mt-2 text-blue-100 text-sm sm:text-base">Fill out the form and we'll create the perfect travel experience for you.</p>
+            {/* Selected Package Banner on top of Form */}
+            <div className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 p-6 sm:p-8 text-white">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <span className="text-xs uppercase font-bold tracking-wider px-2.5 py-1 rounded-full bg-white/20 text-white inline-block mb-2">
+                    Booking For
+                  </span>
+                  <h1 className="text-2xl sm:text-3xl font-bold font-playfair">
+                    {loadingPkg ? "Loading package..." : (pkgDetails?.title || "Plan Your Dream Journey")}
+                  </h1>
+                  {pkgDetails?.location && (
+                    <p className="mt-1 text-blue-100 text-sm flex items-center gap-1.5">
+                      <MapPin size={14} className="text-orange-300" /> {pkgDetails.location}
+                    </p>
+                  )}
+                </div>
+
+                {pkgDetails && (
+                  <div className="flex sm:flex-col items-start sm:items-end justify-between border-t sm:border-t-0 pt-3 sm:pt-0 border-white/20">
+                    <span className="text-xs font-mono font-bold bg-white text-gray-900 px-2.5 py-1 rounded-lg shadow-sm">
+                      {pkgDetails.package_code || `PKG-${pkgDetails.id}`}
+                    </span>
+                    <span className="text-xl sm:text-2xl font-bold text-white mt-1">
+                      ₹{pkgDetails.price}
+                    </span>
+                    <span className="text-xs text-blue-200">
+                      {pkgDetails.duration_days}D / {pkgDetails.duration_nights}N
+                    </span>
+                  </div>
+                )}
+              </div>
             </div>
 
             <form onSubmit={handleSubmit} className="p-6 sm:p-8 space-y-6">

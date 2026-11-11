@@ -107,7 +107,7 @@ export default function PackageDetailPage() {
               <FadeUp delay={0.4}>
                 <div className="mt-6 flex flex-wrap gap-3">
                   <motion.button
-                    onClick={() => router.push("/booking")}
+                    onClick={() => router.push(`/booking?packageId=${pkg.id}`)}
                     className="rounded-xl bg-orange-500 py-2.5 px-6 text-base font-poppins text-white"
                     whileHover={{ scale: 1.07, y: -4, backgroundColor: "#c2621a" }}
                     whileTap={{ scale: 0.96 }}
@@ -199,7 +199,7 @@ export default function PackageDetailPage() {
           <FadeUp delay={0.2}>
             <div className="mt-10 sm:mt-12 flex flex-col gap-4 sm:flex-row">
               <motion.button
-                onClick={() => router.push("/booking")}
+                onClick={() => router.push(`/booking?packageId=${pkg.id}`)}
                 className="flex-1 rounded-xl bg-orange-500 py-4 text-lg font-semibold text-white"
                 whileHover={{ scale: 1.03, y: -3, backgroundColor: "#c2621a" }}
                 whileTap={{ scale: 0.97 }}

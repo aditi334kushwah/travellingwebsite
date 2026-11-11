@@ -9,7 +9,7 @@ import PackageFilterSidebar from "@/components/packages/PackageFilterSidebar";
 import FadeUp from "@/components/ui/FadeUp";
 
 type Package = {
-  id: number; title: string; description: string; location: string;
+  id: number; package_code?: string; title: string; description: string; location: string;
   image: string; price: string; is_popular: boolean;
   duration_days: number; duration_nights: number; max_guests: number; category: string;
 };
@@ -143,8 +143,8 @@ export default function PackagesPage() {
                       <div className="absolute bottom-3 left-3 flex items-center gap-1 bg-black/50 text-white text-xs px-3 py-1 rounded-full backdrop-blur-sm">
                         <MapPin size={12} /> {pkg.location}
                       </div>
-                      <div className="absolute bottom-3 left-3 flex items-center gap-1 bg-black/50 text-white text-xs px-3 py-1 rounded-full backdrop-blur-sm">
-                        {pkg.id}
+                      <div className="absolute bottom-3 right-3 font-mono font-bold bg-orange-500/90 text-white text-xs px-2.5 py-1 rounded-full backdrop-blur-sm shadow">
+                        {pkg.package_code || `PKG-${pkg.id}`}
                       </div>
                     </div>
                     <div className="p-5">
