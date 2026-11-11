@@ -42,7 +42,7 @@ export default function BookingTicketModal({ booking, onClose }: BookingTicketMo
   return (
     <div
       id="voucher-modal-overlay"
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-md p-4 overflow-y-auto"
+      className="fixed inset-0 z-[80] flex items-center justify-center bg-black/70 backdrop-blur-md p-4 overflow-y-auto mt-8 "
     >
       <div
         id="voucher-modal-card"

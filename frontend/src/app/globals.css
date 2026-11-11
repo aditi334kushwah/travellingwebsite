@@ -28,14 +28,17 @@ body {
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
 
 @media print {
+
   /* Hide everything on the page */
-  html, body {
+  html,
+  body {
     margin: 0 !important;
     padding: 0 !important;
     background: #ffffff !important;
@@ -47,10 +50,10 @@ body {
 
   /* Make sure modal container doesn't clip or center strangely */
   #voucher-modal-overlay {
-    position: static !important;
+    position: static;
     background: none !important;
     padding: 0 !important;
-    margin: 0 !important;
+    margin-top: 8px;
     display: block !important;
     visibility: visible !important;
     width: 100% !important;
@@ -63,7 +66,7 @@ body {
     box-shadow: none !important;
     width: 100% !important;
     max-width: 100% !important;
-    margin: 0 !important;
+    margin-top: 8px !important;
     padding: 0 !important;
     visibility: visible !important;
     background: white !important;

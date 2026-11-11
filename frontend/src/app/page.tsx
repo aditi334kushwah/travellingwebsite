@@ -1,5 +1,8 @@
 
 import HeroSection from "@/components/home/HeroSection"
+import HeroSearchWidget from "@/components/home/HeroSearchWidget"
+import TrustStatsSection from "@/components/home/TrustStatsSection"
+import NewsletterCTASection from "@/components/home/NewsletterCTASection"
 // import PopularDestination from "@/components/home/PopularDestination"
 import OneCard from "@/components/home/OneCard"
 import ChooseTripNova from "@/components/home/ChooseTripNova"
@@ -16,6 +19,8 @@ export default function Home() {
    <>
       
         <HeroSection />
+        <HeroSearchWidget />
+        <TrustStatsSection />
         <HeroPackage />
         <HeroCarausalCard />
         <OneCard />
@@ -24,6 +29,7 @@ export default function Home() {
         <TestimonialCardSection />
         <LayoutGridSection />
         <LastTestimonial />
+        <NewsletterCTASection />
       
    </>
   );
