@@ -5,6 +5,8 @@ import Form from "@/components/ui/Form";
 import FadeUp from "@/components/ui/FadeUp";
 import { useSearchParams } from "next/navigation";
 
+export const dynamic = "force-dynamic";
+
 function BookingContent() {
   const searchParams = useSearchParams();
   const packageId = Number(searchParams.get("packageId"));
