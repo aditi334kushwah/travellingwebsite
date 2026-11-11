@@ -64,15 +64,15 @@ const Form = ({ packageId }: { packageId: number }) => {
 
       const numericBudget = formData.budget_per_person.replace(/[^0-9.]/g, '') || (pkgDetails?.price || '0');
 
-      const res = await axios.post("https://travellingwebsite-2.onrender.com/api/bookings/", 
-      {
-        ...formData,
-        package: packageId,
-        budget_per_person: numericBudget,
-      }, 
-      {
-        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }
-      });
+      const res = await axios.post("https://travellingwebsite-2.onrender.com/api/bookings/",
+        {
+          ...formData,
+          package: packageId,
+          budget_per_person: numericBudget,
+        },
+        {
+          headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }
+        });
 
       setSubmittedBooking({
         id: res.data?.id || Date.now(),
@@ -295,9 +295,10 @@ const Form = ({ packageId }: { packageId: number }) => {
                     name="budget_per_person"
                     value={formData.budget_per_person}
                     onChange={handleChange}
-                    placeholder="$1,000 - $3,000"
+                    placeholder="e.g. 2500 or ₹2,500"
                     className={inputClass}
-                    pattern="^\$\d{1,3}(,\d{3})*$|^\$\d+$"
+                    pattern="^[₹Rs.\s]*\d+(?:,\d+)*(?:\.\d+)?$"
+                    title="Please enter a valid amount (e.g. 2500, 2,500, or ₹2500)"
                     required />
                 </div>
 
