@@ -35,24 +35,277 @@ export default function BookingTicketModal({ booking, onClose }: BookingTicketMo
     Number(booking.budget_per_person || 0) * Number(booking.number_of_people || 1);
 
   const handlePrint = () => {
-    // Direct native browser print using optimized @media print stylesheet
-    window.print();
+    // Generate clean isolated print window with full styling so all browsers print immediately with 100% guarantee
+    const printContent = document.getElementById("printable-voucher");
+    if (!printContent) {
+      window.print();
+      return;
+    }
+
+    const printWindow = window.open("", "_blank", "width=850,height=950");
+    if (!printWindow) {
+      window.print();
+      return;
+    }
+
+    const totalEst = Number(booking.budget_per_person || 0) * Number(booking.number_of_people || 1);
+
+    printWindow.document.write(`<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Booking Voucher - #TRIP-${String(booking.id).padStart(6, "0")}</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600;700&display=swap');
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body {
+        font-family: 'Poppins', system-ui, sans-serif;
+        background: #ffffff;
+        color: #0f172a;
+        padding: 32px 24px;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .voucher-card {
+        max-width: 680px;
+        margin: 0 auto;
+        border: 2px solid #e2e8f0;
+        border-radius: 20px;
+        padding: 32px;
+        background: #ffffff;
+      }
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding-bottom: 20px;
+        border-bottom: 2px dashed #cbd5e1;
+      }
+      .logo-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 26px;
+        font-weight: 700;
+        color: #f97316;
+      }
+      .badge-official {
+        display: inline-block;
+        background: #ffedd5;
+        color: #ea580c;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 3px 8px;
+        border-radius: 9999px;
+        margin-left: 8px;
+      }
+      .ref {
+        font-size: 12px;
+        color: #64748b;
+        margin-top: 4px;
+      }
+      .status-badge {
+        display: inline-block;
+        background: #dcfce7;
+        color: #15803d;
+        font-size: 12px;
+        font-weight: 700;
+        padding: 4px 12px;
+        border-radius: 9999px;
+        text-transform: uppercase;
+      }
+      .date-issued {
+        font-size: 11px;
+        color: #94a3b8;
+        margin-top: 4px;
+        text-align: right;
+      }
+      .package-box {
+        margin-top: 24px;
+        padding: 20px;
+        background: #fff7ed;
+        border: 1px solid #fed7aa;
+        border-radius: 16px;
+      }
+      .pkg-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .pkg-label {
+        font-size: 11px;
+        font-weight: 700;
+        color: #ea580c;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      .pkg-id {
+        background: #ffedd5;
+        color: #9a3412;
+        font-family: monospace;
+        font-size: 12px;
+        font-weight: 700;
+        padding: 3px 10px;
+        border-radius: 6px;
+      }
+      .pkg-name {
+        font-family: 'Playfair Display', serif;
+        font-size: 22px;
+        font-weight: 700;
+        color: #0f172a;
+        margin-top: 6px;
+      }
+      .pkg-loc {
+        font-size: 13px;
+        color: #475569;
+        margin-top: 4px;
+      }
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-top: 20px;
+      }
+      .info-box {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 14px;
+        padding: 16px;
+        font-size: 13px;
+      }
+      .box-title {
+        font-size: 11px;
+        font-weight: 700;
+        color: #94a3b8;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 8px;
+      }
+      .row {
+        margin-top: 6px;
+        color: #334155;
+      }
+      .row strong {
+        color: #0f172a;
+      }
+      .total-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid #e2e8f0;
+      }
+      .total-amount {
+        font-size: 18px;
+        font-weight: 700;
+        color: #ea580c;
+      }
+      .special-box {
+        margin-top: 16px;
+        padding: 14px;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        font-size: 12px;
+        color: #475569;
+      }
+      .footer-note {
+        margin-top: 28px;
+        padding-top: 16px;
+        border-top: 1px solid #e2e8f0;
+        display: flex;
+        justify-content: space-between;
+        font-size: 11px;
+        color: #64748b;
+      }
+      @media print {
+        body { padding: 0; }
+        .voucher-card { border: none; padding: 12px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="voucher-card">
+      <div class="header">
+        <div>
+          <div>
+            <span class="logo-title">TripNova</span>
+            <span class="badge-official">OFFICIAL VOUCHER</span>
+          </div>
+          <p class="ref">Booking Reference: #TRIP-${String(booking.id).padStart(6, "0")}</p>
+        </div>
+        <div>
+          <div class="status-badge">${booking.status || "CONFIRMED"}</div>
+          <p class="date-issued">Issued: ${new Date(booking.created_at || Date.now()).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}</p>
+        </div>
+      </div>
+
+      <div class="package-box">
+        <div class="pkg-top">
+          <span class="pkg-label">Booked Package</span>
+          ${booking.package_code ? `<span class="pkg-id">ID: ${booking.package_code}</span>` : ""}
+        </div>
+        <div class="pkg-name">${booking.package_title || "Scenic Travel Experience"}</div>
+        ${booking.package_location ? `<div class="pkg-loc">📍 ${booking.package_location}</div>` : ""}
+      </div>
+
+      <div class="grid-2">
+        <div class="info-box">
+          <div class="box-title">Primary Traveler</div>
+          <div style="font-weight: 600; font-size: 15px; margin-bottom: 6px;">${booking.name}</div>
+          <div class="row">✉ ${booking.email}</div>
+          <div class="row">📞 ${booking.phone}</div>
+          <div class="row">🌐 ${booking.country}</div>
+        </div>
+
+        <div class="info-box">
+          <div class="box-title">Trip Breakdown</div>
+          <div class="row">📅 Travel Month: <strong>${booking.travel_month}</strong></div>
+          <div class="row">👥 Guests: <strong>${booking.number_of_people} Person(s)</strong></div>
+          <div class="row">₹ Rate: <strong>₹${booking.budget_per_person} / Person</strong></div>
+          <div class="total-row">
+            <span style="font-weight: 600;">Total Est.</span>
+            <span class="total-amount">₹${totalEst}</span>
+          </div>
+        </div>
+      </div>
+
+      ${booking.special_requirements ? `
+        <div class="special-box">
+          <strong>Special Instructions:</strong> ${booking.special_requirements}
+        </div>
+      ` : ""}
+
+      <div class="footer-note">
+        <span>Please present this voucher or ID upon arrival.</span>
+        <span>support@tripnova.com</span>
+      </div>
+    </div>
+    <script>
+      window.onload = function() {
+        window.focus();
+        window.print();
+      };
+    </script>
+  </body>
+</html>`);
+    printWindow.document.close();
   };
 
   return (
     <div
       id="voucher-modal-overlay"
-      className="fixed inset-0 z-[80] flex items-center justify-center bg-black/70 backdrop-blur-md p-4 overflow-y-auto mt-8 "
+      className="fixed inset-0 z-[999] flex items-center justify-center bg-black/80 backdrop-blur-md p-4 sm:p-6 overflow-y-auto"
+      style={{ zIndex: 9999 }}
     >
       <div
         id="voucher-modal-card"
-        className="relative w-full max-w-2xl bg-white dark:bg-gray-900 rounded-3xl shadow-2xl overflow-hidden border border-gray-200 dark:border-gray-800 my-8 animate-in fade-in zoom-in-95 duration-200"
+        className="relative w-full max-w-2xl bg-white dark:bg-gray-900 rounded-3xl shadow-2xl overflow-hidden border border-gray-200 dark:border-gray-800 my-auto animate-in fade-in zoom-in-95 duration-200"
       >
-        {/* Top Action Bar (hidden when printing) */}
-        <div className="no-print print:hidden flex items-center justify-between px-6 py-4 bg-gray-50 dark:bg-gray-800/80 border-b border-gray-200 dark:border-gray-700">
+        {/* Top Action Bar (always visible at top of card) */}
+        <div className="no-print print:hidden flex items-center justify-between px-6 py-4 bg-orange-50/70 dark:bg-gray-800/90 border-b border-orange-100 dark:border-gray-700">
           <div className="flex items-center gap-2">
             <span className="h-3 w-3 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span className="text-sm font-semibold text-gray-800 dark:text-gray-100">
+            <span className="text-sm font-bold text-gray-800 dark:text-gray-100">
               Trip Voucher Ready
             </span>
           </div>
