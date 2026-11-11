@@ -188,3 +188,4 @@ export function generateBookingPDF(booking: BookingTicketData) {
   const fileName = `TripNova-Voucher-${booking.package_code || "BOOKING"}-${booking.id}.pdf`;
   doc.save(fileName);
 }
+

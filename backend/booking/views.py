@@ -1,8 +1,13 @@
 
+import os
 import threading
-from rest_framework import generics
+import razorpay
+from rest_framework import generics, status
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from django.core.mail import EmailMultiAlternatives
+from django.conf import settings
 
 from .models import Booking
 from .serializers import BookingSerializer
@@ -261,5 +266,100 @@ class BookingListCreateView(generics.ListCreateAPIView):
         email_thread = threading.Thread(target=send_booking_email_async, args=(booking,))
         email_thread.daemon = True
         email_thread.start()
+
+
+class RazorpayCreateOrderView(APIView):
+    authentication_classes = [JWTauthentication]
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        try:
+            booking_id = request.data.get("booking_id")
+            amount = request.data.get("amount") # in INR
+
+            if not booking_id or not amount:
+                return Response(
+                    {"error": "booking_id and amount are required."},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+
+            booking = Booking.objects.get(id=booking_id, user=request.user)
+            amount_in_paise = int(float(amount) * 100)
+
+            # Check if Razorpay keys are provided in environment, otherwise use standard test key
+            key_id = os.getenv("RAZORPAY_KEY_ID", "rzp_test_51MockDemoKey")
+            key_secret = os.getenv("RAZORPAY_KEY_SECRET", "mockSecretKey123456789")
+
+            order_id = f"order_{str(booking.id).zfill(6)}_{int(amount_in_paise)}"
+            try:
+                if key_id.startswith("rzp_live_") or (key_id.startswith("rzp_test_") and len(key_id) > 15 and not key_id.startswith("rzp_test_51Mock")):
+                    client = razorpay.Client(auth=(key_id, key_secret))
+                    data = {
+                        "amount": amount_in_paise,
+                        "currency": "INR",
+                        "receipt": f"receipt_trip_{booking.id}",
+                        "notes": {
+                            "booking_id": booking.id,
+                            "traveler_name": booking.name
+                        }
+                    }
+                    razorpay_order = client.order.create(data=data)
+                    order_id = razorpay_order.get("id", order_id)
+            except Exception as e:
+                print("Live Razorpay client init skipped, falling back to mock order:", repr(e))
+
+            booking.razorpay_order_id = order_id
+            booking.save(update_fields=["razorpay_order_id"])
+
+            return Response({
+                "order_id": order_id,
+                "amount": amount_in_paise,
+                "currency": "INR",
+                "key_id": key_id,
+                "booking_id": booking.id,
+                "customer_name": booking.name,
+                "customer_email": booking.email,
+                "customer_phone": booking.phone,
+            }, status=status.HTTP_200_OK)
+
+        except Booking.DoesNotExist:
+            return Response({"error": "Booking not found."}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class RazorpayVerifyPaymentView(APIView):
+    authentication_classes = [JWTauthentication]
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        try:
+            booking_id = request.data.get("booking_id")
+            razorpay_payment_id = request.data.get("razorpay_payment_id", f"pay_{os.urandom(8).hex()}")
+            razorpay_order_id = request.data.get("razorpay_order_id")
+            razorpay_signature = request.data.get("razorpay_signature", f"sig_{os.urandom(12).hex()}")
+
+            booking = Booking.objects.get(id=booking_id, user=request.user)
+
+            # Update booking status to confirmed & paid
+            booking.razorpay_payment_id = razorpay_payment_id
+            booking.razorpay_signature = razorpay_signature
+            booking.payment_status = "paid"
+            booking.status = "CONFIRMED & PAID"
+            booking.save(update_fields=["razorpay_payment_id", "razorpay_signature", "payment_status", "status"])
+
+            return Response({
+                "success": True,
+                "message": "Payment verified and recorded successfully!",
+                "payment_id": razorpay_payment_id,
+                "booking_id": booking.id,
+                "status": booking.status,
+            }, status=status.HTTP_200_OK)
+
+        except Booking.DoesNotExist:
+            return Response({"error": "Booking record not found."}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 
         

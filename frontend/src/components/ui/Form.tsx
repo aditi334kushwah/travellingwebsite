@@ -1,9 +1,10 @@
 "use client"
 import axios from "axios"
 import { useState, useEffect } from "react"
-import { CheckCircle, X, Download, MapPin, Tag, Calendar, Users, IndianRupee, FileText } from "lucide-react";
+import { CheckCircle, X, Download, MapPin, Tag, Calendar, Users, IndianRupee, FileText, CreditCard } from "lucide-react";
 import { useRouter } from "next/navigation";
 import BookingTicketModal, { BookingTicketData } from "@/components/booking/BookingTicketModal";
+import RazorpayPaymentModal from "@/components/booking/RazorpayPaymentModal";
 import { generateBookingPDF } from "@/utils/generateBookingPDF";
 
 type PackageInfo = {
@@ -23,6 +24,7 @@ const Form = ({ packageId }: { packageId: number }) => {
   const [loadingPkg, setLoadingPkg] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [showTicketModal, setShowTicketModal] = useState(false);
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [submittedBooking, setSubmittedBooking] = useState<BookingTicketData | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -155,7 +157,40 @@ const Form = ({ packageId }: { packageId: number }) => {
                 <div>Month: <strong className="text-gray-900 dark:text-white">{submittedBooking?.travel_month}</strong></div>
                 <div>Rate: <strong className="text-gray-900 dark:text-white">₹{submittedBooking?.budget_per_person}</strong></div>
               </div>
+
+              {/* Payment Status Pill */}
+              <div className="mt-3 pt-2.5 border-t border-orange-200/40 flex items-center justify-between">
+                <span className="text-[11px] font-semibold text-gray-500">Payment Status</span>
+                <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${
+                  submittedBooking?.status?.includes("PAID")
+                    ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300"
+                    : "bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300"
+                }`}>
+                  {submittedBooking?.status || "CONFIRMED"}
+                </span>
+              </div>
             </div>
+
+            {/* Razorpay Online Payment CTA Banner */}
+            {!submittedBooking?.status?.includes("PAID") && (
+              <div className="mb-5 p-3.5 rounded-2xl bg-gradient-to-r from-blue-900 via-indigo-900 to-[#0c2340] text-white flex flex-col sm:flex-row items-center justify-between gap-3 shadow-md">
+                <div className="text-left">
+                  <div className="flex items-center gap-1.5">
+                    <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span className="text-xs font-bold tracking-tight text-white">Instant Payment (Razorpay)</span>
+                    <span className="text-[9px] bg-amber-400 text-blue-950 px-1.5 py-0.2 rounded font-bold font-mono">DEMO</span>
+                  </div>
+                  <p className="text-[11px] text-gray-300 mt-0.5">UPI, QR Code, Debit/Credit Card available</p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowPaymentModal(true)}
+                  className="w-full sm:w-auto px-4 py-2 bg-blue-600 hover:bg-blue-500 active:scale-95 text-white font-bold text-xs rounded-xl shadow transition cursor-pointer flex items-center justify-center gap-1.5 shrink-0"
+                >
+                  <CreditCard size={14} /> Pay ₹{((Number(submittedBooking?.budget_per_person) || 0) * (Number(submittedBooking?.number_of_people) || 1)).toLocaleString("en-IN")}
+                </button>
+              </div>
+            )}
 
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <button
@@ -207,6 +242,56 @@ const Form = ({ packageId }: { packageId: number }) => {
           onClose={() => setShowTicketModal(false)}
         />
       )}
+
+      {/* Razorpay Online Payment Modal */}
+      <RazorpayPaymentModal
+        isOpen={showPaymentModal}
+        onClose={() => setShowPaymentModal(false)}
+        bookingData={
+          submittedBooking
+            ? {
+                id: submittedBooking.id,
+                packageTitle: submittedBooking.package_title,
+                packageCode: submittedBooking.package_code,
+                name: submittedBooking.name,
+                email: submittedBooking.email,
+                amount:
+                  Number(submittedBooking.budget_per_person || 0) *
+                  Number(submittedBooking.number_of_people || 1),
+              }
+            : null
+        }
+        onPaymentSuccess={async (paymentId) => {
+          setShowPaymentModal(false);
+          if (submittedBooking) {
+            setSubmittedBooking({
+              ...submittedBooking,
+              status: "CONFIRMED & PAID",
+            });
+
+            // Notify backend about payment verification
+            try {
+              const token = localStorage.getItem("access_token");
+              await axios.post(
+                "https://travellingwebsite-2.onrender.com/api/bookings/razorpay/verify/",
+                {
+                  booking_id: submittedBooking.id,
+                  razorpay_payment_id: paymentId,
+                  razorpay_order_id: `order_${submittedBooking.id}`,
+                },
+                {
+                  headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                  },
+                }
+              );
+            } catch (err) {
+              console.log("Backend payment verification ping:", err);
+            }
+          }
+        }}
+      />
 
       <section className="min-h-screen bg-transparent px-4">
         <div className="max-w-4xl mx-auto">

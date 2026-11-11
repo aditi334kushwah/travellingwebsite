@@ -10,6 +10,10 @@ class Booking(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
     booking_date = models.DateTimeField(null=True, blank=True)
     status = models.CharField(max_length=50, default="pending")
+    razorpay_order_id = models.CharField(max_length=100, blank=True, null=True)
+    razorpay_payment_id = models.CharField(max_length=100, blank=True, null=True)
+    razorpay_signature = models.CharField(max_length=255, blank=True, null=True)
+    payment_status = models.CharField(max_length=50, default="pending")
 
     name = models.CharField(max_length=100)
 
