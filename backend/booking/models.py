@@ -47,4 +47,5 @@ class Booking(models.Model):
     )
 
     def __str__(self):
-        return f"{self.user} booked {self.package.title}"
+        pkg_title = self.package.title if self.package else "Custom Package"
+        return f"{self.name or self.user or 'Guest'} booked {pkg_title}"
