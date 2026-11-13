@@ -67,7 +67,15 @@ const Contact = () => {
         router.push('/login');
         return;
       }
-      await axios.post("https://travellingwebsite-2.onrender.com/api/contact/", formData, {
+      const payload = {
+        name: formData.name,
+        email: formData.email,
+        phone_number: formData.phone,
+        subject: formData.subject,
+        message: formData.message,
+      };
+
+      await axios.post("https://travellingwebsite-2.onrender.com/api/contact/", payload, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setSuccess(true);
