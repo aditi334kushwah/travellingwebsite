@@ -9,9 +9,6 @@ import {
   ShieldCheck,
   Compass,
   ArrowRight,
-  Code2,
-  Cpu,
-  Layers,
   FileDown,
   CreditCard,
   CheckCircle2,
@@ -21,116 +18,135 @@ import {
   CalendarCheck,
   Zap,
   Star,
-  Users
+  Users,
+  Luggage,
+  Hotel,
+  Car,
+  Headphones,
+  Check,
+  X
 } from 'lucide-react'
 
-// Core Mission Value Props
-const VALUES = [
+// Core Services provided by TripNova
+const CORE_SERVICES = [
   {
-    icon: HeartHandshake,
-    title: "100% Verified Local Guides",
-    desc: "Every journey is led by certified native storytellers and scholars who reveal authentic heritage, folklore, and hidden spots untouched by commercial crowds.",
-    badge: "Verified Local",
+    icon: Compass,
+    title: "Handpicked Tour Packages",
+    desc: "Pre-planned and customizable itineraries across India — from Chardham pilgrimage and Himalayan treks to Kerala backwaters and Rajasthan desert safaris.",
+    badge: "All-Inclusive Circuits",
   },
   {
-    icon: Award,
-    title: "Handpicked Boutique Stays",
-    desc: "From 200-year-old royal Rajasthani havelis to eco-luxury glamping domes in Himachal and wooden houseboats in Alleppey backwaters.",
-    badge: "Boutique Quality",
+    icon: Hotel,
+    title: "Verified Boutique Stays",
+    desc: "We personally inspect and partner with heritage havelis, luxury riverside camps, tea estate bungalows, and star-rated hotels for comfortable stays.",
+    badge: "Handpicked Stays",
   },
   {
-    icon: ShieldCheck,
-    title: "Transparent & Safe Travel",
-    desc: "Zero hidden taxes or surcharges. Includes 24/7 on-trip concierge, real-time weather & altitude advisory, and direct WhatsApp manager support.",
-    badge: "Full Security",
+    icon: Car,
+    title: "Private Transport & Transfers",
+    desc: "Seamless travel with clean sanitized private cabs, experienced local chauffeurs, airport pickups, and railway station transfers without surge pricing.",
+    badge: "Reliable Transfers",
+  },
+  {
+    icon: CreditCard,
+    title: "Online Booking & Flexible Payments",
+    desc: "Book confirmed tours in minutes using digital payments — UPI, QR scan, or cards. Get transparent itemized pricing with zero surprise costs.",
+    badge: "Instant Confirmation",
+  },
+  {
+    icon: FileDown,
+    title: "1-Click Downloadable PDF Vouchers",
+    desc: "Immediately upon booking, receive an official travel voucher with driver details, hotel vouchers, day-wise schedule, and emergency helpline.",
+    badge: "Direct Voucher",
+  },
+  {
+    icon: Headphones,
+    title: "24/7 Dedicated Trip Concierge",
+    desc: "A dedicated travel manager remains on call throughout your journey to handle schedule adjustments, hotel queries, and immediate on-road assistance.",
+    badge: "Continuous Support",
   },
 ];
 
-// Interactive Journey Architecture / How It Works
-const ARCHITECTURE_STEPS = [
+// Step by step workflow of how TripNova works for a user
+const HOW_TRIPNOVA_WORKS = [
   {
     step: "01",
-    title: "Curated Itinerary Discovery",
-    desc: "Explore 25+ verified multi-day expeditions with day-by-day activity maps, hotel breakdowns, and packing guidelines.",
-    icon: Compass,
+    title: "Choose Your Destination",
+    desc: "Browse our catalog of verified travel packages with day-by-day itineraries, inclusions, highlights, and transparent pricing.",
+    icon: Globe2,
   },
   {
     step: "02",
-    title: "Instant Razorpay Checkout",
-    desc: "Seamless zero-friction booking with UPI, QR code, netbanking, or cards powered by secure Razorpay demo flow.",
-    icon: CreditCard,
+    title: "Customize & Reserve",
+    desc: "Select your travel dates, group size, and special preferences. Reserve instantly with our verified checkout process.",
+    icon: CalendarCheck,
   },
   {
     step: "03",
-    title: "Direct 1-Click PDF Voucher",
-    desc: "Instant vector booking voucher generation directly to device with package ID, QR verification, and emergency contacts.",
+    title: "Get Digital Trip Voucher",
+    desc: "Instantly download your official booking confirmation voucher to your phone with all booking codes and contact details.",
     icon: FileDown,
   },
   {
     step: "04",
-    title: "End-to-End Ground Concierge",
-    desc: "Dedicated personal coordinator oversees your airport pickup, hotel check-ins, VIP monument entries, and luggage transit.",
-    icon: CalendarCheck,
+    title: "Travel Stress-Free",
+    desc: "Arrive at your destination where our verified driver and tour guide welcome you for a well-coordinated, memorable holiday.",
+    icon: Luggage,
   },
 ];
 
-// Tech Stack Showcase for Recruiters & Engineering Excellence
-const TECH_STACK = [
+// Comparison table: Traditional Agent vs TripNova
+const COMPARISON = [
   {
-    name: "Next.js 16 (Turbopack & App Router)",
-    role: "Modern SSR/SSG architecture, high-performance static page generation, and optimized client bundle routing.",
-    tag: "Frontend Core",
+    feature: "Pricing Transparency",
+    traditional: "Hidden driver allowances, state taxes & sudden surcharges",
+    tripnova: "100% upfront pricing with zero surprise charges",
   },
   {
-    name: "Django REST Framework (DRF)",
-    role: "Production-ready REST APIs, atomic transactions for bookings, robust token authentication, and serializer validations.",
-    tag: "Backend Engine",
+    feature: "Booking Speed",
+    traditional: "Hours of back-and-forth phone calls and delayed quotes",
+    tripnova: "Instant online booking with real-time slot reservation",
   },
   {
-    name: "Razorpay Payment Gateway",
-    role: "Real-time payment order creation, secure client checkout popup, and backend server-side signature verification.",
-    tag: "Fintech Integration",
+    feature: "Travel Voucher",
+    traditional: "Messy WhatsApp screenshots or manual printed receipts",
+    tripnova: "Official 1-click downloadable PDF voucher with QR verification",
   },
   {
-    name: "Native jsPDF Vector Engine",
-    role: "Instant client-side booking voucher generation and direct file download without clunky browser print dialogs.",
-    tag: "PDF Automation",
+    feature: "On-Ground Assistance",
+    traditional: "Unreachable during off-hours or weekends",
+    tripnova: "24/7 dedicated personal trip concierge on WhatsApp & phone",
   },
   {
-    name: "Tailwind CSS v4 & Lucide Motion",
-    role: "Warm luxury color tokens, fluid responsiveness, dark/light theme persistence, and smooth micro-interactions.",
-    tag: "UI / UX Design",
-  },
-  {
-    name: "Vercel & Cloud Infrastructure",
-    role: "Continuous integration, edge caching, lightning-fast CDN image optimization, and zero-downtime automated deployments.",
-    tag: "DevOps & Cloud",
+    feature: "Accommodation Quality",
+    traditional: "Generic, unverified hotel rooms far from attractions",
+    tripnova: "Personally verified boutique stays, havelis & riverside camps",
   },
 ];
 
-// Metrics
-const KEY_METRICS = [
-  { value: "25+", label: "Handcrafted Expeditions", sub: "Covering 14 Indian States" },
-  { value: "10k+", label: "Satisfied Explorers", sub: "98% Positive Feedback" },
-  { value: "4.95★", label: "Average Rating", sub: "Across 2,400+ Reviews" },
-  { value: "1-Click", label: "Instant PDF Vouchers", sub: "Zero Waiting Time" },
+// Real Impact Numbers
+const METRICS = [
+  { value: "25+", label: "Verified Tour Packages", sub: "Spiritual, Adventure & Leisure" },
+  { value: "14+", label: "States Across India", sub: "From Ladakh to Kanyakumari" },
+  { value: "10,000+", label: "Happy Travelers", sub: "Families, Couples & Solo Explorers" },
+  { value: "24/7", label: "On-Ground Assistance", sub: "Always With You on the Road" },
 ];
 
 export default function About() {
   return (
     <div className="bg-[#fcfbf9] dark:bg-[#09090b] text-stone-900 dark:text-stone-100 min-h-screen">
 
-      {/* Hero Banner with Unified Warm Luxury Backdrop */}
-      <section className="relative w-full h-[400px] sm:h-[480px] md:h-[540px] overflow-hidden flex items-center justify-center">
+      {/* Hero Banner */}
+      <section className="relative w-full h-[380px] sm:h-[450px] md:h-[500px] overflow-hidden flex items-center justify-center">
         <Image
           src="/images/premmandir.png"
-          alt="TripNova Journey"
+          alt="TripNova Travel"
           fill
           className="object-cover scale-105"
           priority
         />
         
-        {/* Ambient Darkened Gradient Overlay */}
+        {/* Ambient Dark Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/60 to-[#09090b]/95" />
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-orange-600/20 rounded-full blur-[110px] pointer-events-none" />
 
@@ -138,44 +154,44 @@ export default function About() {
           <FadeUp delay={0.1}>
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md text-amber-300 text-xs sm:text-sm font-semibold uppercase tracking-wider mb-4 border border-white/20 shadow-lg">
               <Sparkles size={14} className="text-amber-400 animate-spin-slow" />
-              <span>Full-Stack Travel Experience Platform</span>
+              <span>India's Premium Travel & Tour Booking Platform</span>
             </span>
           </FadeUp>
 
           <FadeUp delay={0.2}>
             <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold font-playfair text-white leading-tight tracking-tight drop-shadow-md">
-              Connecting Curious Travelers with India's Soul
+              We Make Exploring India Simple, Safe & Unforgettable
             </h1>
           </FadeUp>
 
           <FadeUp delay={0.35}>
             <p className="mt-4 sm:mt-5 text-sm sm:text-lg text-stone-200/95 font-poppins max-w-2xl mx-auto font-light leading-relaxed">
-              TripNova is a comprehensive next-generation travel platform engineered to deliver authentic cultural itineraries, transparent booking, and seamless digital travel vouchers across India.
+              TripNova is an all-in-one travel agency and booking platform that plans, organizes, and manages complete multi-day holidays across India with verified hotels, private cabs, and 24/7 on-trip assistance.
             </p>
           </FadeUp>
 
-          {/* Micro feature pills */}
+          {/* Micro trust pills */}
           <FadeUp delay={0.45}>
             <div className="mt-6 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 text-xs font-poppins text-stone-300">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm border border-white/15">
-                <CheckCircle2 size={13} className="text-emerald-400" /> Razorpay Verified
+                <CheckCircle2 size={13} className="text-emerald-400" /> Complete Holiday Packages
               </span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm border border-white/15">
-                <CheckCircle2 size={13} className="text-amber-400" /> Direct PDF Vouchers
+                <CheckCircle2 size={13} className="text-amber-400" /> Verified Hotels & Private Cabs
               </span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm border border-white/15">
-                <CheckCircle2 size={13} className="text-orange-400" /> Next.js & DRF Architecture
+                <CheckCircle2 size={13} className="text-orange-400" /> Instant PDF Booking Voucher
               </span>
             </div>
           </FadeUp>
         </div>
       </section>
 
-      {/* Floating Key Metrics Bar */}
+      {/* Floating Metrics Bar */}
       <div className="relative -mt-10 sm:-mt-12 z-20 max-w-6xl mx-auto px-4 sm:px-6">
         <FadeUp delay={0.25}>
           <div className="bg-white/95 dark:bg-stone-900/95 backdrop-blur-xl rounded-2xl p-5 sm:p-6 border border-stone-200/80 dark:border-stone-800 shadow-xl grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 divide-y sm:divide-y-0 sm:divide-x divide-stone-200/60 dark:divide-stone-800/80">
-            {KEY_METRICS.map((metric, idx) => (
+            {METRICS.map((metric, idx) => (
               <div key={idx} className={`flex flex-col justify-center ${idx !== 0 ? 'pt-3 sm:pt-0 sm:pl-4 lg:pl-6' : ''}`}>
                 <span className="text-2xl sm:text-3xl font-extrabold font-poppins text-orange-600 dark:text-orange-400">
                   {metric.value}
@@ -192,111 +208,169 @@ export default function About() {
         </FadeUp>
       </div>
 
-      {/* Main Content Container */}
+      {/* Main Container */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24 space-y-20 sm:space-y-28">
 
-        {/* 1. What is TripNova? Mission & Value Narrative */}
+        {/* 1. What Does TripNova Do? (Detailed Explanation) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           
-          {/* Left Visual Card */}
-          <FadeUp className="lg:col-span-5 relative h-[400px] sm:h-[480px] rounded-3xl overflow-hidden shadow-2xl border border-stone-200/80 dark:border-stone-800 group">
+          {/* Visual Showcase Card */}
+          <FadeUp className="lg:col-span-5 relative h-[420px] sm:h-[500px] rounded-3xl overflow-hidden shadow-2xl border border-stone-200/80 dark:border-stone-800 group">
             <Image
               src="/images/prem.png"
               fill
               sizes="(max-width: 1024px) 100vw, 42vw"
-              alt="Discovering India"
+              alt="Holiday with TripNova"
               className="object-cover transition-transform duration-700 group-hover:scale-108"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
             
             <div className="absolute top-4 left-4 flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-white text-xs font-semibold">
               <Sparkles size={12} className="text-amber-400" />
-              <span>Authentic Cultural Circuits</span>
+              <span>Full Holiday Management</span>
             </div>
 
-            <div className="absolute bottom-5 left-5 right-5 p-4 rounded-2xl bg-black/75 backdrop-blur-md border border-white/20 text-white space-y-1">
-              <p className="text-[11px] uppercase font-bold tracking-wider text-amber-400">Handcrafted Itineraries</p>
-              <p className="text-sm font-playfair font-semibold">Over 25+ curated circuits across 14 states</p>
-              <p className="text-xs text-stone-300 font-light font-poppins">Rishikesh • Rajasthan • Ladakh • Varanasi • Kerala</p>
+            <div className="absolute bottom-5 left-5 right-5 p-4 rounded-2xl bg-black/75 backdrop-blur-md border border-white/20 text-white space-y-1.5">
+              <p className="text-[11px] uppercase font-bold tracking-wider text-amber-400">Zero Planning Stress</p>
+              <p className="text-sm font-playfair font-semibold">From Airport Pickup to Hotel Drop</p>
+              <p className="text-xs text-stone-300 font-light font-poppins">
+                We take care of your hotels, verified private cab, sightseeing schedule, and local guidance.
+              </p>
             </div>
           </FadeUp>
 
-          {/* Right Explanation */}
+          {/* Core Purpose & Explanation */}
           <FadeUp delay={0.2} className="lg:col-span-7 space-y-6">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-orange-500/10 text-orange-600 dark:text-orange-400 border border-orange-500/20">
-              <Globe2 size={13} className="text-orange-500" /> What Is TripNova?
+              <Globe2 size={13} className="text-orange-500" /> What This Website Does
             </span>
             
             <h2 className="text-2xl sm:text-4xl font-playfair font-bold text-stone-900 dark:text-white leading-tight">
-              An End-to-End Travel Companion Designed for the Modern Explorer
+              A Complete End-to-End Travel Solution for Every Holiday
             </h2>
 
             <p className="text-sm sm:text-base text-stone-600 dark:text-stone-300 leading-relaxed font-poppins">
-              Planning a trip across India is often fragmented — travelers juggle between disorganized travel agencies, opaque pricing, unreliable local taxi operators, and chaotic itineraries. 
+              When people plan trips to destinations like Rajasthan, Kashmir, Kerala, or Uttarakhand, they face multiple hassles: finding genuine local drivers, booking trustworthy hotels, avoiding tourist scams, and managing chaotic daily schedules.
             </p>
 
             <p className="text-sm sm:text-base text-stone-600 dark:text-stone-300 leading-relaxed font-poppins">
-              <strong className="text-stone-900 dark:text-white font-semibold">TripNova solves this fundamentally:</strong> We combine the authenticity of locally guided heritage expeditions with modern software reliability. Travelers discover curated tours, book instantly with integrated Razorpay payments, and receive a cryptographically tracked travel voucher PDF with 1-click download.
+              <strong className="text-stone-900 dark:text-white font-semibold">TripNova is built to solve all of this under one roof:</strong>
             </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 font-poppins text-xs sm:text-sm text-stone-700 dark:text-stone-300">
-              <div className="flex items-center gap-2">
-                <CheckCircle2 size={16} className="text-orange-600 shrink-0" />
-                <span>Zero Hidden Convenience Surcharges</span>
+            {/* What TripNova handles */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1 font-poppins text-xs sm:text-sm text-stone-700 dark:text-stone-300">
+              <div className="flex items-start gap-2">
+                <CheckCircle2 size={16} className="text-orange-600 shrink-0 mt-0.5" />
+                <span><strong>Curated Tour Packages:</strong> 3 to 10 day ready-made packages across 14+ Indian states.</span>
               </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 size={16} className="text-orange-600 shrink-0" />
-                <span>Day-by-Day Curated Activity Schedules</span>
+              <div className="flex items-start gap-2">
+                <CheckCircle2 size={16} className="text-orange-600 shrink-0 mt-0.5" />
+                <span><strong>Hotel & Stay Arrangements:</strong> Clean, verified family & couple friendly accommodations.</span>
               </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 size={16} className="text-orange-600 shrink-0" />
-                <span>24/7 WhatsApp On-Ground Concierge</span>
+              <div className="flex items-start gap-2">
+                <CheckCircle2 size={16} className="text-orange-600 shrink-0 mt-0.5" />
+                <span><strong>Dedicated Private Cab:</strong> Sanitized vehicle with experienced driver for the entire trip.</span>
               </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 size={16} className="text-orange-600 shrink-0" />
-                <span>Full-Stack Verified Booking Flow</span>
+              <div className="flex items-start gap-2">
+                <CheckCircle2 size={16} className="text-orange-600 shrink-0 mt-0.5" />
+                <span><strong>Instant Digital PDF Voucher:</strong> Downloadable trip voucher with booking ID and contacts.</span>
               </div>
             </div>
 
-            <div className="pt-4 flex flex-wrap gap-4">
+            <div className="pt-3 flex flex-wrap gap-4">
               <Link href="/packages">
-                <button className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white text-xs sm:text-sm font-semibold px-6 py-3 rounded-xl shadow-lg shadow-orange-500/25 transition hover:scale-105 active:scale-95 cursor-pointer">
-                  <span>Explore All Packages</span>
+                <button className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white text-xs sm:text-sm font-semibold px-6 py-3 rounded-xl shadow-lg shadow-orange-500/25 transition hover:scale-105 active:scale-95 cursor-pointer font-poppins">
+                  <span>Browse Tour Packages</span>
                   <ArrowRight size={16} />
                 </button>
               </Link>
               <Link href="/contact">
-                <button className="bg-white dark:bg-stone-900 hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-800 dark:text-white border border-stone-200 dark:border-stone-800 text-xs sm:text-sm font-semibold px-6 py-3 rounded-xl transition cursor-pointer">
-                  Contact Our Team
+                <button className="bg-white dark:bg-stone-900 hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-800 dark:text-white border border-stone-200 dark:border-stone-800 text-xs sm:text-sm font-semibold px-6 py-3 rounded-xl transition cursor-pointer font-poppins">
+                  Talk to a Travel Planner
                 </button>
               </Link>
             </div>
           </FadeUp>
         </div>
 
-        {/* 2. Seamless Flow: How the Platform Operates */}
+        {/* 2. 6 Core Services We Provide */}
         <div>
           <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
             <FadeUp>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-orange-500/10 text-orange-600 dark:text-orange-400 border border-orange-500/20 mb-3">
-                <Zap size={13} className="text-orange-500" /> Seamless Traveler Experience
+                <Luggage size={13} className="text-orange-500" /> Full Holiday Coverage
               </span>
             </FadeUp>
             <FadeUp delay={0.1}>
               <h3 className="text-2xl sm:text-3xl md:text-4xl font-playfair font-bold text-stone-900 dark:text-white">
-                How TripNova Delivers Stress-Free Journeys
+                Everything Included in Your TripNova Journey
               </h3>
             </FadeUp>
             <FadeUp delay={0.2}>
               <p className="mt-3 text-xs sm:text-sm text-stone-600 dark:text-stone-400 font-poppins">
-                From finding your dream destination to holding an official digital boarding voucher in your hands.
+                We handle the logistics from arrival to departure so you can simply relax and create memories.
+              </p>
+            </FadeUp>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {CORE_SERVICES.map((srv, idx) => {
+              const Icon = srv.icon;
+              return (
+                <FadeUp key={idx} delay={idx * 0.08}>
+                  <div className="h-full p-6 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200/80 dark:border-stone-800 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="w-12 h-12 rounded-xl bg-orange-500/10 text-orange-600 dark:text-orange-400 flex items-center justify-center group-hover:scale-110 group-hover:bg-orange-500 group-hover:text-white transition-all duration-300">
+                          <Icon size={22} />
+                        </div>
+                        <span className="text-[10px] font-semibold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-orange-500/10 text-orange-600 dark:text-orange-300 border border-orange-500/20 font-poppins">
+                          {srv.badge}
+                        </span>
+                      </div>
+
+                      <h4 className="font-playfair font-bold text-lg text-stone-900 dark:text-white mb-2 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors">
+                        {srv.title}
+                      </h4>
+                      <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-400 leading-relaxed font-poppins">
+                        {srv.desc}
+                      </p>
+                    </div>
+
+                    <div className="mt-5 pt-3 border-t border-stone-100 dark:border-stone-800/80 text-[11px] font-semibold text-orange-600 dark:text-orange-400 flex items-center gap-1 font-poppins">
+                      <span>Included in package</span>
+                      <CheckCircle2 size={13} className="text-emerald-500" />
+                    </div>
+                  </div>
+                </FadeUp>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* 3. How Booking Works for a Traveler */}
+        <div className="py-6">
+          <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
+            <FadeUp>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 mb-3">
+                <Zap size={13} className="text-amber-500" /> 4-Step Simple Booking
+              </span>
+            </FadeUp>
+            <FadeUp delay={0.1}>
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-playfair font-bold text-stone-900 dark:text-white">
+                How It Works for You
+              </h3>
+            </FadeUp>
+            <FadeUp delay={0.2}>
+              <p className="mt-3 text-xs sm:text-sm text-stone-600 dark:text-stone-400 font-poppins">
+                Booking your dream vacation takes less than 2 minutes.
               </p>
             </FadeUp>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {ARCHITECTURE_STEPS.map((step, idx) => {
-              const Icon = step.icon;
+            {HOW_TRIPNOVA_WORKS.map((item, idx) => {
+              const Icon = item.icon;
               return (
                 <FadeUp key={idx} delay={idx * 0.1}>
                   <div className="relative h-full p-6 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200/80 dark:border-stone-800 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group flex flex-col justify-between">
@@ -306,20 +380,20 @@ export default function About() {
                           <Icon size={22} />
                         </div>
                         <span className="text-xs font-black font-poppins text-stone-300 dark:text-stone-700 tracking-wider">
-                          STEP {step.step}
+                          STEP {item.step}
                         </span>
                       </div>
 
                       <h4 className="font-playfair font-bold text-lg text-stone-900 dark:text-white mb-2 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors">
-                        {step.title}
+                        {item.title}
                       </h4>
                       <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-400 leading-relaxed font-poppins">
-                        {step.desc}
+                        {item.desc}
                       </p>
                     </div>
 
                     <div className="mt-5 pt-3 border-t border-stone-100 dark:border-stone-800/80 text-[11px] font-semibold text-orange-600 dark:text-orange-400 flex items-center gap-1 font-poppins">
-                      <span>Instant Feature</span>
+                      <span>Instant Process</span>
                       <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
                     </div>
                   </div>
@@ -329,124 +403,86 @@ export default function About() {
           </div>
         </div>
 
-        {/* 3. Three Core Pillars (Hospitality, Luxury, Safety) */}
-        <div>
-          <div className="text-center max-w-2xl mx-auto mb-12">
+        {/* 4. Why TripNova vs Traditional Local Travel Agents */}
+        <div className="rounded-3xl bg-white dark:bg-stone-900/90 border border-stone-200/80 dark:border-stone-800 p-6 sm:p-10 md:p-12 shadow-xl">
+          <div className="max-w-3xl mb-8">
             <FadeUp>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 mb-3">
-                <Flame size={13} className="text-amber-500 fill-amber-500 animate-pulse" /> Core Commitments
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-orange-500/10 text-orange-600 dark:text-orange-400 border border-orange-500/20 mb-3">
+                <ShieldCheck size={13} className="text-orange-500" /> Transparent Comparison
               </span>
             </FadeUp>
             <FadeUp delay={0.1}>
               <h3 className="text-2xl sm:text-3xl font-playfair font-bold text-stone-900 dark:text-white">
-                Our Guarantee to Every Traveler
-              </h3>
-            </FadeUp>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-            {VALUES.map((val, i) => {
-              const Icon = val.icon;
-              return (
-                <FadeUp key={i} delay={i * 0.1}>
-                  <div className="h-full p-7 sm:p-8 rounded-3xl bg-white dark:bg-stone-900 border border-stone-200/80 dark:border-stone-800 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 group flex flex-col justify-between">
-                    <div>
-                      <div className="flex items-center justify-between mb-5">
-                        <div className="w-12 h-12 rounded-2xl bg-orange-100 dark:bg-orange-950/60 text-orange-600 dark:text-orange-400 flex items-center justify-center group-hover:scale-110 transition-transform">
-                          <Icon size={24} />
-                        </div>
-                        <span className="text-[10px] font-semibold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-orange-500/10 text-orange-600 dark:text-orange-300 border border-orange-500/20 font-poppins">
-                          {val.badge}
-                        </span>
-                      </div>
-                      <h4 className="font-playfair font-bold text-xl text-stone-900 dark:text-white mb-2.5">{val.title}</h4>
-                      <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-400 leading-relaxed font-poppins">{val.desc}</p>
-                    </div>
-
-                    <div className="mt-5 pt-4 border-t border-stone-100 dark:border-stone-800/80 flex items-center gap-1.5 text-xs text-amber-500 font-semibold font-poppins">
-                      <Star size={13} className="fill-amber-500" />
-                      <span>Verified Standard</span>
-                    </div>
-                  </div>
-                </FadeUp>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* 4. Engineering & Recruiter Spotlight: Technology Under the Hood */}
-        <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-stone-900 via-[#131110] to-stone-950 text-white p-7 sm:p-12 md:p-14 border border-stone-800/80 shadow-2xl">
-          <div className="absolute top-0 right-0 w-80 h-80 bg-orange-600/10 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
-
-          <div className="relative z-10 max-w-3xl mb-10">
-            <FadeUp>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-orange-500/20 text-orange-400 border border-orange-500/30 mb-3">
-                <Code2 size={13} className="text-orange-400" /> Technical Architecture & Stack
-              </span>
-            </FadeUp>
-            <FadeUp delay={0.1}>
-              <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold font-playfair text-white">
-                Engineered for Scale, Security & Seamless Speed
+                How TripNova Is Different From Traditional Travel Agents
               </h3>
             </FadeUp>
             <FadeUp delay={0.2}>
-              <p className="mt-3 text-xs sm:text-sm text-stone-300 font-poppins font-light leading-relaxed">
-                TripNova is designed as a modern decoupled full-stack application demonstrating end-to-end production patterns: typed client state, transactional REST backends, idempotent payment verifications, and client-side vector PDF compilation.
+              <p className="mt-2 text-xs sm:text-sm text-stone-600 dark:text-stone-400 font-poppins">
+                Why modern travelers choose our transparent, digital booking platform over conventional offline agencies.
               </p>
             </FadeUp>
           </div>
 
-          <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {TECH_STACK.map((item, idx) => (
-              <FadeUp key={idx} delay={idx * 0.08}>
-                <div className="p-5 rounded-2xl bg-white/[0.04] hover:bg-white/[0.08] backdrop-blur-md border border-white/10 hover:border-orange-500/40 transition-all duration-300 flex flex-col justify-between h-full group">
-                  <div>
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-orange-500/15 text-orange-300 border border-orange-500/25">
-                        {item.tag}
-                      </span>
-                      <Cpu size={15} className="text-stone-500 group-hover:text-orange-400 transition-colors" />
-                    </div>
-                    <h5 className="font-poppins font-bold text-sm text-white group-hover:text-orange-300 transition-colors">
-                      {item.name}
-                    </h5>
-                    <p className="text-xs text-stone-400 mt-2 font-poppins leading-relaxed font-light">
-                      {item.role}
-                    </p>
-                  </div>
-                </div>
-              </FadeUp>
-            ))}
+          <div className="overflow-x-auto">
+            <table className="w-full text-left font-poppins text-xs sm:text-sm border-collapse">
+              <thead>
+                <tr className="border-b border-stone-200 dark:border-stone-800 text-stone-500 dark:text-stone-400 uppercase text-[11px] tracking-wider">
+                  <th className="py-4 px-3 sm:px-4 font-semibold">Aspect</th>
+                  <th className="py-4 px-3 sm:px-4 font-semibold text-rose-500">Traditional Agents</th>
+                  <th className="py-4 px-3 sm:px-4 font-semibold text-emerald-600 dark:text-emerald-400">TripNova Platform</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-stone-100 dark:divide-stone-800/80">
+                {COMPARISON.map((row, idx) => (
+                  <tr key={idx} className="hover:bg-stone-50/50 dark:hover:bg-stone-800/40 transition-colors">
+                    <td className="py-4 px-3 sm:px-4 font-semibold text-stone-900 dark:text-stone-100 flex items-center gap-2">
+                      <Sparkles size={13} className="text-orange-500 shrink-0" />
+                      <span>{row.feature}</span>
+                    </td>
+                    <td className="py-4 px-3 sm:px-4 text-stone-500 dark:text-stone-400">
+                      <div className="flex items-start gap-1.5">
+                        <X size={15} className="text-rose-500 shrink-0 mt-0.5" />
+                        <span>{row.traditional}</span>
+                      </div>
+                    </td>
+                    <td className="py-4 px-3 sm:px-4 text-stone-800 dark:text-stone-200 font-medium">
+                      <div className="flex items-start gap-1.5">
+                        <Check size={15} className="text-emerald-500 shrink-0 mt-0.5" />
+                        <span>{row.tripnova}</span>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
 
-        {/* 5. Guest Testimonial & Call to Action */}
+        {/* 5. Direct Call to Action for Visitors & Recruiters */}
         <FadeUp>
-          <div className="relative rounded-3xl bg-gradient-to-br from-amber-500/10 via-orange-500/5 to-transparent border border-orange-200 dark:border-orange-900/40 p-8 sm:p-12 overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8">
+          <div className="relative rounded-3xl bg-gradient-to-r from-stone-900 via-[#181513] to-stone-950 border border-stone-800 p-8 sm:p-12 overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8 text-white shadow-2xl">
             <div className="max-w-2xl">
-              <span className="text-xs font-bold text-orange-600 dark:text-orange-400 uppercase tracking-widest">
-                Verified Explorer Experience
+              <span className="text-xs font-bold text-amber-400 uppercase tracking-widest font-poppins">
+                Ready to Experience India?
               </span>
-              <p className="mt-3 text-lg sm:text-xl font-playfair font-semibold text-stone-900 dark:text-white leading-relaxed italic">
-                &ldquo;Booking through TripNova was an extraordinary experience. The day-wise itinerary, transparent pricing, and instant 1-click PDF voucher download saved us hours of coordination.&rdquo;
+              <h3 className="mt-2 text-2xl sm:text-3xl font-playfair font-bold text-white">
+                Find Your Next Unforgettable Journey Today
+              </h3>
+              <p className="mt-3 text-xs sm:text-sm text-stone-300 font-poppins font-light leading-relaxed">
+                Explore handpicked spiritual journeys, mountain treks, beach holidays, and cultural heritage packages with transparent pricing and 24/7 on-ground assistance.
               </p>
-              <div className="mt-5 flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-r from-orange-500 to-amber-500 flex items-center justify-center font-bold text-white text-sm shadow-md">
-                  PK
-                </div>
-                <div>
-                  <h4 className="font-semibold text-sm text-stone-900 dark:text-white font-poppins">Prem Kelasi</h4>
-                  <p className="text-xs text-stone-500 dark:text-stone-400 font-poppins">Rajasthan Heritage Tour • Traveled Nov 2024</p>
-                </div>
-              </div>
             </div>
 
             <div className="shrink-0 flex flex-col sm:flex-row gap-3 w-full md:w-auto">
               <Link href="/packages" className="w-full sm:w-auto">
                 <button className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white text-xs sm:text-sm font-semibold px-6 py-3 rounded-xl shadow-lg shadow-orange-500/25 transition hover:scale-105 active:scale-95 cursor-pointer font-poppins">
-                  <span>Browse All Tours</span>
+                  <span>Explore All Packages</span>
                   <ArrowRight size={16} />
+                </button>
+              </Link>
+              <Link href="/contact" className="w-full sm:w-auto">
+                <button className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 text-xs sm:text-sm font-semibold px-6 py-3 rounded-xl transition cursor-pointer font-poppins">
+                  <span>Contact Support</span>
                 </button>
               </Link>
             </div>
