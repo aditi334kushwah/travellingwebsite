@@ -115,7 +115,10 @@ export default function PackagesPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const applyFilters = () => { setPage(1); fetchPackages(1, filters); };
+  const applyFilters = (customFilters = filters) => { 
+    setPage(1); 
+    fetchPackages(1, customFilters); 
+  };
   const clearFilters = () => {
     const reset = { search: "", category: "", location: "", min_price: "", max_price: "", min_days: "", max_days: "", is_popular: false, ordering: "-created_at" };
     setFilters(reset); setPage(1); fetchPackages(1, reset);
@@ -125,53 +128,165 @@ export default function PackagesPage() {
   return (
     <div className="min-h-screen bg-[#fcfbf9] dark:bg-[#09090b] text-gray-900 dark:text-gray-100">
       
-      {/* Header Banner */}
-      <div className="relative pt-36 pb-20 px-4 bg-gradient-to-b from-stone-900 via-stone-950 to-[#fcfbf9] dark:to-[#09090b] text-white overflow-hidden">
-        {/* Glow Effects */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-orange-500/20 rounded-full blur-[120px] pointer-events-none" />
-        <div className="absolute top-0 right-10 w-72 h-72 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+      {/* Hero Section: Exact Design Matching User Reference Image */}
+      <div className="relative pt-32 pb-16 sm:pb-20 px-4 bg-gradient-to-b from-[#fefbf6] via-[#fcfbf9] to-[#fcfbf9] dark:from-[#110e0c] dark:via-[#09090b] dark:to-[#09090b] text-stone-900 dark:text-white overflow-hidden border-b border-stone-200/60 dark:border-stone-800/80">
+        
+        {/* Soft Ambient Radial Blur */}
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[750px] h-[350px] bg-gradient-to-r from-orange-500/10 via-amber-500/10 to-orange-500/5 rounded-full blur-[140px] pointer-events-none" />
 
         <div className="max-w-6xl mx-auto text-center relative z-10">
+          
+          {/* Eyebrow Pill */}
           <FadeUp>
-            <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md text-amber-300 text-xs font-bold uppercase tracking-widest mb-4 border border-white/20 shadow-sm">
-              <Sparkles size={13} className="text-amber-400" /> Curated Indian Expeditions
+            <span className="inline-flex items-center gap-1.5 px-4 py-1 rounded-full bg-orange-500/10 text-orange-600 dark:text-orange-400 border border-orange-500/20 text-xs font-bold uppercase tracking-widest mb-4 font-poppins">
+              <Sparkles size={13} className="text-orange-500" /> Curated Indian Expeditions
             </span>
           </FadeUp>
 
+          {/* Main Display Headline (Matching Reference Typography Style) */}
           <FadeUp delay={0.08}>
-            <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold font-playfair leading-[1.15] text-white tracking-tight">
+            <h1 className="text-4xl sm:text-6xl md:text-7xl font-playfair font-black tracking-tight leading-[1.08] text-stone-900 dark:text-stone-100 max-w-4xl mx-auto">
               Discover Incredible India Packages
             </h1>
           </FadeUp>
 
+          {/* Subheading */}
           <FadeUp delay={0.16}>
-            <p className="mt-4 text-stone-300 text-sm sm:text-lg max-w-2xl mx-auto font-poppins font-light leading-relaxed">
+            <p className="mt-4 text-stone-600 dark:text-stone-300 text-sm sm:text-lg max-w-2xl mx-auto font-poppins font-light leading-relaxed">
               Explore handpicked heritage circuits, mountain sanctuaries, and coastal escapes with verified transparent pricing.
             </p>
           </FadeUp>
 
+          {/* Dual Action Buttons (Matching Reference Image "Book a Tour" & "Explore Destinations") */}
+          <FadeUp delay={0.22}>
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+              <button 
+                onClick={() => {
+                  const target = document.getElementById("packages-catalog");
+                  if (target) target.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="px-6 py-2.5 rounded-full bg-white dark:bg-stone-800 text-stone-900 dark:text-white font-poppins text-xs sm:text-sm font-bold shadow-md hover:shadow-lg border border-stone-200 dark:border-stone-700 hover:scale-105 active:scale-95 transition-all cursor-pointer"
+              >
+                Book a Tour Now
+              </button>
+              <button 
+                onClick={() => router.push("/experiences")}
+                className="px-6 py-2.5 rounded-full bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-poppins text-xs sm:text-sm font-bold shadow-md shadow-orange-500/25 hover:scale-105 active:scale-95 transition-all cursor-pointer"
+              >
+                Explore Destinations
+              </button>
+            </div>
+          </FadeUp>
+
           {/* Quick Metrics Bar */}
-          <FadeUp delay={0.24}>
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-xs font-poppins">
-              <span className="inline-flex items-center gap-1.5 bg-white/10 backdrop-blur-md px-4 py-2 rounded-2xl border border-white/15 text-stone-200">
+          <FadeUp delay={0.28}>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 text-xs font-poppins">
+              <span className="inline-flex items-center gap-1.5 bg-white/80 dark:bg-stone-900/80 backdrop-blur-md px-3.5 py-1.5 rounded-2xl border border-stone-200/90 dark:border-stone-800 text-stone-700 dark:text-stone-300 shadow-sm">
                 🧭 <strong>{totalCount}</strong> Verified Tours
               </span>
-              <span className="inline-flex items-center gap-1.5 bg-white/10 backdrop-blur-md px-4 py-2 rounded-2xl border border-white/15 text-stone-200">
+              <span className="inline-flex items-center gap-1.5 bg-white/80 dark:bg-stone-900/80 backdrop-blur-md px-3.5 py-1.5 rounded-2xl border border-stone-200/90 dark:border-stone-800 text-stone-700 dark:text-stone-300 shadow-sm">
                 ❤️ <strong>{savedWishlist.length}</strong> Saved in Wishlist
               </span>
-              <span className="inline-flex items-center gap-1.5 bg-white/10 backdrop-blur-md px-4 py-2 rounded-2xl border border-white/15 text-stone-200">
+              <span className="inline-flex items-center gap-1.5 bg-white/80 dark:bg-stone-900/80 backdrop-blur-md px-3.5 py-1.5 rounded-2xl border border-stone-200/90 dark:border-stone-800 text-stone-700 dark:text-stone-300 shadow-sm">
                 📄 Instant PDF Voucher Download
               </span>
-              <span className="inline-flex items-center gap-1.5 bg-white/10 backdrop-blur-md px-4 py-2 rounded-2xl border border-white/15 text-stone-200">
+              <span className="inline-flex items-center gap-1.5 bg-white/80 dark:bg-stone-900/80 backdrop-blur-md px-3.5 py-1.5 rounded-2xl border border-stone-200/90 dark:border-stone-800 text-stone-700 dark:text-stone-300 shadow-sm">
                 💳 Razorpay Protected Checkout
               </span>
             </div>
           </FadeUp>
+
+          {/* ========================================================
+              BOTTOM 4 OVERLAPPING DESTINATION PHOTO CARDS WITH LOCATION PILLS
+              (Exact replica of the 4 staggered cards shown in Reference Image)
+             ======================================================== */}
+          <FadeUp delay={0.34}>
+            <div className="mt-12 sm:mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 items-end max-w-5xl mx-auto">
+              
+              {/* Card 1: Family / Backwaters */}
+              <div 
+                onClick={() => {
+                  setFilters(prev => ({ ...prev, category: "coastal" }));
+                  applyFilters({ ...filters, category: "coastal" });
+                }}
+                className="group relative h-48 sm:h-64 rounded-3xl overflow-hidden shadow-lg border-2 border-white dark:border-stone-800 cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:border-orange-500"
+              >
+                <Image src="/images/goa.png" alt="Goa Coastal Escapes" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
+                <span className="absolute top-3 left-3 text-[10px] font-bold font-poppins uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-orange-600/90 text-white backdrop-blur-md shadow">
+                  Goa Beach
+                </span>
+                <div className="absolute bottom-3 left-3 right-3 text-left">
+                  <p className="text-[10px] text-orange-300 font-poppins uppercase font-semibold">Coastal Escape</p>
+                  <p className="text-xs sm:text-sm font-bold text-white font-playfair line-clamp-1">Sunset Catamarans</p>
+                </div>
+              </div>
+
+              {/* Card 2: Cultural / Smiling Travelers (Taller Highlighted Card) */}
+              <div 
+                onClick={() => {
+                  setFilters(prev => ({ ...prev, category: "heritage" }));
+                  applyFilters({ ...filters, category: "heritage" });
+                }}
+                className="group relative h-56 sm:h-72 rounded-3xl overflow-hidden shadow-xl border-2 border-white dark:border-stone-800 cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:border-orange-500"
+              >
+                <Image src="/images/jaipur.png" alt="Rajasthan Heritage" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
+                <span className="absolute top-3 left-3 text-[10px] font-bold font-poppins uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-amber-600/90 text-white backdrop-blur-md shadow">
+                  Rajasthan
+                </span>
+                <div className="absolute bottom-3 left-3 right-3 text-left">
+                  <p className="text-[10px] text-amber-300 font-poppins uppercase font-semibold">Living Heritage</p>
+                  <p className="text-xs sm:text-sm font-bold text-white font-playfair line-clamp-1">Royal Havelis & Forts</p>
+                </div>
+              </div>
+
+              {/* Card 3: Monuments / Temple Travelers */}
+              <div 
+                onClick={() => {
+                  setFilters(prev => ({ ...prev, category: "spiritual" }));
+                  applyFilters({ ...filters, category: "spiritual" });
+                }}
+                className="group relative h-52 sm:h-68 rounded-3xl overflow-hidden shadow-lg border-2 border-white dark:border-stone-800 cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:border-orange-500"
+              >
+                <Image src="/images/chardham.png" alt="Chardham Pilgrimage" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
+                <span className="absolute top-3 left-3 text-[10px] font-bold font-poppins uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-orange-600/90 text-white backdrop-blur-md shadow">
+                  Kedarnath
+                </span>
+                <div className="absolute bottom-3 left-3 right-3 text-left">
+                  <p className="text-[10px] text-orange-300 font-poppins uppercase font-semibold">Sacred Circuit</p>
+                  <p className="text-xs sm:text-sm font-bold text-white font-playfair line-clamp-1">Himalayan Darshan</p>
+                </div>
+              </div>
+
+              {/* Card 4: Adventure Surfer / Trekker */}
+              <div 
+                onClick={() => {
+                  setFilters(prev => ({ ...prev, category: "adventure" }));
+                  applyFilters({ ...filters, category: "adventure" });
+                }}
+                className="group relative h-48 sm:h-60 rounded-3xl overflow-hidden shadow-lg border-2 border-white dark:border-stone-800 cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:border-orange-500"
+              >
+                <Image src="/images/rishikesh.png" alt="Rishikesh River Rafting" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
+                <span className="absolute top-3 left-3 text-[10px] font-bold font-poppins uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-amber-600/90 text-white backdrop-blur-md shadow">
+                  Rishikesh
+                </span>
+                <div className="absolute bottom-3 left-3 right-3 text-left">
+                  <p className="text-[10px] text-amber-300 font-poppins uppercase font-semibold">High Adrenaline</p>
+                  <p className="text-xs sm:text-sm font-bold text-white font-playfair line-clamp-1">River Rafting & Camp</p>
+                </div>
+              </div>
+
+            </div>
+          </FadeUp>
+
         </div>
       </div>
 
       {/* Main Content Layout with Standard Max-Width Container */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10">
+      <div id="packages-catalog" className="max-w-6xl mx-auto px-4 sm:px-6 py-10">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           
           {/* Filter Sidebar */}
