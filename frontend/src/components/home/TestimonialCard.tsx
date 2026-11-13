@@ -16,40 +16,48 @@ type Props = { item: Testimonial; index?: number };
 
 const TestimonialCard: React.FC<Props> = ({ item, index = 0 }) => {
   return (
-    <div className="relative rounded-3xl p-6 sm:p-8 w-full bg-white dark:bg-gray-900 border border-stone-200/80 dark:border-gray-800 shadow-[0_4px_25px_rgb(0,0,0,0.04)] transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] flex flex-col justify-between">
-      {/* Top Header: Star rating & Quote icon */}
+    <div className="group relative rounded-[32px] p-7 sm:p-9 w-full bg-white dark:bg-stone-900 border border-stone-200/90 dark:border-stone-800 shadow-[0_6px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_24px_50px_rgb(234,88,12,0.14)] transition-all duration-500 hover:-translate-y-2 hover:border-orange-500/40 flex flex-col justify-between h-full">
+      
+      {/* Top Header: Star rating & Orange Quote icon pill (Matching User Image 2) */}
       <div>
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center justify-between mb-5">
+          {/* 5-Star Rating in Brand Amber/Orange */}
           <div className="flex gap-1 text-amber-500">
             {Array.from({ length: 5 }).map((_, i) => (
-              <Star key={i} size={15} fill="currentColor" />
+              <Star key={i} size={16} fill="currentColor" className="drop-shadow-sm" />
             ))}
           </div>
-          <div className="w-9 h-9 rounded-full bg-orange-50 dark:bg-orange-950/60 text-orange-600 dark:text-orange-400 flex items-center justify-center">
-            <Quote size={16} />
+
+          {/* Soft Quote Icon Pill */}
+          <div className="w-10 h-10 rounded-full bg-orange-50 dark:bg-orange-950/60 text-orange-600 dark:text-orange-400 flex items-center justify-center group-hover:scale-110 group-hover:bg-orange-500 group-hover:text-white transition-all duration-300">
+            <Quote size={17} />
           </div>
         </div>
 
-        <p className="text-gray-700 dark:text-gray-200 text-sm sm:text-base leading-relaxed font-poppins italic">
-          "{item.desc}"
+        {/* Testimonial Quote in Playfair / Poppins */}
+        <p className="text-stone-700 dark:text-stone-200 text-sm sm:text-base leading-relaxed font-poppins font-light italic">
+          &ldquo;{item.desc}&rdquo;
         </p>
 
-        <div className="mt-3 inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-2 py-0.5 rounded-md">
-          <CheckCircle2 size={12} /> Verified Traveler &bull; {item.trip}
+        {/* Verified Traveler Pill with Green Indicator */}
+        <div className="mt-4 inline-flex items-center gap-1.5 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200/60 dark:border-emerald-900/40 px-2.5 py-1 rounded-full font-poppins">
+          <CheckCircle2 size={13} />
+          <span>Verified Traveler • {item.trip}</span>
         </div>
       </div>
 
-      {/* User Info Bar */}
-      <div className="flex items-center gap-3.5 mt-6 pt-5 border-t border-stone-100 dark:border-gray-800">
-        <div className="w-11 h-11 flex items-center justify-center rounded-2xl bg-gradient-to-br from-orange-500 to-amber-600 text-white font-bold text-sm shadow-md shadow-orange-500/20 shrink-0">
+      {/* User Info Bar at Bottom with Gradient Avatar (Matching User Image 2) */}
+      <div className="flex items-center gap-3.5 mt-7 pt-5 border-t border-stone-100 dark:border-stone-800/80">
+        <div className="w-12 h-12 flex items-center justify-center rounded-2xl bg-gradient-to-br from-orange-500 to-amber-600 text-white font-bold text-sm shadow-md shadow-orange-500/25 shrink-0 group-hover:scale-105 transition-transform">
           {item.initials}
         </div>
         <div>
-          <h4 className="font-bold text-sm sm:text-base text-gray-900 dark:text-white font-playfair">
+          <h4 className="font-bold text-base text-stone-900 dark:text-white font-playfair leading-tight">
             {item.name}
           </h4>
-          <p className="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1 mt-0.5 font-poppins">
-            <MapPin size={12} className="text-orange-500" /> {item.location}
+          <p className="text-xs text-stone-500 dark:text-stone-400 flex items-center gap-1 mt-0.5 font-poppins">
+            <MapPin size={12} className="text-orange-500 shrink-0" />
+            <span>{item.location}</span>
           </p>
         </div>
       </div>
@@ -86,35 +94,37 @@ export default function TestimonialCardSection() {
   ];
 
   return (
-    <section className="py-20 sm:py-24 bg-gradient-to-b from-[#fcfbf9] via-stone-50 to-[#fcfbf9] dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 px-4 sm:px-6">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
+    <section className="py-20 sm:py-28 bg-gradient-to-b from-[#fcfbf9] via-stone-50/50 to-[#fcfbf9] dark:from-[#09090b] dark:via-stone-900/40 dark:to-[#09090b] px-4 sm:px-6 border-b border-stone-200/70 dark:border-stone-800/80">
+      <div className="max-w-7xl mx-auto">
+        
+        {/* Header */}
+        <div className="text-center max-w-2xl mx-auto mb-14 sm:mb-18">
           <FadeUp>
-            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-orange-100 dark:bg-orange-950/60 text-orange-700 dark:text-orange-300 border border-orange-200 dark:border-orange-900/50 text-xs font-bold uppercase tracking-wider">
-              Traveler Stories
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-orange-500/10 text-orange-600 dark:text-orange-400 border border-orange-500/20 text-xs font-bold uppercase tracking-wider mb-2 font-poppins">
+              <Quote size={13} className="text-orange-500" /> Traveler Stories
             </span>
           </FadeUp>
-
           <FadeUp delay={0.1}>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-playfair font-bold mt-4 text-gray-900 dark:text-white tracking-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-playfair font-bold text-stone-900 dark:text-stone-100 tracking-tight">
               What Our Travelers Say
             </h2>
           </FadeUp>
-
-          <FadeUp delay={0.18}>
-            <p className="mt-3 text-sm sm:text-base text-gray-600 dark:text-gray-400 font-poppins">
-              Authentic stories and verified memories from explorers across the globe.
+          <FadeUp delay={0.2}>
+            <p className="mt-3 text-xs sm:text-base text-stone-600 dark:text-stone-400 font-poppins font-light">
+              Real experiences from real explorers who trusted TripNova for their holidays across India.
             </p>
           </FadeUp>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+        {/* 3 Testimonials in Grid Matching Image 2 */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 items-stretch">
           {testimonials.map((item, index) => (
-            <FadeUp key={index} delay={index * 0.1}>
+            <FadeUp key={index} delay={index * 0.1} className="h-full">
               <TestimonialCard item={item} index={index} />
             </FadeUp>
           ))}
         </div>
+
       </div>
     </section>
   );
