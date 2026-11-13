@@ -5,8 +5,8 @@
 :root {
   --background: #fcfbf9;
   --foreground: #1c1917;
-  --font-serif: var(--font-playfair), Georgia, serif;
-  --font-sans: var(--font-poppins), system-ui, sans-serif;
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-sans: "Poppins", system-ui, sans-serif;
 }
 
 @theme inline {
