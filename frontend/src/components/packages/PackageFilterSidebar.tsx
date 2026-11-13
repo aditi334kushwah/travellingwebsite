@@ -1,6 +1,6 @@
 "use client";
 
-import { Search, SlidersHorizontal, Mountain, Church, Landmark, TreePine, Building2, Waves, Leaf, PawPrint, Clock, IndianRupee } from "lucide-react";
+import { Search, SlidersHorizontal, Mountain, Church, Landmark, TreePine, Building2, Waves, Leaf, PawPrint, Clock, IndianRupee, RotateCcw, Check, Sparkles } from "lucide-react";
 
 const DURATION_RANGES = [
   { label: "1-3 Days", min: "1", max: "3" },
@@ -10,9 +10,9 @@ const DURATION_RANGES = [
 ];
 
 const BUDGET_RANGES = [
-  { label: "₹100-300", min: "100", max: "300" },
-  { label: "₹300-500", min: "300", max: "500" },
-  { label: "₹500+", min: "500", max: "" },
+  { label: "₹1,000 - 3,000", min: "1000", max: "3000" },
+  { label: "₹3,000 - 5,000", min: "3000", max: "5000" },
+  { label: "₹5,000+", min: "5000", max: "" },
 ];
 
 const CATEGORIES = [
@@ -27,8 +27,7 @@ const CATEGORIES = [
 ];
 
 const ORDERING = [
-  { value: "-created_at", label: "Newest First" },
-  { value: "created_at", label: "Oldest First" },
+  { value: "-created_at", label: "Newest Circuits" },
   { value: "price", label: "Price: Low to High" },
   { value: "-price", label: "Price: High to Low" },
   { value: "duration_days", label: "Duration: Short First" },
@@ -59,32 +58,53 @@ type Props = {
 
 export default function PackageFilterSidebar({ filters, setFilters, categoryCounts, durationCounts, budgetCounts, onApply, onClear }: Props) {
 
-  const inputClass = "w-full border border-gray-200 dark:border-gray-600 p-2 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500";
-  const labelClass = "text-lg text-gray-500 dark:text-gray-400 mb-2 font-medium";
+  const inputClass = "w-full border border-stone-200 dark:border-gray-700 p-2.5 rounded-xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 bg-stone-50/60 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 font-poppins transition";
+  const labelClass = "text-xs uppercase font-bold tracking-wider text-gray-500 dark:text-gray-400 mb-2.5 font-poppins flex items-center gap-1.5";
 
   return (
-    <aside className="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-md shadow-gray-400 dark:shadow-gray-900 space-y-5 h-fit lg:sticky lg:top-24">
+    <aside className="bg-white dark:bg-gray-900 p-6 rounded-3xl border border-stone-200/80 dark:border-gray-800 shadow-[0_4px_25px_rgb(0,0,0,0.04)] space-y-6 h-fit lg:sticky lg:top-24">
 
-      <h2 className="text-lg font-bold flex items-center gap-2 text-gray-800 dark:text-white">
-        <SlidersHorizontal size={18} /> Filters
-      </h2>
-
-      {/* Search */}
-      <div className="relative">
-        <Search size={15} className="absolute left-3 top-3 text-gray-400" />
-        <input
-          placeholder="Search title, location..."
-          className={`w-full border border-gray-200 dark:border-gray-600 pl-9 pr-3 py-2 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500`}
-          value={filters.search}
-          onChange={(e) => setFilters({ ...filters, search: e.target.value })}
-          onKeyDown={(e) => e.key === "Enter" && onApply()}
-        />
+      <div className="flex items-center justify-between pb-3 border-b border-stone-100 dark:border-gray-800">
+        <h2 className="text-base font-bold flex items-center gap-2 font-playfair text-gray-900 dark:text-white">
+          <SlidersHorizontal size={17} className="text-orange-500" /> Refine Tours
+        </h2>
+        <button
+          onClick={onClear}
+          title="Reset All Filters"
+          className="text-[11px] font-semibold text-orange-600 dark:text-orange-400 hover:underline flex items-center gap-1 cursor-pointer"
+        >
+          <RotateCcw size={11} /> Reset
+        </button>
       </div>
 
-      {/* Travel Style */}
+      {/* Search Input */}
       <div>
-        <p className={labelClass}>Travel Style</p>
-        <div className="grid grid-cols-3 gap-2">
+        <label className={labelClass}>Keyword / Place</label>
+        <div className="relative">
+          <Search size={14} className="absolute left-3.5 top-3.5 text-gray-400" />
+          <input
+            placeholder="e.g. Auli, Goa, Temple..."
+            className={`${inputClass} pl-9`}
+            value={filters.search}
+            onChange={(e) => setFilters({ ...filters, search: e.target.value })}
+            onKeyDown={(e) => e.key === "Enter" && onApply()}
+          />
+        </div>
+      </div>
+
+      {/* Travel Style Grid */}
+      <div>
+        <div className="flex items-center justify-between mb-2">
+          <label className={labelClass}>
+            <Sparkles size={12} className="text-orange-500" /> Travel Style
+          </label>
+          {filters.category && (
+            <button onClick={() => setFilters({ ...filters, category: "" })} className="text-[10px] text-orange-500 hover:underline">
+              Clear
+            </button>
+          )}
+        </div>
+        <div className="grid grid-cols-2 gap-2">
           {CATEGORIES.map((c) => {
             const Icon = c.icon;
             const count = categoryCounts[c.value] ?? 0;
@@ -92,94 +112,60 @@ export default function PackageFilterSidebar({ filters, setFilters, categoryCoun
             return (
               <button
                 key={c.value}
+                type="button"
                 onClick={() => setFilters({ ...filters, category: isActive ? "" : c.value })}
-                className={`flex flex-col items-center justify-center gap-1 p-2.5 rounded-xl border text-xs font-medium transition-all duration-200
+                className={`flex items-center justify-between p-2.5 rounded-xl border text-xs font-semibold transition-all duration-200 cursor-pointer text-left
                   ${isActive
-                    ? "bg-orange-500 text-white border-orange-500 shadow-md scale-105"
-                    : "bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-600 hover:border-orange-400 hover:bg-orange-50 dark:hover:bg-orange-900/20"
+                    ? "bg-gradient-to-r from-orange-500 to-amber-600 text-white border-transparent shadow-md shadow-orange-500/20 scale-[1.02]"
+                    : "bg-stone-50/70 dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 border-stone-200/80 dark:border-gray-700 hover:border-orange-400 hover:bg-orange-50/50 dark:hover:bg-orange-950/20"
                   }`}
               >
-                <Icon size={18} strokeWidth={1.5} />
-                <span className="text-[11px]">{c.label}</span>
-                <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${isActive ? "bg-white/30 text-white" : "bg-gray-200 dark:bg-gray-600 text-gray-500 dark:text-gray-400"}`}>
-                  {count}
-                </span>
+                <div className="flex items-center gap-1.5 truncate">
+                  <Icon size={14} className={isActive ? "text-white" : "text-orange-500"} />
+                  <span className="truncate">{c.label}</span>
+                </div>
+                {count > 0 && (
+                  <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold font-mono ${isActive ? "bg-white/20 text-white" : "bg-stone-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400"}`}>
+                    {count}
+                  </span>
+                )}
               </button>
             );
           })}
         </div>
-        {filters.category && (
-          <button onClick={() => setFilters({ ...filters, category: "" })}
-            className="mt-2 text-xs text-orange-500 hover:underline w-full text-center">
-            Clear style
-          </button>
-        )}
       </div>
 
-      {/* Location */}
+      {/* Location Filter */}
       <div>
-        <p className={`${labelClass} mb-1`}>Location</p>
+        <label className={labelClass}>State / Region</label>
         <input
-          placeholder="e.g. Ladakh, Goa..."
+          placeholder="e.g. Uttarakhand, Kerala..."
           className={inputClass}
           value={filters.location}
           onChange={(e) => setFilters({ ...filters, location: e.target.value })}
+          onKeyDown={(e) => e.key === "Enter" && onApply()}
         />
       </div>
 
-      {/* Budget Range */}
+      {/* Duration Range */}
       <div>
-        <p className={`${labelClass} flex items-center gap-1`}>
-          <IndianRupee size={12} /> Budget Range
-        </p>
-        <div className="space-y-2">
-          {BUDGET_RANGES.map((b) => {
-            const isActive = filters.min_price === b.min && filters.max_price === b.max;
-            const count = budgetCounts[b.label] ?? 0;
-            return (
-              <button
-                key={b.label}
-                onClick={() => {
-                  if (isActive) {
-                    setFilters({ ...filters, min_price: "", max_price: "" });
-                  } else {
-                    setFilters({ ...filters, min_price: b.min, max_price: b.max });
-                  }
-                }}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl border text-sm font-medium transition-all duration-200
-                  ${isActive
-                    ? "bg-orange-500 text-white border-orange-500 shadow-md"
-                    : "bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-600 hover:border-orange-400 hover:bg-orange-50 dark:hover:bg-orange-900/20"
-                  }`}
-              >
-                <span>{b.label}</span>
-                <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${isActive ? "bg-white/30 text-white" : "bg-gray-200 dark:bg-gray-600 text-gray-500 dark:text-gray-400"}`}>
-                  {count}
-                </span>
-              </button>
-            );
-          })}
+        <div className="flex items-center justify-between mb-2">
+          <label className={labelClass}>
+            <Clock size={12} className="text-orange-500" /> Trip Duration
+          </label>
+          {(filters.min_days || filters.max_days) && (
+            <button onClick={() => setFilters({ ...filters, min_days: "", max_days: "" })} className="text-[10px] text-orange-500 hover:underline">
+              Clear
+            </button>
+          )}
         </div>
-        {(filters.min_price || filters.max_price) && (
-          <button onClick={() => setFilters({ ...filters, min_price: "", max_price: "" })}
-            className="mt-2 text-xs text-orange-500 hover:underline w-full text-center">
-            Clear budget
-          </button>
-        )}
-      </div>
-
-      {/* Trip Duration */}
-      <div>
-        <p className={`${labelClass} flex items-center gap-1`}>
-          <Clock size={12} /> Trip Duration
-        </p>
-        <div className="space-y-2">
+        <div className="space-y-1.5">
           {DURATION_RANGES.map((d) => {
             const isActive = filters.min_days === d.min && filters.max_days === d.max;
-            const count = durationCounts[d.label] ?? 0;
             return (
               <button
                 key={d.label}
+                type="button"
                 onClick={() => {
                   if (isActive) {
                     setFilters({ ...filters, min_days: "", max_days: "" });
@@ -187,33 +173,25 @@ export default function PackageFilterSidebar({ filters, setFilters, categoryCoun
                     setFilters({ ...filters, min_days: d.min, max_days: d.max });
                   }
                 }}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl border text-sm font-medium transition-all duration-200
+                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl border text-xs font-medium transition-all duration-200 cursor-pointer
                   ${isActive
-                    ? "bg-orange-500 text-white border-orange-500 shadow-md"
-                    : "bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-600 hover:border-orange-400 hover:bg-orange-50 dark:hover:bg-orange-900/20"
+                    ? "bg-orange-500 text-white border-transparent shadow-sm"
+                    : "bg-stone-50/70 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-stone-200 dark:border-gray-700 hover:border-orange-300"
                   }`}
               >
                 <span>{d.label}</span>
-                <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${isActive ? "bg-white/30 text-white" : "bg-gray-200 dark:bg-gray-600 text-gray-500 dark:text-gray-400"}`}>
-                  {count}
-                </span>
+                {isActive && <Check size={13} className="text-white" />}
               </button>
             );
           })}
         </div>
-        {(filters.min_days || filters.max_days) && (
-          <button onClick={() => setFilters({ ...filters, min_days: "", max_days: "" })}
-            className="mt-2 text-xs text-orange-500 hover:underline w-full text-center">
-            Clear duration
-          </button>
-        )}
       </div>
 
-      {/* Sort By */}
+      {/* Sort Selector */}
       <div>
-        <p className={`${labelClass} mb-1`}>Sort By</p>
+        <label className={labelClass}>Sort Hierarchy</label>
         <select
-          className={inputClass}
+          className={`${inputClass} cursor-pointer`}
           value={filters.ordering}
           onChange={(e) => setFilters({ ...filters, ordering: e.target.value })}
         >
@@ -223,15 +201,24 @@ export default function PackageFilterSidebar({ filters, setFilters, categoryCoun
         </select>
       </div>
 
-      <button onClick={onApply}
-        className="w-full bg-orange-500 hover:bg-orange-600 text-white p-2.5 rounded-lg text-sm font-semibold transition">
-        Apply Filters
-      </button>
+      {/* Action Buttons */}
+      <div className="pt-2 space-y-2">
+        <button
+          type="button"
+          onClick={onApply}
+          className="w-full bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white py-3 rounded-xl text-xs font-bold uppercase tracking-wider shadow-lg shadow-orange-500/25 transition hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+        >
+          Apply Filters
+        </button>
 
-      <button onClick={onClear}
-        className="w-full border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-300 p-2.5 rounded-lg text-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition">
-        Clear Filters
-      </button>
+        <button
+          type="button"
+          onClick={onClear}
+          className="w-full border border-stone-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 py-2.5 rounded-xl text-xs font-semibold hover:bg-stone-50 dark:hover:bg-gray-800 transition cursor-pointer"
+        >
+          Clear All
+        </button>
+      </div>
 
     </aside>
   );

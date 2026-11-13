@@ -126,39 +126,44 @@ export default function PackagesPage() {
     <div className="min-h-screen bg-[#fcfbf9] dark:bg-[#09090b] text-gray-900 dark:text-gray-100">
       
       {/* Header Banner */}
-      <div className="relative pt-32 pb-16 px-4 bg-gradient-to-b from-stone-900 via-stone-950 to-[#fcfbf9] dark:to-[#09090b] text-white overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(245,158,11,0.25),rgba(255,255,255,0))] pointer-events-none" />
-        
+      <div className="relative pt-36 pb-20 px-4 bg-gradient-to-b from-stone-900 via-stone-950 to-[#fcfbf9] dark:to-[#09090b] text-white overflow-hidden">
+        {/* Glow Effects */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-orange-500/20 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute top-0 right-10 w-72 h-72 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+
         <div className="max-w-6xl mx-auto text-center relative z-10">
           <FadeUp>
-            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md text-amber-300 text-xs font-semibold uppercase tracking-wider mb-4 border border-white/20">
-              <Sparkles size={13} /> Handcrafted Tour Circuits
+            <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md text-amber-300 text-xs font-bold uppercase tracking-widest mb-4 border border-white/20 shadow-sm">
+              <Sparkles size={13} className="text-amber-400" /> Curated Indian Expeditions
             </span>
           </FadeUp>
-          
-          <FadeUp delay={0.1}>
-            <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold font-playfair leading-tight text-white">
+
+          <FadeUp delay={0.08}>
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold font-playfair leading-[1.15] text-white tracking-tight">
               Discover Incredible India Packages
             </h1>
           </FadeUp>
 
-          <FadeUp delay={0.2}>
-            <p className="mt-4 text-stone-300 text-sm sm:text-lg max-w-2xl mx-auto font-poppins font-light">
-              Filter by destination, season, budget, and travel style with verified live transparent pricing.
+          <FadeUp delay={0.16}>
+            <p className="mt-4 text-stone-300 text-sm sm:text-lg max-w-2xl mx-auto font-poppins font-light leading-relaxed">
+              Explore handpicked heritage circuits, mountain sanctuaries, and coastal escapes with verified transparent pricing.
             </p>
           </FadeUp>
 
-          {/* Quick Stats Pill */}
-          <FadeUp delay={0.3}>
-            <div className="mt-6 inline-flex flex-wrap items-center justify-center gap-4 text-xs text-stone-300/90 font-medium">
-              <span className="bg-white/10 px-3 py-1.5 rounded-xl border border-white/15">
-                🏷️ <strong>{totalCount}</strong> Tours Available
+          {/* Quick Metrics Bar */}
+          <FadeUp delay={0.24}>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-xs font-poppins">
+              <span className="inline-flex items-center gap-1.5 bg-white/10 backdrop-blur-md px-4 py-2 rounded-2xl border border-white/15 text-stone-200">
+                🧭 <strong>{totalCount}</strong> Verified Tours
               </span>
-              <span className="bg-white/10 px-3 py-1.5 rounded-xl border border-white/15">
+              <span className="inline-flex items-center gap-1.5 bg-white/10 backdrop-blur-md px-4 py-2 rounded-2xl border border-white/15 text-stone-200">
                 ❤️ <strong>{savedWishlist.length}</strong> Saved in Wishlist
               </span>
-              <span className="bg-white/10 px-3 py-1.5 rounded-xl border border-white/15">
-                ⚡ Instant Verified Digital Voucher
+              <span className="inline-flex items-center gap-1.5 bg-white/10 backdrop-blur-md px-4 py-2 rounded-2xl border border-white/15 text-stone-200">
+                📄 Instant PDF Voucher Download
+              </span>
+              <span className="inline-flex items-center gap-1.5 bg-white/10 backdrop-blur-md px-4 py-2 rounded-2xl border border-white/15 text-stone-200">
+                💳 Razorpay Protected Checkout
               </span>
             </div>
           </FadeUp>
@@ -240,11 +245,11 @@ export default function PackagesPage() {
                     <FadeUp key={pkg.id} delay={i * 0.05}>
                       <div
                         onClick={() => router.push(`/packages/${pkg.id}`)}
-                        className="group overflow-hidden rounded-3xl bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between cursor-pointer"
+                        className="group overflow-hidden rounded-[26px] bg-white dark:bg-gray-900 border border-stone-200/80 dark:border-gray-800 shadow-[0_4px_20px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(234,88,12,0.15)] hover:border-orange-300 dark:hover:border-orange-500/30 transition-all duration-500 hover:-translate-y-2 flex flex-col justify-between cursor-pointer"
                       >
                         <div>
                           {/* Image Thumbnail with Overlay Badges */}
-                          <div className="relative h-[210px] overflow-hidden">
+                          <div className="relative h-[220px] overflow-hidden">
                             {pkg.image ? (
                               <Image
                                 src={pkg.image}
@@ -259,12 +264,17 @@ export default function PackagesPage() {
                               </div>
                             )}
 
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30" />
 
-                            {/* Top Left: Category */}
-                            <span className="absolute top-3 left-3 bg-black/50 backdrop-blur-md text-amber-300 border border-white/20 text-[11px] font-semibold px-3 py-1 rounded-full capitalize">
-                              {pkg.category}
-                            </span>
+                            {/* Top Left: Category & Rating */}
+                            <div className="absolute top-3 left-3 flex items-center gap-1.5">
+                              <span className="bg-black/60 backdrop-blur-md text-amber-300 border border-white/20 text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full capitalize">
+                                {pkg.category}
+                              </span>
+                              <span className="inline-flex items-center gap-1 bg-amber-500 text-white text-[10px] font-bold px-2 py-0.8 rounded-full shadow-sm">
+                                <Star size={10} fill="currentColor" /> 4.9
+                              </span>
+                            </div>
 
                             {/* Top Right: Wishlist & Share Buttons */}
                             <div className="absolute top-3 right-3 flex items-center gap-1.5">
@@ -272,11 +282,11 @@ export default function PackagesPage() {
                                 type="button"
                                 onClick={(e) => handleShare(pkg, e)}
                                 title="Share Tour Link"
-                                className="w-8 h-8 rounded-full bg-black/50 backdrop-blur-md border border-white/20 text-white flex items-center justify-center hover:bg-white hover:text-black transition cursor-pointer"
+                                className="w-8 h-8 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-white flex items-center justify-center hover:bg-white hover:text-black transition cursor-pointer"
                               >
                                 {isCopied ? <Check size={14} className="text-emerald-400" /> : <Share2 size={13} />}
                               </button>
-                              
+
                               <button
                                 type="button"
                                 onClick={(e) => toggleWishlist(pkg.id, e)}
@@ -284,7 +294,7 @@ export default function PackagesPage() {
                                 className={`w-8 h-8 rounded-full backdrop-blur-md border border-white/20 flex items-center justify-center transition cursor-pointer ${
                                   isFavorited
                                     ? "bg-red-500 text-white"
-                                    : "bg-black/50 text-white hover:bg-white hover:text-red-500"
+                                    : "bg-black/60 text-white hover:bg-white hover:text-red-500"
                                 }`}
                               >
                                 <Heart size={14} fill={isFavorited ? "currentColor" : "none"} />
@@ -293,35 +303,33 @@ export default function PackagesPage() {
 
                             {/* Bottom Left: Location */}
                             <div className="absolute bottom-3 left-3 flex items-center gap-1 bg-black/60 backdrop-blur-md text-white text-xs px-2.5 py-1 rounded-full border border-white/10 font-medium">
-                              <MapPin size={12} className="text-amber-400" />
-                              <span>{pkg.location}</span>
+                              <MapPin size={12} className="text-orange-400" />
+                              <span className="truncate max-w-[130px]">{pkg.location}</span>
                             </div>
 
                             {/* Bottom Right: Unique ID Badge */}
-                            <div className="absolute bottom-3 right-3 font-mono font-bold bg-amber-500/90 text-white text-[11px] px-2.5 py-1 rounded-full backdrop-blur-md shadow-md">
+                            <div className="absolute bottom-3 right-3 font-mono font-bold bg-orange-500/90 text-white text-[10px] px-2.5 py-1 rounded-full backdrop-blur-md shadow-md border border-white/20">
                               {pkg.package_code || `PKG-${pkg.id}`}
                             </div>
                           </div>
 
                           {/* Body Information */}
                           <div className="p-5">
-                            <div className="flex items-start justify-between gap-2">
-                              <h3 className="font-bold font-playfair text-gray-900 dark:text-white text-lg leading-snug group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
-                                {pkg.title}
-                              </h3>
-                            </div>
+                            <h3 className="font-bold font-playfair text-gray-900 dark:text-white text-lg leading-snug group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors">
+                              {pkg.title}
+                            </h3>
 
                             <p className="mt-2 text-gray-500 dark:text-gray-400 text-xs sm:text-sm line-clamp-2 font-poppins leading-relaxed">
                               {pkg.description}
                             </p>
 
-                            <div className="mt-4 flex items-center justify-between text-xs text-gray-600 dark:text-gray-400 border-t border-gray-100 dark:border-gray-800 pt-3">
+                            <div className="mt-4 flex items-center justify-between text-xs text-gray-600 dark:text-gray-400 border-t border-stone-100 dark:border-gray-800 pt-3 font-poppins">
                               <span className="flex items-center gap-1.5 font-medium">
-                                <Users size={13} className="text-amber-500" />
+                                <Users size={13} className="text-orange-500" />
                                 {pkg.max_guests} Guests
                               </span>
                               <span className="flex items-center gap-1.5 font-medium">
-                                <Clock size={13} className="text-amber-500" />
+                                <Clock size={13} className="text-orange-500" />
                                 {pkg.duration_days}D / {pkg.duration_nights}N
                               </span>
                             </div>
@@ -330,7 +338,7 @@ export default function PackagesPage() {
 
                         {/* Bottom Action Footer */}
                         <div className="px-5 pb-5 pt-1">
-                          <div className="flex items-center justify-between pt-3 border-t border-gray-100 dark:border-gray-800">
+                          <div className="flex items-center justify-between pt-3 border-t border-stone-100 dark:border-gray-800">
                             <div>
                               <span className="block text-[10px] uppercase font-bold text-gray-400 tracking-wider">Starts From</span>
                               <span className="text-lg sm:text-xl font-bold text-orange-600 dark:text-orange-400 font-playfair">
@@ -338,18 +346,16 @@ export default function PackagesPage() {
                               </span>
                             </div>
 
-                            <div className="flex gap-2">
-                              <button
-                                type="button"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  router.push(`/booking?packageId=${pkg.id}`);
-                                }}
-                                className="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white text-xs font-semibold shadow-md shadow-orange-500/20 transition hover:scale-105 active:scale-95 cursor-pointer"
-                              >
-                                Book Now
-                              </button>
-                            </div>
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                router.push(`/booking?packageId=${pkg.id}`);
+                              }}
+                              className="px-4 py-2 rounded-xl bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white text-xs font-bold shadow-md shadow-orange-500/20 transition hover:scale-105 active:scale-95 cursor-pointer"
+                            >
+                              Book Now
+                            </button>
                           </div>
                         </div>
 
