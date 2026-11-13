@@ -1,4 +1,3 @@
-
 import HeroSection from "@/components/home/HeroSection"
 import HeroSearchWidget from "@/components/home/HeroSearchWidget"
 import TrustStatsSection from "@/components/home/TrustStatsSection"
@@ -9,8 +8,8 @@ import ChooseTripNova from "@/components/home/ChooseTripNova"
 import HowItWorks from "@/components/home/BookTrip"
 import { LayoutGridSection } from "@/components/LayoutGridSection"
 import TestimonialCardSection from "@/components/home/TestimonialCard"
+import FAQSection from "@/components/home/FAQSection"
 import LastTestimonial from "@/components/home/LastTestimonial"
-
 
 export default function Home() {
   return (
@@ -42,13 +41,14 @@ export default function Home() {
       {/* 9. Feel the Experience (Interactive Visual Photo Gallery) */}
       <LayoutGridSection />
 
-      {/* 10. Verified Traveler Testimonials */}
+      {/* 10. Frequently Asked Questions (Interactive Accordion) */}
+      <FAQSection />
+
+      {/* 11. Verified Traveler Testimonials */}
       <TestimonialCardSection />
 
-      {/* 11. Final Conversion Pitch */}
+      {/* 12. Final Conversion Pitch */}
       <LastTestimonial />
-
-      
     </main>
   );
 }
