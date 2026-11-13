@@ -1,23 +1,26 @@
 import React from 'react';
 import Image from 'next/image';
-import { Quote, MapPin, Compass } from 'lucide-react';
+import { MapPin, Compass } from 'lucide-react';
 import FadeUp from '@/components/ui/FadeUp';
 
 const quotes = [
   {
     text: "Travel is not just about seeing new places, it's about discovering a new version of yourself.",
     author: "Wanderlust Philosophy",
-    region: "Himalayan Trails"
+    region: "Himalayan Trails",
+    isActive: true, // First card has glowing orange border as in reference image
   },
   {
     text: "Collect moments, not things — the world is too majestic and sacred to stay in one place.",
     author: "Explorer Ethos",
-    region: "Coastal Horizons"
+    region: "Coastal Horizons",
+    isActive: false,
   },
   {
     text: "The journey you take today becomes the timeless story you pass down tomorrow.",
     author: "Expedition Spirit",
-    region: "Heritage Circuits"
+    region: "Heritage Circuits",
+    isActive: false,
   },
 ];
 
@@ -34,7 +37,7 @@ const OneCard = () => {
           className="object-cover object-center"
         />
         {/* Cinematic Dual Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/65 to-black/80" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/92 via-black/75 to-black/85" />
       </div>
 
       {/* Floating Ambient Glow */}
@@ -61,30 +64,38 @@ const OneCard = () => {
           </p>
         </FadeUp>
 
-        {/* 3 Premium Glassmorphic Cards Matching User Image 1 */}
+        {/* 3 EXACT CARDS MATCHING USER IMAGE 1 */}
         <div className="mt-10 sm:mt-14 grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
           {quotes.map((q, i) => (
             <FadeUp key={i} delay={0.12 + i * 0.1}>
-              <div className="group relative bg-[#1c1917]/70 hover:bg-[#1c1917]/90 backdrop-blur-2xl p-7 sm:p-8 font-poppins rounded-[32px] border border-white/15 hover:border-orange-500/60 transition-all duration-500 hover:-translate-y-2.5 shadow-[0_15px_35px_rgba(0,0,0,0.5)] hover:shadow-[0_20px_45px_rgba(234,88,12,0.22)] flex flex-col justify-between h-full">
+              <div 
+                className={`group relative p-7 sm:p-8 font-poppins rounded-[34px] transition-all duration-500 hover:-translate-y-2.5 flex flex-col justify-between h-full backdrop-blur-2xl ${
+                  q.isActive
+                    ? "bg-[#18181b]/95 border-2 border-orange-500 shadow-[0_0_40px_rgba(234,88,12,0.35)]"
+                    : "bg-[#1c1917]/80 hover:bg-[#18181b]/95 border border-white/15 hover:border-orange-500/80 shadow-[0_15px_35px_rgba(0,0,0,0.5)] hover:shadow-[0_0_35px_rgba(234,88,12,0.25)]"
+                }`}
+              >
                 <div>
-                  {/* Orange Double Quote Icon (Matching User Image 1) */}
-                  <div className="text-orange-500 mb-4 flex items-center gap-1">
-                    <span className="text-3xl font-serif font-black leading-none select-none text-orange-500">“</span>
-                    <span className="text-3xl font-serif font-black leading-none select-none text-orange-500 -ml-1">“</span>
+                  {/* EXACT 3-BAR ORANGE DASHES (As in User Image: 3 slanted orange bars) */}
+                  <div className="flex items-center gap-1.5 mb-6">
+                    <span className="w-2.5 h-3.5 bg-orange-500 rounded-[2px] transform -skew-x-12 inline-block shadow-sm shadow-orange-500/50" />
+                    <span className="w-2.5 h-3.5 bg-orange-500 rounded-[2px] transform -skew-x-12 inline-block shadow-sm shadow-orange-500/50" />
+                    <span className="w-2.5 h-3.5 bg-orange-500 rounded-[2px] transform -skew-x-12 inline-block shadow-sm shadow-orange-500/50" />
                   </div>
 
+                  {/* Quote Body in Exact Italic Font */}
                   <p className="font-light text-sm sm:text-base leading-relaxed text-stone-100 italic">
                     &ldquo;{q.text}&rdquo;
                   </p>
                 </div>
 
-                {/* Bottom Author & Region Strip in Warm Orange/Gold */}
-                <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs">
-                  <span className="font-semibold text-orange-400 font-poppins">
+                {/* Bottom Author & Location Row */}
+                <div className="mt-8 pt-4 border-t border-white/10 flex items-center justify-between text-xs">
+                  <span className="font-semibold text-orange-400 font-poppins tracking-wide">
                     {q.author}
                   </span>
-                  <span className="flex items-center gap-1 text-stone-400 font-poppins">
-                    <MapPin size={12} className="text-orange-500" />
+                  <span className="flex items-center gap-1.5 text-stone-300 font-poppins">
+                    <MapPin size={13} className="text-orange-500 shrink-0" />
                     <span>{q.region}</span>
                   </span>
                 </div>

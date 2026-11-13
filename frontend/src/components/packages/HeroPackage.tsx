@@ -3,123 +3,143 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { MapPin, CalendarDays, IndianRupee } from "lucide-react";
-import { motion, AnimatePresence } from 'motion/react';
+import { Compass, Sparkles, ArrowRight } from "lucide-react";
+import FadeUp from '@/components/ui/FadeUp';
 
 type Package = {
-    id: number;
-    title: string;
-    description: string;
-    location: string;
-    image: string;
-    price: string;
-    category: string;
-    duration_days: number;
-    duration_nights: number;
-    max_guests: number;
+  id: number;
+  title: string;
+  description?: string;
+  location: string;
+  image: string;
+  price: string;
+  category?: string;
 };
 
-const HeroPackage = () => {
-    const router = useRouter();
-    const [featuredPackages, setFeaturedPackages] = useState<Package[]>([]);
-    const [currentSlide, setCurrentSlide] = useState(0);
+// Fallback curated packages matching Indian destinations
+const FALLBACK_HANDPICKED: Package[] = [
+  {
+    id: 1,
+    title: "Rajasthan",
+    location: "Royal Haveli & Desert Circuits",
+    image: "/images/jaipur.png",
+    price: "4,499",
+    category: "HERITAGE",
+  },
+  {
+    id: 2,
+    title: "Kerala",
+    location: "Alleppey Houseboats & Munnar Hills",
+    image: "/images/kerela.png",
+    price: "5,800",
+    category: "COASTAL",
+  },
+  {
+    id: 3,
+    title: "Himalayas",
+    location: "Rishikesh & Uttarakhand Shrines",
+    image: "/images/rishikesh.png",
+    price: "3,200",
+    category: "ADVENTURE",
+  },
+];
 
-    useEffect(() => {
-        axios.get("https://travellingwebsite-2.onrender.com/api/packages/")
-            .then(res => setFeaturedPackages(res.data.results.slice(0, 5)))
-            .catch(console.error);
-    }, []);
+export default function HeroPackage() {
+  const router = useRouter();
+  const [packages, setPackages] = useState<Package[]>(FALLBACK_HANDPICKED);
 
-    useEffect(() => {
-        if (featuredPackages.length === 0) return;
-        const interval = setInterval(() => {
-            setCurrentSlide(prev => prev === featuredPackages.length - 1 ? 0 : prev + 1);
-        }, 4000);
-        return () => clearInterval(interval);
-    }, [featuredPackages]);
+  useEffect(() => {
+    axios.get("https://travellingwebsite-2.onrender.com/api/packages/")
+      .then(res => {
+        const fetched = res.data.results || [];
+        if (fetched.length >= 3) {
+          setPackages(fetched.slice(0, 3));
+        }
+      })
+      .catch(() => {
+        // Fallback already preloaded
+      });
+  }, []);
 
-    if (featuredPackages.length === 0) return null;
+  return (
+    <section className="py-16 sm:py-24 bg-[#fcfbf9] dark:bg-[#09090b] relative overflow-hidden border-b border-stone-200/70 dark:border-stone-800/80">
+      
+      {/* Soft Ambient Radial Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-orange-500/5 rounded-full blur-[140px] pointer-events-none" />
 
-    const pkg = featuredPackages[currentSlide];
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
 
-    return (
-        <section className="py-16 sm:py-20 w-full overflow-hidden bg-transparent">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6">
-                <div className="relative rounded-[32px] sm:rounded-[40px] overflow-hidden shadow-2xl min-h-[540px] sm:min-h-[580px] flex items-center border border-black/10 dark:border-white/10">
+        {/* Section Header Matching User Image 2 */}
+        <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
+          <FadeUp>
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-orange-500/10 text-orange-600 dark:text-orange-400 border border-orange-500/20 text-xs font-bold uppercase tracking-wider mb-3 font-poppins">
+              <Sparkles size={13} className="text-orange-500" /> Exclusive Destinations
+            </span>
+          </FadeUp>
 
-                    <Image src={pkg.image} alt={pkg.title} fill unoptimized className="object-cover transition-all duration-1000 scale-105" />
-                    <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/65 to-black/30" />
+          <FadeUp delay={0.08}>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-playfair font-bold text-stone-900 dark:text-stone-100 tracking-tight">
+              Handpicked Packages
+            </h2>
+          </FadeUp>
+        </div>
 
-                    <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between w-full p-6 sm:p-10 lg:p-14 gap-8">
-
-                        {/* TEXT BLOCK */}
-                        <AnimatePresence mode="wait">
-                            <motion.div
-                                key={currentSlide + '-text'}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -20 }}
-                                transition={{ duration: 0.6 }}
-                                className="w-full lg:w-3/5 text-white space-y-4 sm:space-y-6"
-                            >
-                                <div className="flex items-center gap-2">
-                                    <span className="font-mono text-xs font-bold px-3 py-1 rounded-full bg-orange-500/90 text-white backdrop-blur-md">
-                                        FEATURED EXPEDITION
-                                    </span>
-                                    <span className="text-xs text-orange-300 font-semibold uppercase tracking-wider">
-                                        Slide {currentSlide + 1} of {featuredPackages.length}
-                                    </span>
-                                </div>
-
-                                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-playfair tracking-tight leading-[1.1]">
-                                    {pkg.title}
-                                </h2>
-
-                                <p className="text-sm sm:text-base md:text-lg text-gray-200 line-clamp-3 font-poppins leading-relaxed max-w-xl">
-                                    {pkg.description}
-                                </p>
-
-                                <div className="flex flex-wrap items-center gap-4 text-xs sm:text-sm text-gray-300 pt-2 font-poppins">
-                                    <span className="flex items-center gap-1.5 bg-white/15 backdrop-blur-md px-3.5 py-1.5 rounded-full">
-                                        <MapPin size={15} className="text-orange-400" /> {pkg.location}
-                                    </span>
-                                    <span className="flex items-center gap-1.5 bg-white/15 backdrop-blur-md px-3.5 py-1.5 rounded-full">
-                                        <CalendarDays size={15} className="text-orange-400" /> {pkg.duration_days}D / {pkg.duration_nights}N
-                                    </span>
-                                    <span className="flex items-center gap-1.5 bg-white/15 backdrop-blur-md px-3.5 py-1.5 rounded-full font-bold text-white">
-                                        <IndianRupee size={15} className="text-orange-400" /> ₹{pkg.price} / Person
-                                    </span>
-                                </div>
-
-                                <div className="pt-2">
-                                    <button
-                                        onClick={() => router.push(`/packages/${pkg.id}`)}
-                                        className="inline-flex items-center gap-2 px-6 py-3.5 bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white rounded-2xl font-bold text-sm shadow-xl shadow-orange-500/25 transition hover:scale-105 active:scale-95 cursor-pointer"
-                                    >
-                                        Explore This Circuit
-                                    </button>
-                                </div>
-                            </motion.div>
-                        </AnimatePresence>
-
-                        {/* Slide Indicators */}
-                        <div className="flex lg:flex-col gap-2 shrink-0">
-                            {featuredPackages.map((_, i) => (
-                                <button
-                                    key={i}
-                                    onClick={() => setCurrentSlide(i)}
-                                    className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
-                                        i === currentSlide ? "w-8 bg-orange-500" : "w-2.5 bg-white/40 hover:bg-white/70"
-                                    }`}
-                                />
-                            ))}
-                        </div>
-
-                    </div>
+        {/* 3 ARCH-CUTOUT CARDS IN EXACT SHAPE & DESIGN OF USER IMAGE 2 */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-7 sm:gap-8 lg:gap-10 items-stretch">
+          {packages.map((pkg, idx) => (
+            <FadeUp key={pkg.id || idx} delay={idx * 0.12} className="h-full">
+              <div
+                onClick={() => router.push(`/packages/${pkg.id}`)}
+                className="group relative flex flex-col items-center cursor-pointer transition-all duration-500 hover:-translate-y-2.5"
+              >
+                {/* 1. TOP IMAGE CONTAINER WITH ARCH/STADIUM CONTOUR (rounded-[42px]) */}
+                <div className="relative w-full h-[360px] sm:h-[400px] rounded-[48px] overflow-hidden shadow-[0_12px_35px_rgb(0,0,0,0.12)] border border-stone-200/80 dark:border-stone-800 bg-stone-100 dark:bg-stone-800">
+                  <Image
+                    src={pkg.image || "/images/hero.jpg"}
+                    alt={pkg.title}
+                    fill
+                    unoptimized
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                  />
+                  {/* Subtle Gradient Shadow at bottom of image */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80 group-hover:opacity-60 transition-opacity" />
                 </div>
-            </div>
-        </section>
-    );
-};
 
-export default HeroPackage;
+                {/* 2. OVERLAPPING BOTTOM FLOATING SEMI-CIRCULAR ARCH WITH CROWN LOGO & DETAILS */}
+                <div className="relative -mt-14 z-20 w-[84%] sm:w-[86%] bg-white dark:bg-stone-900 rounded-[32px] p-5 pt-3 shadow-[0_15px_30px_rgb(0,0,0,0.08)] border border-stone-200/90 dark:border-stone-800 flex flex-col items-center text-center transition-all duration-300 group-hover:shadow-[0_20px_40px_rgb(234,88,12,0.18)] group-hover:border-orange-500/50">
+                  
+                  {/* Floating Circular Crown/Lotus Icon Notch (As shown in user image) */}
+                  <div className="-mt-8 w-13 h-13 rounded-full bg-white dark:bg-stone-900 p-1 shadow-md border border-stone-200/90 dark:border-stone-700 flex items-center justify-center">
+                    <div className="w-full h-full rounded-full bg-gradient-to-br from-orange-500 to-amber-600 flex items-center justify-center text-white shadow-sm shadow-orange-500/30 group-hover:scale-110 transition-transform">
+                      {/* Stylized Crown/Expedition Icon */}
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M5 16L3 5L8.5 10L12 4L15.5 10L21 5L19 16H5M19 19C19 19.6 18.6 20 18 20H6C5.4 20 5 19.6 5 19V18H19V19Z" />
+                      </svg>
+                    </div>
+                  </div>
+
+                  {/* Category Pill (EUROPE / HERITAGE / ADVENTURE) */}
+                  <span className="mt-2 text-[10px] sm:text-[11px] font-bold font-poppins tracking-widest uppercase px-3 py-0.5 rounded-full bg-orange-500/10 text-orange-600 dark:text-orange-400 border border-orange-500/20">
+                    {pkg.category || "INDIA"}
+                  </span>
+
+                  {/* Destination Country / State Name */}
+                  <h3 className="mt-2 text-xl sm:text-2xl font-bold font-playfair text-stone-900 dark:text-stone-100 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors leading-tight">
+                    {pkg.title}
+                  </h3>
+
+                  {/* Starting Price (From ₹X,XXX) */}
+                  <p className="mt-1 text-xs text-stone-500 dark:text-stone-400 font-poppins font-light">
+                    From ₹{pkg.price}
+                  </p>
+                </div>
+
+              </div>
+            </FadeUp>
+          ))}
+        </div>
+
+      </div>
+    </section>
+  );
+}
