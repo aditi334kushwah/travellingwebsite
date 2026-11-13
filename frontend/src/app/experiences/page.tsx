@@ -5,12 +5,13 @@ import TestimonialCard from '@/components/home/TestimonialCard'
 import Image from 'next/image'
 import React from 'react'
 import FadeUp from '@/components/ui/FadeUp'
+import NewsletterCTASection from "@/components/home/NewsletterCTASection"
 import { Sparkles, Compass, Shield, Award } from 'lucide-react'
 
 const ExperienceSection = () => {
   return (
     <section className="bg-[#fcfbf9] dark:bg-[#09090b] text-gray-900 dark:text-gray-100 min-h-screen">
-      
+
       {/* Hero Banner with Unified Warm Saffron Gradient */}
       <div className="relative w-full h-[340px] sm:h-[420px] md:h-[480px] overflow-hidden flex items-center justify-center">
         <Image src="/images/night.png" alt="Incredible Experiences" fill className="object-cover scale-105" priority />
@@ -40,6 +41,7 @@ const ExperienceSection = () => {
         <FeaturedExperiences />
         <WhatYouGet />
         <TestimonialCard />
+        <NewsletterCTASection />
       </div>
     </section>
   )

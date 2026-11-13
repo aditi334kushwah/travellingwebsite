@@ -10,7 +10,7 @@ import HowItWorks from "@/components/home/BookTrip"
 import { LayoutGridSection } from "@/components/LayoutGridSection"
 import TestimonialCardSection from "@/components/home/TestimonialCard"
 import LastTestimonial from "@/components/home/LastTestimonial"
-import NewsletterCTASection from "@/components/home/NewsletterCTASection"
+
 
 export default function Home() {
   return (
@@ -48,8 +48,7 @@ export default function Home() {
       {/* 11. Final Conversion Pitch */}
       <LastTestimonial />
 
-      {/* 12. Newsletter & Privilege Club Discount CTA */}
-      <NewsletterCTASection />
+      
     </main>
   );
 }
