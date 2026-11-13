@@ -70,7 +70,7 @@ export default function Footer() {
     <footer className="w-full bg-[#09090b] text-white border-t border-stone-800/80 mt-auto">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-14">
-          
+
           {/* Brand Info */}
           <div className="md:col-span-5 space-y-4">
             <Link href="/" className="inline-block">
@@ -84,7 +84,7 @@ export default function Footer() {
             <div className="pt-2 text-xs text-stone-400 space-y-1.5 font-poppins">
               <p className="flex items-center gap-2">
                 <MapPin size={14} className="text-amber-500" />
-                Connaught Place, New Delhi, India 🇮🇳
+                Agra, UP, India
               </p>
               <p className="flex items-center gap-2">
                 <Mail size={14} className="text-amber-500" />

@@ -147,7 +147,7 @@ const Contact = () => {
 
         {/* Contact Form + Info Details Section */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-          
+
           {/* Left: Contact Info & Value Prop */}
           <div className="lg:col-span-5 space-y-8">
             <FadeUp>
@@ -179,7 +179,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h4 className="font-semibold text-sm text-gray-800 dark:text-white">Headquarters</h4>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Connaught Place, New Delhi, India 🇮🇳</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Agra, UP , India</p>
                 </div>
               </div>
             </div>
