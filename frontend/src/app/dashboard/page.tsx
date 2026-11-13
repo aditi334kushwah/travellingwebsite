@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from "react"
+import Link from "next/link"
 import axios from "axios"
 import { Users, Package, BookOpen, MessageCircle, Activity, Download } from "lucide-react"
 import BookingTicketModal, { BookingTicketData } from "@/components/booking/BookingTicketModal"
@@ -65,9 +66,17 @@ const Dashboard = () => {
               <BookOpen className="text-emerald-600 dark:text-emerald-400" />
               <h2 className="text-xl font-bold text-gray-800 dark:text-white">Bookings & Travel Vouchers</h2>
             </div>
-            <span className="text-xs bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 px-3 py-1 rounded-full font-semibold">
-              {bookings.length} Total
-            </span>
+            <div className="flex items-center gap-2">
+              <Link
+                href="/payment/history"
+                className="text-xs bg-orange-100 dark:bg-orange-950/60 text-orange-700 dark:text-orange-300 hover:bg-orange-200 px-3 py-1 rounded-full font-semibold transition"
+              >
+                Payment History →
+              </Link>
+              <span className="text-xs bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 px-3 py-1 rounded-full font-semibold">
+                {bookings.length} Total
+              </span>
+            </div>
           </div>
 
           <div className="overflow-x-auto">

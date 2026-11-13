@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { Printer, Download, X, CheckCircle2, MapPin, Calendar, Users, IndianRupee, Mail, Phone, Globe, Loader2 } from "lucide-react";
+import { Printer, Download, X, CheckCircle2, MapPin, Calendar, Users, IndianRupee, Mail, Phone, Globe, Loader2, CreditCard } from "lucide-react";
 import { generateBookingPDF } from "@/utils/generateBookingPDF";
+import PaymentButton from "@/components/booking/PaymentButton";
 
 export type BookingTicketData = {
   id: number | string;
@@ -453,6 +454,39 @@ export default function BookingTicketModal({ booking, onClose }: BookingTicketMo
             <div className="mt-4 p-4 rounded-xl bg-slate-50 dark:bg-gray-800/40 border border-gray-200 dark:border-gray-700 text-xs">
               <span className="font-bold text-gray-700 dark:text-gray-300">Special Instructions:</span>
               <p className="text-gray-500 dark:text-gray-400 mt-1">{booking.special_requirements}</p>
+            </div>
+          )}
+
+          {/* Razorpay Online Payment Integration (Test Mode) */}
+          {!booking.status?.includes("PAID") && (
+            <div className="no-print print:hidden mt-6 p-5 rounded-2xl bg-gradient-to-br from-orange-500/10 via-amber-500/5 to-white dark:from-stone-900 dark:via-stone-900 dark:to-stone-950 border-2 border-orange-200 dark:border-orange-900/40">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div>
+                  <div className="flex items-center gap-1.5 mb-1">
+                    <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span className="text-xs font-bold text-orange-600 dark:text-orange-400 uppercase tracking-wider">
+                      Instant Confirmation
+                    </span>
+                  </div>
+                  <h4 className="font-playfair font-bold text-base text-gray-900 dark:text-white">
+                    Complete Payment via Razorpay
+                  </h4>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    Pay securely using UPI, Google Pay, PhonePe, Debit/Credit Cards.
+                  </p>
+                </div>
+                <div className="w-full sm:w-auto shrink-0">
+                  <PaymentButton
+                    bookingId={booking.id}
+                    amountINR={totalAmount}
+                    packageTitle={booking.package_title}
+                    customerName={booking.name}
+                    customerEmail={booking.email}
+                    customerPhone={booking.phone}
+                    btnText={`Pay ₹${totalAmount.toLocaleString("en-IN")}`}
+                  />
+                </div>
+              </div>
             </div>
           )}
 
