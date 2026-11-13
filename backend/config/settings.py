@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'booking',
     'packages',
     'dashboard',
+    'payments',
 
 ]
 
@@ -203,3 +204,9 @@ STORAGES = {
         "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
     },
 }
+
+# Razorpay Test Mode Configuration
+RAZORPAY_KEY_ID = os.getenv("RAZORPAY_KEY_ID", "rzp_test_51MockDemoKey")
+RAZORPAY_KEY_SECRET = os.getenv("RAZORPAY_KEY_SECRET", "mockSecretKey123456789")
+RAZORPAY_MODE = os.getenv("RAZORPAY_MODE", "test")
+RAZORPAY_WEBHOOK_SECRET = os.getenv("RAZORPAY_WEBHOOK_SECRET", "")
