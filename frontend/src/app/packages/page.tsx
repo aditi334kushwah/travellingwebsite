@@ -35,7 +35,7 @@ export default function PackagesPage() {
   const [categoryCounts, setCategoryCounts] = useState<Record<string, number>>({});
   const [durationCounts, setDurationCounts] = useState<Record<string, number>>({});
   const [budgetCounts, setBudgetCounts] = useState<Record<string, number>>({});
-  
+
   // Interactive client features for recruiter attraction
   const [savedWishlist, setSavedWishlist] = useState<number[]>([]);
   const [copiedId, setCopiedId] = useState<number | null>(null);
@@ -115,9 +115,9 @@ export default function PackagesPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const applyFilters = (customFilters = filters) => { 
-    setPage(1); 
-    fetchPackages(1, customFilters); 
+  const applyFilters = (customFilters = filters) => {
+    setPage(1);
+    fetchPackages(1, customFilters);
   };
   const clearFilters = () => {
     const reset = { search: "", category: "", location: "", min_price: "", max_price: "", min_days: "", max_days: "", is_popular: false, ordering: "-created_at" };
@@ -127,15 +127,15 @@ export default function PackagesPage() {
 
   return (
     <div className="min-h-screen bg-[#fcfbf9] dark:bg-[#09090b] text-gray-900 dark:text-gray-100">
-      
+
       {/* Hero Section: Exact Design Matching User Reference Image */}
       <div className="relative pt-32 pb-16 sm:pb-20 px-4 bg-gradient-to-b from-[#fefbf6] via-[#fcfbf9] to-[#fcfbf9] dark:from-[#110e0c] dark:via-[#09090b] dark:to-[#09090b] text-stone-900 dark:text-white overflow-hidden border-b border-stone-200/60 dark:border-stone-800/80">
-        
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:28px_28px] pointer-events-none" />
         {/* Soft Ambient Radial Blur */}
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[750px] h-[350px] bg-gradient-to-r from-orange-500/10 via-amber-500/10 to-orange-500/5 rounded-full blur-[140px] pointer-events-none" />
 
         <div className="max-w-6xl mx-auto text-center relative z-10">
-          
+
           {/* Eyebrow Pill */}
           <FadeUp>
             <span className="inline-flex items-center gap-1.5 px-4 py-1 rounded-full bg-orange-500/10 text-orange-600 dark:text-orange-400 border border-orange-500/20 text-xs font-bold uppercase tracking-widest mb-4 font-poppins">
@@ -160,7 +160,7 @@ export default function PackagesPage() {
           {/* Dual Action Buttons (Matching Reference Image "Book a Tour" & "Explore Destinations") */}
           <FadeUp delay={0.22}>
             <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-              <button 
+              <button
                 onClick={() => {
                   const target = document.getElementById("packages-catalog");
                   if (target) target.scrollIntoView({ behavior: 'smooth' });
@@ -169,7 +169,7 @@ export default function PackagesPage() {
               >
                 Book a Tour Now
               </button>
-              <button 
+              <button
                 onClick={() => router.push("/experiences")}
                 className="px-6 py-2.5 rounded-full bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-poppins text-xs sm:text-sm font-bold shadow-md shadow-orange-500/25 hover:scale-105 active:scale-95 transition-all cursor-pointer"
               >
@@ -196,87 +196,60 @@ export default function PackagesPage() {
             </div>
           </FadeUp>
 
-          {/* ========================================================
-              BOTTOM 4 OVERLAPPING DESTINATION PHOTO CARDS WITH LOCATION PILLS
-              (Exact replica of the 4 staggered cards shown in Reference Image)
-             ======================================================== */}
           <FadeUp delay={0.34}>
             <div className="mt-12 sm:mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 items-end max-w-5xl mx-auto">
-              
+
               {/* Card 1: Family / Backwaters */}
-              <div 
+              <div
                 onClick={() => {
                   setFilters(prev => ({ ...prev, category: "coastal" }));
                   applyFilters({ ...filters, category: "coastal" });
                 }}
                 className="group relative h-48 sm:h-64 rounded-3xl overflow-hidden shadow-lg border-2 border-white dark:border-stone-800 cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:border-orange-500"
               >
-                <Image src="/images/goa.png" alt="Goa Coastal Escapes" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
+                <Image src="/images/ladakh5.png" alt="Goa Coastal Escapes" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
-                <span className="absolute top-3 left-3 text-[10px] font-bold font-poppins uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-orange-600/90 text-white backdrop-blur-md shadow">
-                  Goa Beach
-                </span>
-                <div className="absolute bottom-3 left-3 right-3 text-left">
-                  <p className="text-[10px] text-orange-300 font-poppins uppercase font-semibold">Coastal Escape</p>
-                  <p className="text-xs sm:text-sm font-bold text-white font-playfair line-clamp-1">Sunset Catamarans</p>
-                </div>
+
+
               </div>
 
               {/* Card 2: Cultural / Smiling Travelers (Taller Highlighted Card) */}
-              <div 
+              <div
                 onClick={() => {
                   setFilters(prev => ({ ...prev, category: "heritage" }));
                   applyFilters({ ...filters, category: "heritage" });
                 }}
                 className="group relative h-56 sm:h-72 rounded-3xl overflow-hidden shadow-xl border-2 border-white dark:border-stone-800 cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:border-orange-500"
               >
-                <Image src="/images/jaipur.png" alt="Rajasthan Heritage" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
+                <Image src="/images/ladakh4.png" alt="Rajasthan Heritage" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
-                <span className="absolute top-3 left-3 text-[10px] font-bold font-poppins uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-amber-600/90 text-white backdrop-blur-md shadow">
-                  Rajasthan
-                </span>
-                <div className="absolute bottom-3 left-3 right-3 text-left">
-                  <p className="text-[10px] text-amber-300 font-poppins uppercase font-semibold">Living Heritage</p>
-                  <p className="text-xs sm:text-sm font-bold text-white font-playfair line-clamp-1">Royal Havelis & Forts</p>
-                </div>
+
               </div>
 
               {/* Card 3: Monuments / Temple Travelers */}
-              <div 
+              <div
                 onClick={() => {
                   setFilters(prev => ({ ...prev, category: "spiritual" }));
                   applyFilters({ ...filters, category: "spiritual" });
                 }}
                 className="group relative h-52 sm:h-68 rounded-3xl overflow-hidden shadow-lg border-2 border-white dark:border-stone-800 cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:border-orange-500"
               >
-                <Image src="/images/chardham.png" alt="Chardham Pilgrimage" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
+                <Image src="/images/ladakh3.png" alt="Chardham Pilgrimage" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
-                <span className="absolute top-3 left-3 text-[10px] font-bold font-poppins uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-orange-600/90 text-white backdrop-blur-md shadow">
-                  Kedarnath
-                </span>
-                <div className="absolute bottom-3 left-3 right-3 text-left">
-                  <p className="text-[10px] text-orange-300 font-poppins uppercase font-semibold">Sacred Circuit</p>
-                  <p className="text-xs sm:text-sm font-bold text-white font-playfair line-clamp-1">Himalayan Darshan</p>
-                </div>
+
               </div>
 
               {/* Card 4: Adventure Surfer / Trekker */}
-              <div 
+              <div
                 onClick={() => {
                   setFilters(prev => ({ ...prev, category: "adventure" }));
                   applyFilters({ ...filters, category: "adventure" });
                 }}
                 className="group relative h-48 sm:h-60 rounded-3xl overflow-hidden shadow-lg border-2 border-white dark:border-stone-800 cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:border-orange-500"
               >
-                <Image src="/images/rishikesh.png" alt="Rishikesh River Rafting" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
+                <Image src="/images/ladakh2.png" alt="Rishikesh River Rafting" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
-                <span className="absolute top-3 left-3 text-[10px] font-bold font-poppins uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-amber-600/90 text-white backdrop-blur-md shadow">
-                  Rishikesh
-                </span>
-                <div className="absolute bottom-3 left-3 right-3 text-left">
-                  <p className="text-[10px] text-amber-300 font-poppins uppercase font-semibold">High Adrenaline</p>
-                  <p className="text-xs sm:text-sm font-bold text-white font-playfair line-clamp-1">River Rafting & Camp</p>
-                </div>
+
               </div>
 
             </div>
@@ -288,7 +261,7 @@ export default function PackagesPage() {
       {/* Main Content Layout with Standard Max-Width Container */}
       <div id="packages-catalog" className="max-w-6xl mx-auto px-4 sm:px-6 py-10">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          
+
           {/* Filter Sidebar */}
           <div className="lg:col-span-1">
             <PackageFilterSidebar
@@ -305,7 +278,7 @@ export default function PackagesPage() {
               <p className="text-sm text-gray-500 dark:text-gray-400 font-medium">
                 Showing <strong className="text-gray-800 dark:text-white">{packages.length}</strong> of {totalCount} curated trips
               </p>
-              
+
               <div className="flex items-center gap-2">
                 <span className="text-xs text-gray-400 font-semibold uppercase">Sort:</span>
                 <select
@@ -406,11 +379,10 @@ export default function PackagesPage() {
                                 type="button"
                                 onClick={(e) => toggleWishlist(pkg.id, e)}
                                 title={isFavorited ? "Remove from wishlist" : "Save to wishlist"}
-                                className={`w-8 h-8 rounded-full backdrop-blur-md border border-white/20 flex items-center justify-center transition cursor-pointer ${
-                                  isFavorited
-                                    ? "bg-red-500 text-white"
-                                    : "bg-black/60 text-white hover:bg-white hover:text-red-500"
-                                }`}
+                                className={`w-8 h-8 rounded-full backdrop-blur-md border border-white/20 flex items-center justify-center transition cursor-pointer ${isFavorited
+                                  ? "bg-red-500 text-white"
+                                  : "bg-black/60 text-white hover:bg-white hover:text-red-500"
+                                  }`}
                               >
                                 <Heart size={14} fill={isFavorited ? "currentColor" : "none"} />
                               </button>
@@ -496,11 +468,10 @@ export default function PackagesPage() {
                     <button
                       key={p}
                       onClick={() => goToPage(p)}
-                      className={`w-10 h-10 rounded-xl text-sm font-semibold transition cursor-pointer ${
-                        p === page
-                          ? "bg-gradient-to-r from-amber-500 to-orange-600 text-white shadow-md shadow-orange-500/20"
-                          : "bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"
-                      }`}
+                      className={`w-10 h-10 rounded-xl text-sm font-semibold transition cursor-pointer ${p === page
+                        ? "bg-gradient-to-r from-amber-500 to-orange-600 text-white shadow-md shadow-orange-500/20"
+                        : "bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"
+                        }`}
                     >
                       {p}
                     </button>
