@@ -38,10 +38,10 @@ export default function HowItWorks() {
 
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
 
-          {/* Steps Column (Left Side - 6 Cols) */}
+          {/* Steps Column (Left Side - Sliding in from LEFT on Scroll) */}
           <div className="lg:col-span-6 space-y-4 sm:space-y-5">
             {steps.map((step, index) => (
-              <FadeUp key={index} delay={index * 0.08}>
+              <FadeUp key={index} direction="left" distance={50} delay={index * 0.1}>
                 <div className="flex items-start gap-4 p-5 sm:p-6 bg-white dark:bg-stone-900 rounded-[28px] border border-stone-200/90 dark:border-stone-800 shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:border-orange-500/50 hover:shadow-[0_12px_30px_rgb(234,88,12,0.12)] hover:-translate-y-1 transition-all duration-300 group">
                   <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-orange-500 to-amber-600 text-white font-bold font-mono text-sm sm:text-base flex items-center justify-center shadow-md shadow-orange-500/25 shrink-0 group-hover:scale-110 group-hover:rotate-3 transition-transform">
                     0{index + 1}
@@ -61,11 +61,9 @@ export default function HowItWorks() {
 
           {/* ========================================================
               RIGHT SIDE: 3-CARD 3D TILTED OVERLAPPING STACK DECK
-              - Card 1 (Back Left, -8deg): Digital Boarding Voucher
-              - Card 2 (Back Right, +8deg): Verified Hotel & Cab Pass
-              - Card 3 (Front Center, 0deg): Main Travel Agency Desk Card (Active with Interactive Hover)
+              (Sliding in from RIGHT on Scroll)
              ======================================================== */}
-          <FadeUp delay={0.2} className="lg:col-span-6 flex justify-center items-center relative py-8">
+          <FadeUp direction="right" distance={60} duration={0.8} delay={0.2} className="lg:col-span-6 flex justify-center items-center relative py-8">
             
             {/* Ambient Background Glow Pod */}
             <div className="absolute w-[360px] h-[400px] bg-gradient-to-br from-orange-500/15 via-amber-500/10 to-transparent rounded-full blur-3xl pointer-events-none" />

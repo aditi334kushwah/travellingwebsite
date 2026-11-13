@@ -18,12 +18,9 @@ export default function TravelConceptSection() {
           
           {/* =========================================================
               LEFT SIDE: PURE CSS REALISTIC COMPOSITION (NOT AN IMAGE)
-              1. Smartphone with Warm Saffron Boarding Pass & QR Code
-              2. Rich Deep Obsidian/Burgundy Passport with Pure Gold Foil
-              3. Paper Boarding Pass with Orange Flight Accents
-              4. Warm Amber/Orange Credit Card with Gold EMV Chip
+              Sliding in from LEFT on scroll
              ========================================================= */}
-          <FadeUp className="lg:col-span-6 relative flex items-center justify-center min-h-[460px] sm:min-h-[520px]">
+          <FadeUp direction="left" distance={60} duration={0.8} className="lg:col-span-6 relative flex items-center justify-center min-h-[460px] sm:min-h-[520px]">
             
             {/* Ambient Shadow Pod */}
             <div className="absolute w-[360px] sm:w-[440px] h-[360px] bg-orange-500/10 dark:bg-black/40 rounded-full blur-3xl pointer-events-none -bottom-4" />
@@ -258,8 +255,9 @@ export default function TravelConceptSection() {
 
           {/* =========================================================
               RIGHT SIDE: 100% TRIPNOVA-TAILORED BUSINESS INFORMATION
+              Sliding in from RIGHT on scroll
              ========================================================= */}
-          <FadeUp delay={0.2} className="lg:col-span-6 space-y-6">
+          <FadeUp direction="right" distance={60} duration={0.8} delay={0.15} className="lg:col-span-6 space-y-6">
             
             {/* Dashed Flight Arc SVG in Warm Brand Colors */}
             <div className="relative w-full max-w-[280px] h-10 pointer-events-none">

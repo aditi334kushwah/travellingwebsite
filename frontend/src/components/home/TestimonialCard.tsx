@@ -116,13 +116,17 @@ export default function TestimonialCardSection() {
           </FadeUp>
         </div>
 
-        {/* 3 Testimonials in Grid Matching Image 2 */}
+        {/* 3 Testimonials: Card 0 from Left, Card 1 from Bottom, Card 2 from Right */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 items-stretch">
-          {testimonials.map((item, index) => (
-            <FadeUp key={index} delay={index * 0.1} className="h-full">
-              <TestimonialCard item={item} index={index} />
-            </FadeUp>
-          ))}
+          {testimonials.map((item, index) => {
+            const direction = index === 0 ? "left" : index === 2 ? "right" : "up";
+
+            return (
+              <FadeUp key={index} direction={direction} distance={50} delay={index * 0.12} className="h-full">
+                <TestimonialCard item={item} index={index} />
+              </FadeUp>
+            );
+          })}
         </div>
 
       </div>

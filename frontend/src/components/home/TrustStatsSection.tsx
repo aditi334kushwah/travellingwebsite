@@ -63,14 +63,15 @@ export default function TrustStatsSection() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
         
-        {/* Infographic Connected 4-Card Process Track */}
+        {/* Infographic Connected 4-Card Process Track (Left 2 from Left, Right 2 from Right) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-5 items-stretch">
           {STATS.map((stat, i) => {
             const Icon = stat.icon;
             const isLast = i === STATS.length - 1;
+            const direction = i < 2 ? "left" : "right";
 
             return (
-              <FadeUp key={i} delay={i * 0.1} className="relative flex flex-col h-full">
+              <FadeUp key={i} direction={direction} distance={45} delay={i * 0.1} className="relative flex flex-col h-full">
                 
                 {/* Connecting Process Arrow for Desktop in Warm Brand Orange */}
                 {!isLast && (
