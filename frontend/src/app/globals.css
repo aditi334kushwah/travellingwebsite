@@ -45,6 +45,26 @@ p, span, button, a, input, select, textarea, .font-poppins {
   scrollbar-width: none;
 }
 
+/* Infinite Marquee Animation for continuous left-to-right carousel */
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 32s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
 @media print {
 
   /* Hide everything on the page */
