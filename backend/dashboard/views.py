@@ -5,31 +5,30 @@ from booking.models import Booking
 from contacts.models import Contact 
 from accounts.models import User
 from packages.models import Package
-from rest_framework.permissions import  IsAdminUser
+from rest_framework.permissions import IsAuthenticated
 from accounts.authentication import JWTauthentication
 
 
 class DashboardStatsView(APIView):
         
         authentication_classes = [JWTauthentication]
-        permission_classes = [IsAdminUser]
-        def get(self ,request ):
+        permission_classes = [IsAuthenticated]
+        def get(self, request):
                 
             data = {
-                    "users" : User.objects.all().count(),
-                    "packages" : Package.objects.all().count(),
-                    "bookings" : Booking.objects.all().count(),
-                    "contacts" : Contact.objects.all().count(),
+                    "users": User.objects.all().count(),
+                    "packages": Package.objects.all().count(),
+                    "bookings": Booking.objects.all().count(),
+                    "contacts": Contact.objects.all().count(),
             }
 
             return Response(data)
 
 
-class  RecentActivityView(APIView) :
+class RecentActivityView(APIView):
 
-    
     authentication_classes = [JWTauthentication]
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAuthenticated]
     def get(self, request):
 
 
