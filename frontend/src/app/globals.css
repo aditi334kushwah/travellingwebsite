@@ -17,10 +17,23 @@
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
+  background-image: 
+    linear-gradient(to right, rgba(128, 128, 128, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(128, 128, 128, 0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+  background-attachment: fixed;
   color: var(--foreground);
   font-family: var(--font-sans);
   letter-spacing: -0.011em;
+}
+
+.dark body {
+  --background: #09090b;
+  --foreground: #f4f4f5;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
 }
 
 h1, h2, h3, .font-playfair {
@@ -31,11 +44,6 @@ h1, h2, h3, .font-playfair {
 
 p, span, button, a, input, select, textarea, .font-poppins {
   font-family: var(--font-sans);
-}
-
-.dark body {
-  --background: #09090b;
-  --foreground: #f4f4f5;
 }
 
 .scrollbar-hide::-webkit-scrollbar {

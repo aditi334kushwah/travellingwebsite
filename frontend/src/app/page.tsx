@@ -14,7 +14,7 @@ import LastTestimonial from "@/components/home/LastTestimonial"
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#fcfbf9] dark:bg-[#09090b] text-gray-900 dark:text-gray-100 overflow-x-hidden selection:bg-orange-500 selection:text-white">
+    <main className="min-h-screen bg-transparent text-gray-900 dark:text-gray-100 overflow-x-hidden selection:bg-orange-500 selection:text-white relative">
       {/* 1. Cinematic Hero with slow-motion scenic video */}
       <HeroSection />
 
