@@ -1,6 +1,7 @@
 import HeroSection from "@/components/home/HeroSection"
 import HeroSearchWidget from "@/components/home/HeroSearchWidget"
 import TrustStatsSection from "@/components/home/TrustStatsSection"
+import TravelConceptSection from "@/components/home/TravelConceptSection"
 import HeroCarausalCard from "@/components/home/HomeCarausalCard"
 import HeroPackage from "@/components/packages/HeroPackage"
 import OneCard from "@/components/home/OneCard"
@@ -23,31 +24,34 @@ export default function Home() {
       {/* 3. Verified Metrics & Trust Stats */}
       <TrustStatsSection />
 
-      {/* 4. Trending Destinations Horizontal Carousel */}
+      {/* 4. Travel Concept Design (Digital Boarding Pass, Passport & Seamless Travel) - EXACTLY BEFORE EXPLORE DESTINATIONS */}
+      <TravelConceptSection />
+
+      {/* 5. Trending Destinations Continuous Infinite Marquee Carousel */}
       <HeroCarausalCard />
 
-      {/* 5. Featured Luxury Packages Showcase */}
+      {/* 6. Featured Luxury Packages Showcase */}
       <HeroPackage />
 
-      {/* 6. Curated Expeditions (Atmospheric Visual Storytelling) */}
+      {/* 7. Curated Expeditions (Atmospheric Visual Storytelling) */}
       <OneCard />
 
-      {/* 7. Why Choose TripNova (Value Proposition & Trust Pillars) */}
+      {/* 8. Why Choose TripNova (Value Proposition & Trust Pillars) */}
       <ChooseTripNova />
 
-      {/* 8. How It Works (Simple 4-Step Booking Guide) */}
+      {/* 9. How It Works (Simple 4-Step Booking Guide) */}
       <HowItWorks />
 
-      {/* 9. Feel the Experience (Interactive Visual Photo Gallery) */}
+      {/* 10. Feel the Experience (Interactive Visual Photo Gallery) */}
       <LayoutGridSection />
 
-      {/* 10. Frequently Asked Questions (Interactive Accordion) */}
+      {/* 11. Frequently Asked Questions (Interactive Accordion) */}
       <FAQSection />
 
-      {/* 11. Verified Traveler Testimonials */}
+      {/* 12. Verified Traveler Testimonials */}
       <TestimonialCardSection />
 
-      {/* 12. Final Conversion Pitch */}
+      {/* 13. Final Conversion Pitch */}
       <LastTestimonial />
     </main>
   );
