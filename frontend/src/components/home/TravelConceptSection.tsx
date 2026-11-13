@@ -7,7 +7,7 @@ import { ArrowRight, Plane, CheckCircle2, Wifi, Sparkles, MapPin, QrCode, Shield
 
 export default function TravelConceptSection() {
   return (
-    <section className="relative w-full py-16 sm:py-24 bg-[#fcfbf9] dark:bg-[#09090b] overflow-hidden border-b border-stone-200/70 dark:border-stone-800/80">
+    <section className="relative w-full py-10 sm:py-14 bg-[#fcfbf9] dark:bg-[#09090b] overflow-hidden">
       
       {/* Background Soft Warm Brand Texture */}
       <div className="absolute inset-0 bg-[radial-gradient(#ea580c10_1.5px,transparent_1.5px)] [background-size:24px_24px] pointer-events-none" />

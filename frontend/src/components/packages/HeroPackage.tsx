@@ -62,7 +62,7 @@ export default function HeroPackage() {
   }, []);
 
   return (
-    <section className="py-16 sm:py-24 bg-[#fcfbf9] dark:bg-[#09090b] relative overflow-hidden border-b border-stone-200/70 dark:border-stone-800/80">
+    <section className="py-10 sm:py-14 bg-[#fcfbf9] dark:bg-[#09090b] relative overflow-hidden">
       
       {/* Soft Ambient Radial Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-orange-500/5 rounded-full blur-[140px] pointer-events-none" />

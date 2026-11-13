@@ -92,7 +92,7 @@ export default function HeroCarausalCard() {
   const marqueeItems = [...packages, ...packages];
 
   return (
-    <section className="py-16 sm:py-24 bg-gradient-to-b from-[#fcfbf9] via-stone-50/60 to-[#fcfbf9] dark:from-[#09090b] dark:via-stone-900/40 dark:to-[#09090b] overflow-hidden">
+    <section className="py-10 sm:py-14 bg-gradient-to-b from-[#fcfbf9] via-stone-50/60 to-[#fcfbf9] dark:from-[#09090b] dark:via-stone-900/40 dark:to-[#09090b] overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
 
         {/* Section Header */}

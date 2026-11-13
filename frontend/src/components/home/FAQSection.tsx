@@ -57,7 +57,7 @@ export default function FAQSection() {
   };
 
   return (
-    <section className="relative w-full py-16 sm:py-24 bg-[#fcfbf9] dark:bg-[#09090b]">
+    <section className="relative w-full py-12 sm:py-16 bg-[#fcfbf9] dark:bg-[#09090b]">
       
       {/* Subtle grid pattern background matching user's design */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:28px_28px] pointer-events-none" />

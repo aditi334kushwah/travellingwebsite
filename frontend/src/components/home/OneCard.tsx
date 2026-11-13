@@ -26,7 +26,7 @@ const quotes = [
 
 const OneCard = () => {
   return (
-    <section className="relative w-full min-h-[580px] my-12 sm:my-20 flex justify-center items-center overflow-hidden">
+    <section className="relative w-full min-h-[500px] my-6 sm:my-10 flex justify-center items-center overflow-hidden">
       {/* Background Hero Image */}
       <div className="absolute inset-0">
         <Image

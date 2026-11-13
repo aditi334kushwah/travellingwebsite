@@ -68,7 +68,7 @@ export default function ChooseTripNova() {
   const [activeCard, setActiveCard] = useState<number>(5); // 5 is "Customized Day Itineraries" active in user screenshot
 
   return (
-    <section className="py-20 sm:py-28 bg-[#fcfbf9] dark:bg-[#09090b] relative overflow-hidden border-b border-stone-200/70 dark:border-stone-800/80">
+    <section className="py-12 sm:py-16 bg-[#fcfbf9] dark:bg-[#09090b] relative overflow-hidden">
       
       {/* Background Soft Dotted Flight Path & Clouds Texture (Matching Reference Style) */}
       <div className="absolute inset-0 bg-[radial-gradient(#ea580c0a_1.5px,transparent_1.5px)] [background-size:28px_28px] pointer-events-none" />

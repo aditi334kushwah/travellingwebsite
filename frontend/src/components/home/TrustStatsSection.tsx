@@ -56,7 +56,7 @@ const STATS = [
 
 export default function TrustStatsSection() {
   return (
-    <section className="relative py-16 sm:py-24 bg-[#fcfbf9] dark:bg-[#09090b] border-y border-stone-200/70 dark:border-stone-800/80 overflow-hidden">
+    <section className="relative py-10 sm:py-14 bg-[#fcfbf9] dark:bg-[#09090b] overflow-hidden">
       
       {/* Subtle Warm Amber Glow Backdrop */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-gradient-to-r from-orange-500/10 via-amber-500/10 to-orange-500/5 rounded-full blur-[120px] pointer-events-none" />

@@ -5,14 +5,14 @@
 :root {
   --background: #fcfbf9;
   --foreground: #1c1917;
-  --font-serif: "Playfair Display", Georgia, serif;
+  --font-serif: "Plus Jakarta Sans", "Poppins", -apple-system, sans-serif;
   --font-sans: "Poppins", system-ui, sans-serif;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-serif: var(--font-playfair);
+  --font-serif: var(--font-serif);
   --font-sans: var(--font-poppins);
 }
 
@@ -25,6 +25,8 @@ body {
 
 h1, h2, h3, .font-playfair {
   font-family: var(--font-serif);
+  font-weight: 800;
+  letter-spacing: -0.035em;
 }
 
 p, span, button, a, input, select, textarea, .font-poppins {

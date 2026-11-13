@@ -14,7 +14,7 @@ export default function HowItWorks() {
   const router = useRouter();
 
   return (
-    <section className="py-20 sm:py-28 bg-gradient-to-b from-[#fcfbf9] via-stone-50/50 to-[#fcfbf9] dark:from-[#09090b] dark:via-stone-900/40 dark:to-[#09090b] border-b border-stone-200/70 dark:border-stone-800/80 overflow-hidden">
+    <section className="py-12 sm:py-16 bg-gradient-to-b from-[#fcfbf9] via-stone-50/50 to-[#fcfbf9] dark:from-[#09090b] dark:via-stone-900/40 dark:to-[#09090b] overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
 
         {/* Section Header */}
