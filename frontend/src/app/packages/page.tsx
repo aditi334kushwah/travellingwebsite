@@ -127,10 +127,10 @@ export default function PackagesPage() {
 
   return (
     <div className="min-h-screen bg-[#fcfbf9] dark:bg-[#09090b] text-gray-900 dark:text-gray-100">
-
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:28px_28px] pointer-events-none" />
       {/* Hero Section: Exact Design Matching User Reference Image */}
       <div className="relative pt-32 pb-16 sm:pb-20 px-4 bg-gradient-to-b from-[#fefbf6] via-[#fcfbf9] to-[#fcfbf9] dark:from-[#110e0c] dark:via-[#09090b] dark:to-[#09090b] text-stone-900 dark:text-white overflow-hidden border-b border-stone-200/60 dark:border-stone-800/80">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:28px_28px] pointer-events-none" />
+
         {/* Soft Ambient Radial Blur */}
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[750px] h-[350px] bg-gradient-to-r from-orange-500/10 via-amber-500/10 to-orange-500/5 rounded-full blur-[140px] pointer-events-none" />
 
@@ -219,7 +219,7 @@ export default function PackagesPage() {
                   setFilters(prev => ({ ...prev, category: "heritage" }));
                   applyFilters({ ...filters, category: "heritage" });
                 }}
-                className="group relative h-56 sm:h-72 rounded-3xl overflow-hidden shadow-xl border-2 border-white dark:border-stone-800 cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:border-orange-500"
+                className="group relative h-60 sm:h-75 rounded-3xl overflow-hidden shadow-xl border-2 border-white dark:border-stone-800 cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:border-orange-500"
               >
                 <Image src="/images/ladakh4.png" alt="Rajasthan Heritage" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
@@ -232,7 +232,7 @@ export default function PackagesPage() {
                   setFilters(prev => ({ ...prev, category: "spiritual" }));
                   applyFilters({ ...filters, category: "spiritual" });
                 }}
-                className="group relative h-52 sm:h-68 rounded-3xl overflow-hidden shadow-lg border-2 border-white dark:border-stone-800 cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:border-orange-500"
+                className="group relative h-58 sm:h-70 rounded-3xl overflow-hidden shadow-lg border-2 border-white dark:border-stone-800 cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:border-orange-500"
               >
                 <Image src="/images/ladakh3.png" alt="Chardham Pilgrimage" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
